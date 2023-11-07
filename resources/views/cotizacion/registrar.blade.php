@@ -168,7 +168,6 @@
                             </div>
                         </div>
           <!-- --------- -->
-                        
                     </div>
                 </div>
                 <div class="card-footer py-1 border-transparent">
