@@ -6,9 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6"><h1 class="m-0">Cotizaciones</h1></div>
             <div class="col-sm-6">
-                <!-- <button class="btn btn-sm btn-success float-right btnPmsRegistrar" data-toggle="modal" data-target="#modalRegistrar">
-                    <i class="fa fa-list"></i> Cotizaciones
-                </button> -->
+                <a href="{{url('cotizacion/registrar')}}" class="btn btn-sm btn-success float-right ml-2"><i class="fa fa-plus"></i> Nueva</a>
                 <a href="{{url('cotizacion/ver')}}" class="btn btn-sm btn-success float-right"><i class="fa fa-list"></i> Cotizaciones</a>
                 <ol class="breadcrumb float-sm-right" style="display: none;">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -33,13 +31,13 @@
                     <div class="spinner"></div>
                 </div>
                 <div class="card-header border-transparent py-2">
-                    <h3 class="card-title m-0 font-weight-bold"><i class="fa fa-car"></i> Registrar Cotizacion</h3>
+                    <h3 class="card-title m-0 font-weight-bold"><i class="fa fa-car"></i> Editar Cotizacion</h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning msjPms" style="display: none;">
                         <p class="m-0 font-weight-bold font-italic">El usuario no cuenta con el acceso a registros.</p>
                     </div>
-                    <form id="fvcotizacion">
+                    <form id="efvcotizacion">
                     <div class="row">
                         <div class="form-group col-lg-4">
                             <label class="m-0">Numero de Cotizacion: <span class="text-danger">*</span> <i class="fa fa-info-circle text-info"></i></label>
@@ -100,7 +98,7 @@
                                 <input type="date" class="form-control" id="fechaFinalizacion input" name="fechaFinalizacion">
                             </div>
                         </div>
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-12">
                             <label class="m-0">Concepto: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -110,8 +108,8 @@
                                 <textarea name="concepto" id="concepto" cols="30" rows="5" class="form-control input"></textarea>
                             </div>
                         </div>
-                        <div class="form-group col-lg-6">
-                            <label class="m-0">Descripcion:</label>
+                        <div class="form-group col-lg-12">
+                            <label class="m-0">Descripcion: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
@@ -120,8 +118,13 @@
                                 <textarea name="descripcion" id="descripcion" cols="30" rows="5" class="form-control input"></textarea>
                             </div>
                         </div>
+                        <div class="col-lg-12 alert alert-info">
+                            <p class="m-0">
+                                Si ingresa nuevo archivo, el archivo anterior se reemplazara
+                            </p>
+                        </div>
                         <div class="form-group col-lg-6">
-                            <label class="m-0">Archivo: <span class="text-danger">*</span></label>
+                            <label class="m-0">Archivo: <a href="{{ route('ver-archivo') }}" target="_blank" class="text-success fileCotizacion"><i class="fa fa-file-pdf"></i> Archivo</a></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-file"></i></span>
@@ -135,11 +138,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-file"></i></span>
                                 </div>
-                                <select name="estadoCotizacion" id="estadoCotizacion" class="form-control" disabled>
+                                <select name="estadoCotizacion" id="estadoCotizacion" class="form-control">
                                     <option disabled>Seleccione opcion</option>
-                                    <option value="1" selected>En proceso</option>
-                                    <!-- <option value="2">Finalizada</option> -->
-                                    <!-- <option value="3">Borrador</option> -->
+                                    <option value="1" selected>Activa</option>
+                                    <option value="2">Finalizada</option>
+                                    <option value="3">Borrador</option>
                                 </select>
                             </div>
                         </div>
@@ -147,8 +150,7 @@
                     </form>
                 </div>
                 <div class="card-footer py-1 border-transparent">
-                    <button type="button" class="btn btn-success float-right guardar ml-2"><i class="fa fa-save"></i> Guardar</button>
-                    <button type="button" class="btn btn-light float-right" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success float-right guardarCambios ml-2"><i class="fa fa-save"></i> Guardar Cambios</button>
                 </div>
             </div>
         </div>
@@ -161,10 +163,10 @@
     // var flip=0;
     
     $(document).ready( function () {
-        loadPage();
+        loadCotizacion();
         initValidate();
         $('.overlayPagina').css("display","none");
-        $('.overlayRegistros').css("display","none");
+        
         // var Toast = Swal.mixin({
         //     toast: true,
         //     position: 'top-end',
@@ -176,8 +178,8 @@
         //     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
         // });
     });
-    $('.guardar').on('click',function(){
-        guardar();
+    $('.guardarCambios').on('click',function(){
+        guardarCambios();
     });
     function rules()
     {
@@ -203,23 +205,45 @@
             concepto: {
                 required: true,
             },
-            file: {
-                required: true,
-            },
             estado: {
                 required: true,
             },
         };
     }
-    function loadPage()
+    function loadCotizacion()
     {
-        var fechaActual = new Date();
-        var fecha = fechaActual.toISOString().split('T')[0];
-        $('#fechaCotizacion').val(fecha);
+        jQuery.ajax({
+            url: "{{ url('cotizacion/show') }}",
+            method: 'POST', 
+            data: {id:localStorage.getItem("idCot")},
+            dataType: 'json',
+            headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+            success: function (r) {
+                // limpiarForm();
+                $('#numeroCotizacion').val(r.data.numeroCotizacion);
+                $('#tipo').val(r.data.tipo);
+                // $('#unidadEjecutora').val(r.data.unidadEjecutora);
+                $('#documento').val(r.data.documento);
+                $('#fechaCotizacion').val(r.data.fechaCotizacion);
+                $('#fechaFinalizacion').val(r.data.fechaFinalizacion);
+                $('#concepto').val(r.data.concepto);
+                $('#descripcion').val(r.data.descripcion);
+                $('#file').val(r.data.file);
+                $('#estadoCotizacion').val(r.data.estadoCotizacion);
+                var dir = $('.fileCotizacion').attr('href');
+                $('.fileCotizacion').attr('href',dir+'/'+r.data.archivo);
+                $('.overlayRegistros').css("display","none");
+                
+                console.log(r)
+            },
+            error: function (xhr, status, error) {
+                alert('salio un error');
+            }
+        });
     }
     function initValidate()
     {
-        $('#fvcotizacion').validate({
+        $('#efvcotizacion').validate({
             rules: rules(),
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -235,28 +259,25 @@
             }
         });
     }
-    function guardar()
+    function guardarCambios()
     {
-        if($('#fvcotizacion').valid()==false)
+        if($('#efvcotizacion').valid()==false)
         {return;}
-        var formData = new FormData($("#fvcotizacion")[0]);
-        // formData.append('id', idDocumento); 
-        // formData.append('file', $('#archivo')[0].files.length>0?'true':'false');
-        $('.guardar').prop('disabled',true); 
-        $('.overlayRegistros').css("display","flex");
+        var formData = new FormData($("#efvcotizacion")[0]);
+        formData.append('id', localStorage.getItem("idCot")); 
+        $('.guardarCambios').prop('disabled',true); 
         jQuery.ajax({
-            url: "{{ url('cotizacion/guardar') }}",
+            url: "{{ url('cotizacion/guardarCambios') }}",
             method: 'POST', 
             data: formData,
             dataType: 'json',
             processData: false, 
             contentType: false, 
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
+            headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
             success: function (r) {
-                // limpiarForm();
-                if (r.estado) {
+                if (r.estado) 
+                {
+                    // $('.guardar').prop('disabled',false); 
                     Swal.fire({
                         title: "COTIZACION",
                         text: r.message,
@@ -276,101 +297,14 @@
                 else 
                 {
                     $('.overlayRegistros').css("display","none");
-                    msjRee(r); 
+                    msjRee(r);
                 }
-                $('.guardar').prop('disabled',false);
+                $('.guardarCambios').prop('disabled',false);
             },
             error: function (xhr, status, error) {
                 alert('salio un error');
             }
         });
     }
-    function limpiarForm()
-    {
-        // $(".select2").val("0").trigger("change.select2");
-        $('.input').val('');
-    }
-    
-
-    
-    
-    // -----------------------------------------------------------------------------------------------DropzoneJS Demo Code Start
-  
-  // -----------------------------------------------------------------------------------------------DropzoneJS Demo Code End
-    
-    // function fillRegistros()
-    // {
-    //     if(pmsFlat.l)
-    //     {
-    //         $('.contenedorRegistros').css('display','block');
-    //         jQuery.ajax(
-    //         { 
-    //             url: __API__+"ruta/listar",
-    //             method: 'post',
-    //             success: function(result){
-    //                 var html = '';
-    //                 for (var i = 0; i < result.data.length; i++) 
-    //                 {
-    //                     edit = pmsFlat.a?'<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+result.data[i].idRuta+');"><i class="fa fa-edit" ></i></button>':'-';
-    //                     dele = pmsFlat.e?'<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+result.data[i].idRuta+');"><i class="fa fa-trash"></i></button>':'-';
-    //                     html += '<tr>' +
-    //                         '<td class="text-center">' + result.data[i].nombre + '</td>' +
-    //                         '<td class="text-center">' + novDato(result.data[i].observacion) +'</td>' +
-    //                         '<td class="text-center">' + formatoEstado(result.data[i].estado) + '</td>' +
-    //                         '<td class="text-center">' + formatoDateHours(result.data[i].fechaRegistro) + '</td>' +
-    //                         '<td class="text-center">' + verificarFecha(novDato(result.data[i].fechaActualizacion)) + '</td>' +
-    //                         '<td class="text-center"><div class="btn-group btn-group-sm" role="group">'+
-    //                         edit+
-    //                         dele+
-    //                         '</div></td></tr>';
-    //                 }
-    //                 $('#data').html(html);
-    //                 initDatatable('registros');
-    //                 $('.overlayRegistros').css('display','none');
-    //             }
-    //         });
-    //     }
-    //     else
-    //     {
-    //         notPmsList();
-    //     }
-    // }
-    // function eliminar(id)
-    // {
-    //     Swal.fire({
-    //         title: 'Esta seguro de eliminar el registro?',
-    //         text: "¡No podrás revertir esto!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#28a745',
-    //         cancelButtonColor: '#6c757d',
-    //         confirmButtonText: 'Si, eliminar!'
-    //     }).then((result) => {
-    //         if(result.isConfirmed)
-    //         {
-    //             $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
-    //             jQuery.ajax(
-    //             { 
-    //                 url: __API__+'ruta/eliminar',
-    //                 data: {id:id},
-    //                 method: 'post',
-    //                 success: function(result){
-    //                     construirTabla();
-    //                     fillRegistros();
-    //                     msjRee(result);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-    // function construirTabla()
-    // {
-    //     $('.contenedorRegistros>div').remove();
-    //     $('.contenedorRegistros').html(tablaDeRegistros);
-    // }
-    // function limpiarForm()
-    // {
-    //     $('.contenedorFormularioRegistrar :input').val('');
-    // }
 </script>
 @endsection

@@ -16,13 +16,6 @@
 </div>
 @endsection
 @section('content')
-<div class="overlayPagina">
-    <div class="loadingio-spinner-spin-i3d1hxbhik m-auto">
-        <div class="ldio-onxyanc9oyh">
-            <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
-        </div>
-    </div>
-</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 contenedorFormulario">
@@ -74,5 +67,11 @@
         </div>
     </div>
 </div>
-
+<script>
+    $(document).ready( function () {
+        $('.overlayPagina').css("display","none");
+        $('.overlayRegistros').css("display","none");
+        
+    });
+</script>
 @endsection

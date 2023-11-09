@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard 3</title>
+    <title>grc</title>
     <!-- jQuery -->
 <script src="{{asset('adminlte3/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Google Font: Source Sans Pro -->
@@ -17,10 +17,19 @@
     <!-- spiner style -->
     <link rel="stylesheet" href="{{asset('css/spinersAdmin.css')}}">
     <!-- summernote -->
-    <link rel="stylesheet" href="{{asset('adminlte3/plugins/summernote/summernote-bs4.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('adminlte3/plugins/summernote/summernote-bs4.min.css')}}"> -->
     <!-- dropzone -->
-    <link rel="stylesheet" href="{{asset('adminlte3/plugins/dropzone/min/dropzone.min.css')}}">
-    <script src="{{asset('adminlte3/plugins/dropzone/min/dropzone.min.js')}}"></script>
+    <!-- <link rel="stylesheet" href="{{asset('adminlte3/plugins/dropzone/min/dropzone.min.css')}}">
+    <script src="{{asset('adminlte3/plugins/dropzone/min/dropzone.min.js')}}"></script> -->
+    <!-- sweetalert2 -->
+    <link rel="stylesheet" href="{{asset('adminlte3/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+    <script src="{{asset('adminlte3/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+    <!-- datatable -->
+    
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script> -->
 </head>
 <!--
 `body` tag options:
@@ -87,15 +96,33 @@
 <script src="{{asset('adminlte3/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE -->
 <script src="{{asset('adminlte3/dist/js/adminlte.js')}}"></script>
-
+<!-- jquery validate -->
+<script src="{{asset('adminlte3/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+<!-- transJQV -->
+<script src="{{asset('js/translateValidate.js')}}"></script>
+<!-- <script src="{{asset('adminlte3/plugins/jquery-validation/additional-methods.min.js')}}"></script> -->
 <!-- OPTIONAL SCRIPTS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="{{asset('adminlte3/dist/js/demo.js')}}"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="{{asset('adminlte3/dist/js/pages/dashboard3.js')}}"></script> -->
 <!-- summernote -->
-<script src="{{asset('adminlte3/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- <script src="{{asset('adminlte3/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
+<!-- helpers -->
+<script src="{{asset('js/helper.js')}}"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- <link rel="stylesheet" href="{{asset('adminlte3/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}"> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    // __ruta__
+</script>
+<!-- sweetalert2 -->
+<!-- <script src="{{asset('adminlte3/plugins/sweetalert2/sweetalert2.min.js')}}"></script> -->
 </body>
 </html>
