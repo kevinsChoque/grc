@@ -1,74 +1,370 @@
 <!-- modal modalRegistrar -->
 <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
+            <!-- <div class="overlay overlayRegistros">
+                <div class="spinner"></div>
+            </div> -->
             <div class="modal-header py-1 border-transparent" style="background-color: rgba(0, 0, 0, 0.03);">
-                <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa-solid fa-car-tunnel"></i> Nueva ruta</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-building"></i> Nuevo Proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formValidateReg">
-                <div class="row contenedorFormularioRegistrar">
-                    <div class="form-group col-lg-12">
-                        <label for="" class="m-0">Nombre: <span class="text-danger">*</span></label>
-                        <div class="input-group input-group-sm">
+                <form id="fvproveedor">
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Tipo de persona: <span class="text-danger">*</span></label>
+                        <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold"><i class="fa-solid fa-angle-right"></i></span>
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                             </div>
-                            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre">
+                            <select name="tipoPersona" id="tipoPersona" class="form-control tipoPersona">
+                                <option disabled> Seleccione una opcion</option>
+                                <option value="PERSONA NATURAL">PERSONA NATURAL</option>
+                                <option value="PERSONA JURIDICA" selected>PERSONA JURIDICA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">RUC: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control numeroDocumento soloNumeros input" id="numeroDocumento" name="numeroDocumento" maxlength="11">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Razon Social: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj razonSocial input" id="razonSocial" name="razonSocial">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4" style="display: none;">
+                        <label for="" class="m-0">Nombre: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pn nombre input" id="nombre" name="nombre">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4" style="display: none;">
+                        <label for="" class="m-0">Apellido paterno: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pn apellidoPaterno input" id="apellidoPaterno" name="apellidoPaterno">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4" style="display: none;">
+                        <label for="" class="m-0">Apellido materno: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pn apellidoMaterno input" id="apellidoMaterno" name="apellidoMaterno">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Direccion: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control input" id="direccion" name="direccion">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label for="" class="m-0">Activo (SUNAT): <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <select name="activo" id="activo" class="form-control activo">
+                                <option disabled>Seleccione opcion</option>
+                                <option value="1" selected>Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label for="" class="m-0">Habido (SUNAT): <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <select name="habido" id="habido" class="form-control habido">
+                                <option disabled>Seleccione opcion</option>
+                                <option value="1" selected>Habido</option>
+                                <option value="0">No habido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">DNI del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj soloNumeros input" id="dniRep" name="dniRep" maxlength="8">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Nombre del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="nombreRep" name="nombreRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Apellido paterno del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="apellidoPaternoRep" name="apellidoPaternoRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Apellido materno del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="apellidoMaternoRep" name="apellidoMaternoRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Direccion del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="direccionRep" name="direccionRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Correo: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control input" id="correo" name="correo">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Celular: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control soloNumeros input" id="celular" name="celular" maxlength="9">
                         </div>
                     </div>
                     <div class="form-group col-lg-12">
                         <label for="" class="m-0">Observacion:</label>
-                        <div class="input-group input-group-sm">
+                        <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold"><i class="fa-solid fa-angle-right"></i></span>
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                             </div>
-                            <textarea name="observacion" id="observacion" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                            <textarea name="obs" id="obs" cols="30" rows="3" class="form-control input"></textarea>
                         </div>
                     </div>
                 </div>
                 </form>
             </div>
             <div class="modal-footer py-1 border-transparent">
-                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-sm btn-success guardar"><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success guardar"><i class="fa fa-save"></i> Guardar</button>
             </div>
         </div>
     </div>
 </div>
 <!-- modal modalEditar -->
 <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header py-1 border-transparent" style="background-color: rgba(0, 0, 0, 0.03);">
-                <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa-solid fa-car-tunnel"></i> Editar ruta</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-building"></i> Editar Proveedor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formValidateEdit">
-                <div class="row contenedorFormularioEditar">
-                    <input type="hidden" id="idRuta" name="idRuta">
-                    <div class="form-group col-lg-12">
-                        <label for="" class="m-0">Nombre: <span class="text-danger">*</span></label>
-                        <div class="input-group input-group-sm">
+                <form id="efvproveedor">
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Tipo de persona: <span class="text-danger">*</span></label>
+                        <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold"><i class="fa-solid fa-angle-right"></i></span>
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                             </div>
-                            <input type="text" class="form-control form-control-sm" id="enombre" name="enombre">
+                            <select name="tipoPersona" id="tipoPersona" class="form-control tipoPersona">
+                                <option disabled> Seleccione una opcion</option>
+                                <option value="PERSONA NATURAL">PERSONA NATURAL</option>
+                                <option value="PERSONA JURIDICA" selected>PERSONA JURIDICA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">RUC: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control numeroDocumento soloNumeros input" id="numeroDocumento" name="numeroDocumento" maxlength="11">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Razon Social: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj razonSocial input" id="razonSocial" name="razonSocial">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4" style="display: none;">
+                        <label for="" class="m-0">Nombre: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pn nombre input" id="nombre" name="nombre">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4" style="display: none;">
+                        <label for="" class="m-0">Apellido paterno: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pn apellidoPaterno input" id="apellidoPaterno" name="apellidoPaterno">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4" style="display: none;">
+                        <label for="" class="m-0">Apellido materno: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pn apellidoMaterno input" id="apellidoMaterno" name="apellidoMaterno">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Direccion: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control input" id="direccion" name="direccion">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label for="" class="m-0">Activo (SUNAT): <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <select name="activo" id="activo" class="form-control activo">
+                                <option disabled>Seleccione opcion</option>
+                                <option value="1" selected>Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label for="" class="m-0">Habido (SUNAT): <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <select name="habido" id="habido" class="form-control habido">
+                                <option disabled>Seleccione opcion</option>
+                                <option value="1" selected>Habido</option>
+                                <option value="0">No habido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">DNI del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj soloNumeros input" id="dniRep" name="dniRep" maxlength="8">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Nombre del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="nombreRep" name="nombreRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Apellido paterno del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="apellidoPaternoRep" name="apellidoPaternoRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Apellido materno del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="apellidoMaternoRep" name="apellidoMaternoRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Direccion del representante:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control pj input" id="direccionRep" name="direccionRep">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Correo: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control input" id="correo" name="correo">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label for="" class="m-0">Celular: <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
+                            </div>
+                            <input type="text" class="form-control soloNumeros input" id="celular" name="celular" maxlength="9">
                         </div>
                     </div>
                     <div class="form-group col-lg-12">
                         <label for="" class="m-0">Observacion:</label>
-                        <div class="input-group input-group-sm">
+                        <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold"><i class="fa-solid fa-angle-right"></i></span>
+                                <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                             </div>
-                            <textarea name="eobservaion" id="eobservacion" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                            <textarea name="obs" id="obs" cols="30" rows="3" class="form-control input"></textarea>
                         </div>
                     </div>
                 </div>
@@ -84,53 +380,122 @@
 
 <!-- <script src="{{asset('js/modificacionJqueryValidate.js')}}"></script> -->
 <script>    
+$(document).ready( function () {
+    $.validator.addMethod("lettersOnly", function(value, element) {
+        return this.optional(element) || /^[A-Za-z]+$/.test(value);
+    }, "Este campo debe contener solo letras.");
+    initValidate();
+});
 $('.guardar').on('click',function(){
     guardar();
 });
+$('#fvproveedor .tipoPersona').on('change',function(){
+    changeTipoPersona($(this).val());
+});
+
 $('.guardarCambios').on('click',function(){
     guardarCambios();
 });
-function data(tipo)
+
+function changeTipoPersona()
 {
-    // segun la accion enviara datos de editar o registrar
-    let segunAccion=tipo?'':'e';
-    return {
-        nombre:$('#'+segunAccion+'nombre').val(),
-        observacion:$('#'+segunAccion+'observacion').val(),
+    if($('#fvproveedor .tipoPersona').val()=='PERSONA NATURAL')
+    {
+        $('#fvproveedor .nombre').rules('add', {
+            required: true
+        });
+        $('#fvproveedor .apellidoPaterno').rules('add', {
+            required: true
+        });
+        $('#fvproveedor .apellidoMaterno').rules('add', {
+            required: true
+        });
+        $('#fvproveedor .razonSocial').rules('remove', 'required');
+        // $('.razonSocial').rules('remove', ['required', 'otraRegla']);
+        $('#fvproveedor .pj').val('');
+        cleanFv('fvproveedor');
+        $('#fvproveedor .pj').parent().parent().css('display','none');
+        $('#fvproveedor .pn').parent().parent().css('display','block');
     }
+    else
+    {
+        $('#fvproveedor .razonSocial').rules('add', {
+            required: true
+        });
+        $('#fvproveedor .nombre').rules('remove', 'required');
+        $('#fvproveedor .apellidoPaterno').rules('remove', 'required');
+        $('#fvproveedor .apellidoMaterno').rules('remove', 'required');
+        $('#fvproveedor .pn').val('');
+        cleanFv('fvproveedor');
+        $('#fvproveedor .pn').parent().parent().css('display','none');
+        $('#fvproveedor .pj').parent().parent().css('display','block');
+    }
+
 }
 function guardar()
 {
-    if($('#formValidateReg').valid()==false)
+    if($('#fvproveedor').valid()==false)
     {   return;}
+    var formData = new FormData($("#fvproveedor")[0]);
+    // $('.guardar').prop('disabled',true);
     jQuery.ajax(
     { 
-        url: __API__+"ruta/registrar",
-        data: data(true),
+        url: "{{ url('proveedor/guardar') }}",
+        data: formData,
         method: 'post',
-        success: function(result){
-            console.log(result);
+        dataType: 'json',
+        processData: false, 
+        contentType: false, 
+        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+        success: function(r){
+            console.log(r);
             $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
             construirTabla();
             fillRegistros();
             limpiarForm();
             $('#modalRegistrar').modal('hide');
-            msjRee(result);
+            msjRee(r);
         }
     });
 }
 function editar(id)
 {
+    // $('#modalEditar').modal('show');
     jQuery.ajax(
     { 
-        url: __API__+'ruta/editar',
+        url: "{{ url('proveedor/editar') }}",
         data: {id:id},
         method: 'post',
-        success: function(result){
-            // console.log(result);
-            $('#idRuta').val(result.data.idRuta);
-            $('#enombre').val(result.data.nombre);
-            $('#eobservacion').val(result.data.observacion);
+        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+        success: function(r){
+            console.log(r);
+            $('#efvproveedor .tipoPersona').val(r.data.tipoPersona);
+            $('#efvproveedor .numeroDocumento').val(r.data.numeroDocumento);
+            $('#efvproveedor .razonSocial').val(r.data.razonSocial);
+            $('#efvproveedor .nombre').val(r.data.nombre);
+            $('#efvproveedor .apellidoPaterno').val(r.data.apellidoPaterno);
+            $('#efvproveedor .apellidoMaterno').val(r.data.apellidoMaterno);
+            $('#efvproveedor #direccion').val(r.data.direccion);
+            $('#efvproveedor .activo').val(r.data.activo);
+            $('#efvproveedor .habido').val(r.data.habido);
+            $('#efvproveedor #dniRep').val(r.data.dniRep);
+
+            $('#efvproveedor #nombreRep').val(r.data.nombreRep);
+            $('#efvproveedor #apellidoPaternoRep').val(r.data.apellidoPaternoRep);
+            $('#efvproveedor #apellidoMaternoRep').val(r.data.apellidoMaternoRep);
+            $('#efvproveedor #direccionRep').val(r.data.direccionRep);
+            $('#efvproveedor #correo').val(r.data.correo);
+            $('#efvproveedor #celular').val(r.data.celular);
+            $('#efvproveedor #obs').val(r.data.obs);
+
+
+
+
+            // $('#efvproveedor .tipoPersona').val(r.data.idRuta);
+            // $('#efvproveedor .tipoPersona').val(r.data.idRuta);
+
+            // $('#enombre').val(r.data.nombre);
+            // $('#eobservacion').val(r.data.observacion);
             $('#modalEditar').modal('show');
         }
     });
@@ -157,18 +522,75 @@ function guardarCambios()
         }
     });
 }
-$("#formValidateReg").validate({
-    errorClass: "text-danger font-italic font-weight-normal",
-    ignore: ".ignore",
-    rules: {
-        nombre: "required",
-    },
-});
-$("#formValidateEdit").validate({
-    errorClass: "text-danger font-italic font-weight-normal",
-    ignore: ".ignore",
-    rules: {
-        enombre: "required",
-    },
-});
+
+function rules()
+{
+    return {
+        tipoPersona: {
+            required: true,
+        },
+        numeroDocumento: {
+            required: true,
+            digits: true,
+            minlength: 11
+        },
+        razonSocial: {
+            required: true,
+        },
+        direccion: {
+            required: true,
+        },
+        activo: {
+            required: true,
+        },
+        habido: {
+            required: true,
+        },
+        dniRep: {
+            digits: true,
+            minlength: 8
+        },
+        nombreRep: {
+            lettersOnly: true
+        },
+        apellidoPaternoRep: {
+            lettersOnly: true
+        },
+        apellidoMaternoRep: {
+            lettersOnly: true
+        },
+        correo: {
+            required: true,
+        },
+        celular: {
+            required: true,
+            minlength: 9
+        }
+    };
+}
+function initValidate()
+{
+    $('#fvproveedor').validate({
+        rules: rules(),
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+            $(element).addClass('is-valid');
+        }
+    });
+}
+// $("#formValidateEdit").validate({
+//     errorClass: "text-danger font-italic font-weight-normal",
+//     ignore: ".ignore",
+//     rules: {
+//         enombre: "required",
+//     },
+// });
 </script>

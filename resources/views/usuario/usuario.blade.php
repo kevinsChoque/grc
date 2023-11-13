@@ -28,7 +28,7 @@
                     <div class="spinner"></div>
                 </div>
                 <div class="card-header border-transparent py-2">
-                    <h3 class="card-title m-0 font-weight-bold"><i class="fa-solid fa-car-tunnel"></i> Lista de Usuarios</h3>
+                    <h3 class="card-title m-0 font-weight-bold"><i class="fa fa-users"></i> Lista de Usuarios</h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning msjPms" style="display: none;">
@@ -39,10 +39,11 @@
                             <table id="registros" class="table table-hover table-striped table-bordered dt-responsive nowrap">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th class="text-center" data-priority="1">Numero</th>
-                                        <th class="text-center" data-priority="2">Concepto</th>
-                                        <th class="text-center" data-priority="3">Tipo</th>
-                                        <th class="text-center" data-priority="4">F.Finalizacion</th>
+                                        <th class="text-center" data-priority="1">DNI</th>
+                                        <th class="text-center" data-priority="2">Nombre</th>
+                                        <th class="text-center" data-priority="3">Usuario</th>
+                                        <th class="text-center" data-priority="4">Tipo</th>
+                                        <th class="text-center" data-priority="4">Fechas</th>
                                         <th class="text-center" data-priority="4">Estado</th>
                                         <th class="text-center" data-priority="1">Opc.</th>
                                     </tr>
@@ -51,10 +52,11 @@
                                 </tbody>
                                 <tfoot class="thead-light">
                                     <tr>
-                                        <th class="text-center" data-priority="1">Numero</th>
-                                        <th class="text-center" data-priority="2">Concepto</th>
-                                        <th class="text-center" data-priority="3">Tipo</th>
-                                        <th class="text-center" data-priority="4">F.Finalizacion</th>
+                                        <th class="text-center" data-priority="1">DNI</th>
+                                        <th class="text-center" data-priority="2">Nombre</th>
+                                        <th class="text-center" data-priority="3">Usuario</th>
+                                        <th class="text-center" data-priority="4">Tipo</th>
+                                        <th class="text-center" data-priority="4">Fechas</th>
                                         <th class="text-center" data-priority="4">Estado</th>
                                         <th class="text-center" data-priority="1">Opc.</th>
                                     </tr>
@@ -84,33 +86,30 @@
         $('.contenedorRegistros').css('display','block');
         jQuery.ajax(
         { 
-            url: "{{ url('cotizacion/listar') }}",
+            url: "{{ url('usuario/listar') }}",
             method: 'get',
             success: function(r)
             {
                 console.log(r.data);
                 var html = '';
                 let opciones = '';
+                let nombre = '';
                 for (var i = 0; i < r.data.length; i++) 
                 {
-                    if(r.data[i].estadoCotizacion=='1')
-                    {
-                        opciones = '<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+r.data[i].idCot+');"><i class="fa fa-edit" ></i></button>'+
-                            '<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+r.data[i].idCot+');"><i class="fa fa-trash"></i></button>';
-                    }
-                    
+                	nombre = novDato(r.data[i].nombre) + ' ' + novDato(r.data[i].apellidoPaterno) + ' ' + novDato(r.data[i].apellidoMaterno);
                     html += '<tr>' +
-                        '<td class="text-center font-weight-bold">' + r.data[i].numeroCotizacion + '</td>' +
-                        '<td class="text-left"><p class="m-0 ocultarTextIzqNameUser">' + novDato(r.data[i].concepto) + '</p></td>' +
-                        '<td class="text-center">' + badgeTipoCot(r.data[i].tipo) +'</td>' +
-                        '<td class="text-center">' + novDato(r.data[i].fechaFinalizacion) + '</td>' +
-                        '<td class="text-center">' + estadoCotizacion(r.data[i].estadoCotizacion) + '<button class="btn text-info" onclick="changeEstadoCot('+r.data[i].idCot+','+r.data[i].numeroCotizacion+')"><i class="fa fa-edit"></i></button></td>' +
+                        '<td class="text-center font-weight-bold"><i class="fa fa-id-card"></i> ' + novDato(r.data[i].dni) + '</td>' +
+                        '<td class="text-left">' + nombre + '</td>' +
+                        '<td class="text-center font-weight-bolder font-italic">' + novDato(r.data[i].usuario) + '</td>' +
+                        '<td class="text-center">' + badgeAccordingUser(r.data[i].tipo) + '</td>' +
+                        '<td class="text-center">' + novDato(r.data[i].fr) + '</td>' +
+                        '<td class="text-center">' + stateRecord(r.data[i].estado) +'</td>' +
                         '<td class="text-center">' + 
                             '<div class="btn-group btn-group-sm" role="group">'+
-                                opciones+
+                                '<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+r.data[i].idUsu+');"><i class="fa fa-edit" ></i></button>'+
+                                // '<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+r.data[i].idUsu+');"><i class="fa fa-trash"></i></button>'+
                             '</div>'+
                         '</td></tr>';
-                    opciones='';
                 }
                 $('#data').html(html);
                 initDatatable('registros');
@@ -135,16 +134,14 @@
                 $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
                 jQuery.ajax(
                 { 
-                    url: "{{url('cotizacion/eliminar')}}",
+                    url: "{{url('usuario/eliminar')}}",
                     data: {id:id},
                     method: 'post',
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    },
-                    success: function(result){
+                    headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+                    success: function(r){
                         construirTabla();
                         fillRegistros();
-                        msjRee(result);
+                        msjRee(r);
                     }
                 });
             }

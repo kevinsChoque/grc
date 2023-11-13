@@ -10,7 +10,14 @@ use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CotxitmController;
 use App\Http\Controllers\UnidadMedidaController;
+use App\Http\Controllers\UsuarioController;
 
+use App\Http\Middleware\MDAdministrador;
+
+Route::middleware([MDAdministrador::class])->group(function () {
+	// home
+	Route::get('home/home',[HomeController::class, 'actionHome']);
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -19,11 +26,17 @@ use App\Http\Controllers\UnidadMedidaController;
 Route::get('/',[PortalController::class, 'actionPortal']);
 // login
 Route::get('login/login',[LoginController::class, 'actionLogin']);
-// home
-Route::get('home/home',[HomeController::class, 'actionHome']);
+Route::post('login/sigin',[LoginController::class, 'sigin']);
+Route::get('login/logout',[LoginController::class, 'logout']);
+
 // proveedor
 Route::get('proveedor', function () {return view('proveedor.proveedor');});
-Route::get('proveedor/registrar',[ProveedorController::class, 'actRegistrar']);
+// Route::get('proveedor/registrar',[ProveedorController::class, 'actRegistrar']);
+Route::post('proveedor/guardar',[ProveedorController::class, 'actGuardar']);
+Route::get('proveedor/listar',[ProveedorController::class, 'actListar']);
+Route::post('proveedor/eliminar',[ProveedorController::class, 'actEliminar']);
+Route::post('proveedor/editar',[ProveedorController::class, 'actEditar']);
+
 // cotizacion
 Route::get('cotizacion/registrar', function () {return view('cotizacion.registrar');});
 Route::get('cotizacion/ver', function () {return view('cotizacion.ver');});
@@ -56,4 +69,11 @@ Route::post('cotxitm/loadSegunCotizacion',[CotxitmController::class, 'actLoadSeg
 Route::get('unidadMedida/listar',[UnidadMedidaController::class, 'actListar']);
 // usuario
 Route::get('usuario', function () {return view('usuario.usuario');});
+
+Route::post('usuario/guardar',[UsuarioController::class, 'actGuardar']);
+Route::get('usuario/listar',[UsuarioController::class, 'actListar']);
+Route::post('usuario/eliminar',[UsuarioController::class, 'actEliminar']);
+Route::post('usuario/editar',[UsuarioController::class, 'actEditar']);
+Route::post('usuario/guardarCambios',[UsuarioController::class, 'actGuardarCambios']);
+
 

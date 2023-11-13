@@ -1,6 +1,15 @@
 @extends('layout.layout')
 @section('nombreContenido', '----')
 @section('pageTitle')
+<?php
+// Redireccionar a la página example.com
+if(false)
+{
+    header("Location: http://www.youtube.com");
+    exit(); // Asegúrate de salir después de la redirección
+}
+?>
+
 <div class="content-header pb-0 pt-2">
     <div class="container-fluid">
         <div class="row mb-2">

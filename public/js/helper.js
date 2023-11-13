@@ -39,6 +39,14 @@ function estadoCotizacion(estado)
     if(estado == '4') badgeEstado='<span class="shadow badge badge-danger">Corregir</span>';
     return badgeEstado
 }
+function badgeAccordingUser(tipo)
+{
+    let badgeAccordingUser='';
+    if(tipo == 'administrador') badgeAccordingUser='<span class="badge badge-success">ADMINISTRADOR</span>';
+    if(tipo == 'cotizador') badgeAccordingUser='<span class="badge badge-primary">COTIZADOR</span>';
+    if(tipo == 'proveedor') badgeAccordingUser='<span class="badge badge-info">FINALIZADO</span>';
+    return badgeAccordingUser;
+}
 function badgeTipoCot(tipo)
 {   return tipo=='Servicios'?'<span class="badge badge-light">Servicios</span>':'<span class="badge badge-light">Bienes</span>'}
 function cleanFv(form)
@@ -47,6 +55,10 @@ function cleanFv(form)
     validator.resetForm();
     $("#"+form+" .is-valid").removeClass("is-valid");
     $("#"+form+" .is-invalid").removeClass("is-invalid");
+}
+function stateRecord(est)
+{
+    return est=='1'?'<span class="badge badge-success shadow">Activo</span>':'<span class="badge badge-danger shadow">Inactivo</span>';
 }
 function novDato(dato)
 {

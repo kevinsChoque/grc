@@ -2,13 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\TUsuario;
 
 class LoginController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware(function ($request, $next) 
+    //     {
+    //         // Verificar si hay una sesión activa o una variable de sesión llamada "usuario"
+    //         if (Session::has('usuario')) {
+    //             return redirect('/home/home');
+    //             // Acciones a realizar si hay sesión o variable de sesión "usuario"
+    //             // Puedes agregar cualquier lógica adicional aquí
+    //         } else {
+    //             // Acciones a realizar si no hay sesión o variable de sesión "usuario"
+    //             // Por ejemplo, podrías redirigir a una página de inicio de sesión
+    //             // return redirect('/login');
+    //             return view('login/login');
+    //         }
+    //         // return $next($request);
+    //     });
+    // }
     public function actionLogin()
     {
-    	return view('login/login');
+        if (Session::has('usuario')) 
+            return redirect('/home/home');
+        else 
+            return view('login/login');
     }
-
+    public function sigin(Request $r)
+    {
+    	$tUsu = TUsuario::where('usuario',$r->usuario)->first();
+        if($tUsu->estado=='0')
+        {
+            return response()->json(['estado' => false, 'message' => 'El usuario '.$r->usuario.' no cuenta con acceso al sistema.']);
+        }
+    	if($tUsu==null)
+    	{
+    		return response()->json(['estado' => false, 'message' => 'El usuario no se encuentra registrado.']);
+    	}
+    	if(!Hash::check($r->password, $tUsu->password)) 
+    	{
+    		return response()->json(['estado' => false, 'message' => 'La contraseña es incorrecta.']);
+    	}
+    	session(['usuario' => $tUsu]);
+    	return response()->json(['estado' => true, 'message' => 'ok']);
+    }
+    public function logout()
+    {
+    	session()->flush();
+    	return redirect('login/login');
+    }
 }

@@ -52,7 +52,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{url('proveedor')}}" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i><p>Proveedor</p>
+                        <i class="nav-icon fas fa-building"></i><p>Proveedor</p>
                     </a>
                 </li>
                 <li class="nav-item menu-open" style="display: none;">
@@ -100,6 +100,11 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('login/logout')}}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i><p>cerrar sesion</p>
+                    </a>
                 </li>
             </ul>
         </nav>
