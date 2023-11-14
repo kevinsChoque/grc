@@ -30,6 +30,24 @@ function initDatatable(idTabla)
     $('input[type=search]').css('margin','0');
     $('input[type=search]').prop('placeholder','Escriba para buscar en las columnas.');
 }
+function initFv(id,rules)
+{
+    $('#'+id).validate({
+        rules: rules,
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+            $(element).addClass('is-valid');
+        }
+    });
+}
 function estadoCotizacion(estado)
 {
     let badgeEstado='';
@@ -37,6 +55,7 @@ function estadoCotizacion(estado)
     if(estado == '2') badgeEstado='<span class="shadow badge badge-success">Publicado</span>';
     if(estado == '3') badgeEstado='<span class="shadow badge badge-primary">Finalizado</span>';
     if(estado == '4') badgeEstado='<span class="shadow badge badge-danger">Corregir</span>';
+    if(estado == '5') badgeEstado='<span class="shadow badge badge-info">Recotizando</span>';
     return badgeEstado
 }
 function badgeAccordingUser(tipo)

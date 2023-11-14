@@ -1,18 +1,27 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="index3.html" class="brand-link">
-        <img src="https://whaticket.com/wp-content/uploads/2023/05/Consejos-para-enviar-presupuestos-o-cotizaciones-por-Whatsapp.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="https://whaticket.com/wp-content/uploads/2023/05/Consejos-para-enviar-presupuestos-o-cotizaciones-por-Whatsapp.jpg" class="img-circle elevation-2" alt="User Image">
+                <!-- <img src="https://whaticket.com/wp-content/uploads/2023/05/Consejos-para-enviar-presupuestos-o-cotizaciones-por-Whatsapp.jpg" class="img-circle elevation-2" alt="User Image"> -->
+                <span class="text-info"><i class="fa fa-user-tie fa-2x"></i></span>
             </div>
-            <div class="info"><a href="#" class="d-block">Alexander Pierce</a></div>
+            <div class="info">
+                <a href="#" class="d-block text-uppercase">
+                    {{
+                        Session::has('usuario')?
+                            Session::get('usuario')->tipo:
+                            '--';
+                    }}
+                </a>
+            </div>
         </div>
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Buscar" aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-sidebar">
                       <i class="fas fa-search fa-fw"></i>
@@ -34,18 +43,18 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-chart-bar"></i>
                         <p>Cotizaciones<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('cotizacion/registrar')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i><p>Registrar</p>
+                                <i class="far fa-file-alt nav-icon"></i><p>Registrar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('cotizacion/ver')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i><p>Listar</p>
+                                <i class="fa fa-list nav-icon"></i><p>Listar</p>
                             </a>
                         </li>
                     </ul>
@@ -74,29 +83,6 @@
                         <li class="nav-item">
                             <a href="./index3.html" class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i><p>Dashboard v3</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>Tables<i class="fas fa-angle-left right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i><p>Simple Tables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/tables/data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i><p>DataTables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/tables/jsgrid.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i><p>jsGrid</p>
                             </a>
                         </li>
                     </ul>

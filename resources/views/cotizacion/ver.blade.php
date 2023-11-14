@@ -65,6 +65,7 @@
     </div>
 </div>
 @include('cotizacion.mCotizacion')
+@include('cotizacion.recotizar.mRecotizar')
 <script>
 localStorage.setItem("sbd",1);
 localStorage.setItem("sba",4);
@@ -88,6 +89,7 @@ localStorage.setItem("sba",4);
                 console.log(r.data);
                 var html = '';
                 let opciones = '';
+                let opcRec = '';
                 for (var i = 0; i < r.data.length; i++) 
                 {
                     if(r.data[i].estadoCotizacion=='1')
@@ -96,24 +98,30 @@ localStorage.setItem("sba",4);
                             '<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+r.data[i].idCot+');"><i class="fa fa-edit" ></i></button>'+
                             '<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+r.data[i].idCot+');"><i class="fa fa-trash"></i></button>';
                     }
-                    
+                    if(r.data[i].estadoCotizacion == '2')
+                    {
+                        opcRec = '<button type="button" class="btn text-info" onclick="showRecotizar(\''+r.data[i].idCot+'\')"><i class="fa fa-calendar-alt"></i></button>';
+                    }
                     html += '<tr>' +
                         '<td class="text-center font-weight-bold">' + r.data[i].numeroCotizacion + '</td>' +
                         '<td class="text-left"><p class="m-0 ocultarTextIzqNameUser">' + novDato(r.data[i].concepto) + '</p></td>' +
                         '<td class="text-center">' + badgeTipoCot(r.data[i].tipo) +'</td>' +
                         '<td class="text-center">' + novDato(r.data[i].fechaFinalizacion) + '</td>' +
-                        '<td class="text-center">' + estadoCotizacion(r.data[i].estadoCotizacion) + '<button class="btn text-info" onclick="changeEstadoCot('+r.data[i].idCot+','+r.data[i].numeroCotizacion+')"><i class="fa fa-edit"></i></button></td>' +
+                        // '<td class="text-center">' + estadoCotizacion(r.data[i].estadoCotizacion) + '<button class="btn text-info" onclick="changeEstadoCot('+r.data[i].idCot+','+r.data[i].numeroCotizacion+')"><i class="fa fa-edit"></i></button></td>' +
+                        '<td class="text-center">' + segunEstadoCotizacion(r.data[i]) + '</td>' +
                         '<td class="text-center">' + 
                             '<div class="btn-group btn-group-sm" role="group">'+
                                 '<button type="button" class="btn text-info" onclick="showCotizacion('+r.data[i].idCot+')"><i class="fa fa-eye"></i></button>'+
                                 '<button type="button" class="btn text-info" onclick="showFile(\''+r.data[i].archivo+'\')"><i class="fa fa-file-pdf"></i></button>'+
-                                opciones+
+                                opcRec +
+                                opciones +
                                 // '<button type="button" class="btn text-info"><i class="fa fa-plus" onclick="addItems('+r.data[i].idCot+');"></i></button>'+
                                 // '<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+r.data[i].idCot+');"><i class="fa fa-edit" ></i></button>'+
                                 // '<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+r.data[i].idCot+');"><i class="fa fa-trash"></i></button>'+
                             '</div>'+
                         '</td></tr>';
                     opciones='';
+                    opcRec='';
                 }
                 $('#data').html(html);
                 initDatatable('registros');
@@ -121,6 +129,11 @@ localStorage.setItem("sba",4);
             }
         });
         
+    }
+    function segunEstadoCotizacion(cot)
+    {
+        let opcion = cot.estadoCotizacion == '5' || cot.estadoCotizacion == '2' ? '':'<button class="btn text-info" onclick="changeEstadoCot('+cot.idCot+','+cot.numeroCotizacion+')"><i class="fa fa-edit"></i></button>';
+        return estadoCotizacion(cot.estadoCotizacion) + opcion;
     }
     function showFile(archivo)
     {
@@ -138,6 +151,20 @@ localStorage.setItem("sba",4);
             headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
             success: function(r){
                 showDataCotizacion(r);
+            }
+        });
+    }
+    function showRecotizar(id)
+    {
+        
+        jQuery.ajax(
+        { 
+            url: "{{url('cotizacion/showCotizacion')}}",
+            data: {id:id},
+            method: 'post',
+            headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+            success: function(r){
+                showDataRecotizar(r);
             }
         });
     }

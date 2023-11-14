@@ -14,6 +14,7 @@ class TCotizacion extends Model
 
     protected $fillable = [
         'idCot', 
+        'idUsu',
         'numeroCotizacion', 
         'tipo', 
         'unidadEjecutora',

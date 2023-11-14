@@ -16,26 +16,9 @@
 </div>
 @endsection
 @section('content')
-
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 contenedorFormulario">
-            <div class="card card-default card-info card-outline">
-                <div class="overlay dark overlayRegistros">
-                    <img src="{{asset('img/imgAdicionales/spinerLetter2.svg')}}" class="svgLoadLetter">
-                </div>
-            	<div class="card-header border-transparent py-2">
-					<h3 class="card-title m-0 font-weight-bold"><i class="fa fa-user-tie"></i> --</h3>
-				</div>
-                <div class="card-body">
-                    <div class="alert alert-warning msjPms" style="display: none;">
-                        <p class="m-0 font-weight-bold font-italic">El usuario no cuenta con el acceso a registros.</p>
-                    </div>
-                    <h1>table stadics</h1>
-                </div>
-            </div>
-        </div>
+        <h1>dashboard</h1>
     </div>
 </div>
 <script>

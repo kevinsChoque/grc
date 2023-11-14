@@ -72,6 +72,7 @@
     </div>
 </div>
 @include('proveedor.modals')
+@include('proveedor.suspension.mSuspension')
 <script>
 // localStorage.setItem("sbd",1);
 // localStorage.setItem("sba",4);
@@ -92,29 +93,26 @@
             method: 'get',
             success: function(r)
             {
-                console.log(r.data);
+                // console.log(r.data);
                 var html = '';
                 let opciones = '';
-                let nombre = '';
                 let sunatPro = '';
                 for (var i = 0; i < r.data.length; i++) 
                 {
-                    namePro = 'Razon Social: '+r.data[i].razonSocial+'<br>RUC: '+r.data[i].numeroDocumento;
-                    if(r.data[i].tipoPersona=='PERSONA NATURAL')
-                    {
-                        namePro = 'Nombre: '+novDato(r.data[i].nombre) + ' ' + novDato(r.data[i].apellidoPaterno) + ' ' + novDato(r.data[i].apellidoMaterno)+'<br>RUC: '+r.data[i].numeroDocumento;
-                    }
+                    opciones = r.data[i].idSus!==null?'':
+                        '<button type="button" class="btn text-info" title="Suspender" onclick="addSuspension('+r.data[i].idPro+');"><i class="fa fa-user-slash"></i></button>';
                     sunatPro = 'Activo: '+(r.data[i].activo=='1'?'ACTIVO':'INACTIVO')+'<br>Habido:'+(r.data[i].habido=='1'?'HABIDO':'NO HABIDO');
                     html += '<tr>' +
                         '<td class="align-middle text-center font-weight-bold">' + novDato(r.data[i].tipoPersona) + '</td>' +
-                        '<td class="align-middle">' + novDato(namePro) + '</td>' +
+                        '<td class="align-middle">' + namePro(r.data[i]) + '</td>' +
                         '<td class="align-middle">' + direccionPro(r.data[i]) + '</td>' +
                         '<td class="align-middle">' + novDato(sunatPro) + '</td>' +
                         '<td class="align-middle">' + novDato(r.data[i].nombreRep) +'</td>' +
-                        '<td class="align-middle text-center">' + novDato('Sin suspension') + '<br>' + stateRecord(r.data[i].estado) +'</td>' +
+                        '<td class="align-middle text-center">' + opcSuspension(r.data[i]) + '<br>' + stateRecord(r.data[i].estado) +'</td>' +
                         '<td class="align-middle text-center">' + novDato(r.data[i].fr) +'</td>' +
                         '<td class="align-middle text-center">' + 
                             '<div class="btn-group btn-group-sm" role="group">'+
+                                opciones+
                                 '<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+r.data[i].idPro+');"><i class="fa fa-edit" ></i></button>'+
                                 '<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+r.data[i].idPro+');"><i class="fa fa-trash"></i></button>'+
                             '</div>'+
@@ -126,6 +124,19 @@
             }
         });
         
+    }
+    function opcSuspension(pro)
+    {
+        return pro.idSus===null?'<span class="badge badge-success shadow">Sin suspension</span>':'<span class="badge badge-danger shadow">Con suspension</span>';
+    }
+    function namePro(pro)
+    {
+        nameProveedor = 'Razon Social: '+pro.razonSocial+'<br>RUC: '+pro.numeroDocumento;
+        if(pro.tipoPersona=='PERSONA NATURAL')
+        {
+            nameProveedor = 'Nombre: '+novDato(pro.nombre) + ' ' + novDato(pro.apellidoPaterno) + ' ' + novDato(pro.apellidoMaterno)+'<br>RUC: '+pro.numeroDocumento;
+        }
+        return nameProveedor;
     }
     function direccionPro(reg)
     {

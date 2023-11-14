@@ -18,7 +18,7 @@ if(false)
                 <!-- <button class="btn btn-sm btn-success float-right btnPmsRegistrar" data-toggle="modal" data-target="#modalRegistrar">
                     <i class="fa fa-list"></i> Cotizaciones
                 </button> -->
-                <a href="{{url('cotizacion/ver')}}" class="btn btn-sm btn-success float-right"><i class="fa fa-list"></i> Cotizaciones</a>
+                <a href="{{url('cotizacion/ver')}}" class="btn btn-success float-right"><i class="fa fa-list"></i> Cotizaciones</a>
                 <ol class="breadcrumb float-sm-right" style="display: none;">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v3</li>
@@ -29,6 +29,12 @@ if(false)
 </div>
 @endsection
 @section('content')
+<i class="fas fa-file-alt"></i>
+<hr>
+<i class="fas fa-file-invoice"></i><hr>
+<i class="fas fa-chart-bar"></i><hr>
+<i class="fas fa-money-bill"></i>
+
 <div class="container-fluid">
     <div class="row">
         <!-- <div class="col-md-12 mb-3">
@@ -42,7 +48,7 @@ if(false)
                     <div class="spinner"></div>
                 </div>
                 <div class="card-header border-transparent py-2">
-                    <h3 class="card-title m-0 font-weight-bold"><i class="fa fa-car"></i> Registrar Cotizacion</h3>
+                    <h3 class="card-title m-0 font-weight-bold"><i class="fa fa-chart-bar"></i> Registrar Cotizacion</h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning msjPms" style="display: none;">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 use App\Models\TCotizacion;
 use App\Models\TCotxitm;
 use App\Models\TItem;
@@ -25,6 +27,8 @@ class CotizacionController extends Controller
             $nombreArchivo = time() . '_' . str_replace(' ', '',$archivo->getClientOriginalName());
 	        if (Storage::put('public/cotizaciones/' . $nombreArchivo, file_get_contents($archivo))) 
 	        {
+                $tUsu = Session::get('usuario');
+                $r->merge(['idUsu' => $tUsu->idUsu]);
 	        	$r->merge(['estado' => 1]);
                 $r->merge(['estadoCotizacion' => 1]);
 	        	$r->merge(['archivo' => $nombreArchivo]);

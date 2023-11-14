@@ -14,6 +14,7 @@ class TProveedor extends Model
 
     protected $fillable = [
         'idPro', 
+        'idUsu',
         'tipoPersona',
         'numeroDocumento', 
         'razonSocial', 
@@ -30,6 +31,8 @@ class TProveedor extends Model
         'direccionRep',
         'correo',
         'celular',
+        'usuario',
+        'password',
         'obs',
         'estadoProveedor',
         'estado',

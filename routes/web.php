@@ -11,6 +11,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CotxitmController;
 use App\Http\Controllers\UnidadMedidaController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\SuspensionController;
+use App\Http\Controllers\RecotizacionController;
 
 use App\Http\Middleware\MDAdministrador;
 
@@ -36,7 +38,7 @@ Route::post('proveedor/guardar',[ProveedorController::class, 'actGuardar']);
 Route::get('proveedor/listar',[ProveedorController::class, 'actListar']);
 Route::post('proveedor/eliminar',[ProveedorController::class, 'actEliminar']);
 Route::post('proveedor/editar',[ProveedorController::class, 'actEditar']);
-
+Route::post('proveedor/guardarCambios',[ProveedorController::class, 'actGuardarCambios']);
 // cotizacion
 Route::get('cotizacion/registrar', function () {return view('cotizacion.registrar');});
 Route::get('cotizacion/ver', function () {return view('cotizacion.ver');});
@@ -75,5 +77,9 @@ Route::get('usuario/listar',[UsuarioController::class, 'actListar']);
 Route::post('usuario/eliminar',[UsuarioController::class, 'actEliminar']);
 Route::post('usuario/editar',[UsuarioController::class, 'actEditar']);
 Route::post('usuario/guardarCambios',[UsuarioController::class, 'actGuardarCambios']);
+// suspension
+Route::post('suspension/guardar',[SuspensionController::class, 'actGuardar']);
+// recotizacion
+Route::post('recotizacion/guardar',[RecotizacionController::class, 'actGuardar']);
 
 

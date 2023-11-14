@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\TProveedor;
 
@@ -17,9 +19,11 @@ class ProveedorController extends Controller
     {
         $existeNumeroDocumento = TProveedor::where('numeroDocumento',$r->numeroDocumento)->where('estado','1')->first();
         if($existeNumeroDocumento!=null)
-        {
             return response()->json(['estado' => false, 'message' => 'El Proveedor con numero de documento: '.$r->numeroDocumento.' ya fue registrado.']);
-        }
+        $tUsu = Session::get('usuario');
+        $r->merge(['idUsu' => $tUsu->idUsu]);
+        $r->merge(['usuario' => $r->numeroDocumento]);
+        $r->merge(['password' => Hash::make($r->numeroDocumento)]);
         $r->merge(['estadoProveedor' => '1']);
     	$r->merge(['estado' => '1']);
         $r->merge(['fr' => Carbon::now()]);
@@ -37,8 +41,13 @@ class ProveedorController extends Controller
     }
     public function actListar()
     {
-        $registros = TProveedor::orderBy('idPro', 'desc')->get();
+        $registros = TProveedor::select('proveedor.*','suspension.idSus')
+            ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+            ->orderBy('proveedor.idPro', 'desc')
+            ->get();
+        // $registros = TProveedor::orderBy('', 'desc')->get();
         return response()->json(["data"=>$registros]);
+
     }
     public function actEliminar(Request $r)
     {
@@ -53,5 +62,23 @@ class ProveedorController extends Controller
     {
         $registro = TProveedor::find($r->id);
         return response()->json(["data"=>$registro]);
+    }
+    public function actGuardarCambios(Request $r)
+    {
+        // dd($r->all());
+        $tPro = TProveedor::find($r->idPro);
+        if($r->numeroDocumento!=$tPro->numeroDocumento)
+        {
+            $existeNumeroDocumento = TProveedor::where('numeroDocumento', $r->numeroDocumento)->first();
+            if($existeNumeroDocumento!=null)
+                return response()->json(['estado' => false, 'message' => 'El numero del documento RUC: '.$r->numeroDocumento.' ya fue registrado con otro proveedor.']);
+        }
+        // dd($r->password!=null);
+        $r->merge(['fa' => Carbon::now()]);
+        $tPro->fill($r->all());
+        if($tPro->save())
+            return response()->json(['estado' => true, 'message' => 'Operacion exitosa.']);
+        else
+            return response()->json(['estado' => false, 'message' => 'Ocurrio un error.']);
     }
 }

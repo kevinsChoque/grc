@@ -12,8 +12,15 @@
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button"><i class="fas fa-search"></i></a>
-            <div class="navbar-search-block">
+            <span class="font-weight-bold font-italic"><i class="fa fa-user-tie"></i>
+            {{
+                Session::has('usuario')?
+                    Session::get('usuario')->nombre.' '.Session::get('usuario')->apellidoPaterno.' '.Session::get('usuario')->apellidoMaterno:
+                    '--';
+            }}
+            </span>
+            <!-- <a class="nav-link" data-widget="navbar-search" href="#" role="button"><i class="fas fa-search"></i></a> -->
+            <div class="navbar-search-block" style="display: none;">
                 <form class="form-inline">
                     <div class="input-group input-group-sm">
                         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">

@@ -380,11 +380,14 @@
 
 <!-- <script src="{{asset('js/modificacionJqueryValidate.js')}}"></script> -->
 <script>    
+var idPro = '';
 $(document).ready( function () {
     $.validator.addMethod("lettersOnly", function(value, element) {
         return this.optional(element) || /^[A-Za-z]+$/.test(value);
     }, "Este campo debe contener solo letras.");
-    initValidate();
+    // initValidate();
+    initFv('fvproveedor',rules());
+    einitValidate();
 });
 $('.guardar').on('click',function(){
     guardar();
@@ -392,7 +395,9 @@ $('.guardar').on('click',function(){
 $('#fvproveedor .tipoPersona').on('change',function(){
     changeTipoPersona($(this).val());
 });
-
+$('#efvproveedor .tipoPersona').on('change',function(){
+    echangeTipoPersona($(this).val());
+});
 $('.guardarCambios').on('click',function(){
     guardarCambios();
 });
@@ -429,6 +434,32 @@ function changeTipoPersona()
         cleanFv('fvproveedor');
         $('#fvproveedor .pn').parent().parent().css('display','none');
         $('#fvproveedor .pj').parent().parent().css('display','block');
+    }
+
+}
+function echangeTipoPersona()
+{
+    if($('#efvproveedor .tipoPersona').val()=='PERSONA NATURAL')
+    {
+        $('#efvproveedor .nombre').rules('add', {required: true});
+        $('#efvproveedor .apellidoPaterno').rules('add', {required: true});
+        $('#efvproveedor .apellidoMaterno').rules('add', {required: true});
+        $('#efvproveedor .razonSocial').rules('remove', 'required');
+        // $('#efvproveedor .pj').val('');
+        cleanFv('efvproveedor');
+        $('#efvproveedor .pj').parent().parent().css('display','none');
+        $('#efvproveedor .pn').parent().parent().css('display','block');
+    }
+    else
+    {
+        $('#efvproveedor .razonSocial').rules('add', {required: true});
+        $('#efvproveedor .nombre').rules('remove', 'required');
+        $('#efvproveedor .apellidoPaterno').rules('remove', 'required');
+        $('#efvproveedor .apellidoMaterno').rules('remove', 'required');
+        // $('#efvproveedor .pn').val('');
+        cleanFv('efvproveedor');
+        $('#efvproveedor .pn').parent().parent().css('display','none');
+        $('#efvproveedor .pj').parent().parent().css('display','block');
     }
 
 }
@@ -469,56 +500,80 @@ function editar(id)
         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
         success: function(r){
             console.log(r);
+            cleanFv('efvproveedor');
+            idPro = r.data.idPro;
             $('#efvproveedor .tipoPersona').val(r.data.tipoPersona);
             $('#efvproveedor .numeroDocumento').val(r.data.numeroDocumento);
-            $('#efvproveedor .razonSocial').val(r.data.razonSocial);
-            $('#efvproveedor .nombre').val(r.data.nombre);
-            $('#efvproveedor .apellidoPaterno').val(r.data.apellidoPaterno);
-            $('#efvproveedor .apellidoMaterno').val(r.data.apellidoMaterno);
             $('#efvproveedor #direccion').val(r.data.direccion);
             $('#efvproveedor .activo').val(r.data.activo);
             $('#efvproveedor .habido').val(r.data.habido);
-            $('#efvproveedor #dniRep').val(r.data.dniRep);
-
-            $('#efvproveedor #nombreRep').val(r.data.nombreRep);
-            $('#efvproveedor #apellidoPaternoRep').val(r.data.apellidoPaternoRep);
-            $('#efvproveedor #apellidoMaternoRep').val(r.data.apellidoMaternoRep);
-            $('#efvproveedor #direccionRep').val(r.data.direccionRep);
             $('#efvproveedor #correo').val(r.data.correo);
             $('#efvproveedor #celular').val(r.data.celular);
             $('#efvproveedor #obs').val(r.data.obs);
-
-
-
-
-            // $('#efvproveedor .tipoPersona').val(r.data.idRuta);
-            // $('#efvproveedor .tipoPersona').val(r.data.idRuta);
-
-            // $('#enombre').val(r.data.nombre);
-            // $('#eobservacion').val(r.data.observacion);
+            if(r.data.tipoPersona=='PERSONA JURIDICA')
+            {
+                $('#efvproveedor .razonSocial').rules('add', {required: true});
+                $('#efvproveedor .nombre').rules('remove', 'required');
+                $('#efvproveedor .apellidoPaterno').rules('remove', 'required');
+                $('#efvproveedor .apellidoMaterno').rules('remove', 'required');
+                $('#efvproveedor .pn').val('');
+                // --
+                $('#efvproveedor .razonSocial').val(r.data.razonSocial);
+                $('#efvproveedor #dniRep').val(r.data.dniRep);
+                $('#efvproveedor #nombreRep').val(r.data.nombreRep);
+                $('#efvproveedor #apellidoPaternoRep').val(r.data.apellidoPaternoRep);
+                $('#efvproveedor #apellidoMaternoRep').val(r.data.apellidoMaternoRep);
+                $('#efvproveedor #direccionRep').val(r.data.direccionRep);
+                $('#efvproveedor .pj').parent().parent().css('display','block');
+                $('#efvproveedor .pn').parent().parent().css('display','none');
+            }
+            else
+            {
+                $('#efvproveedor .nombre').rules('add', {required: true});
+                $('#efvproveedor .apellidoPaterno').rules('add', {required: true});
+                $('#efvproveedor .apellidoMaterno').rules('add', {required: true});
+                $('#efvproveedor .razonSocial').rules('remove', 'required');
+                $('#efvproveedor .pj').val('');
+                // --
+                $('#efvproveedor .nombre').val(r.data.nombre);
+                $('#efvproveedor .apellidoPaterno').val(r.data.apellidoPaterno);
+                $('#efvproveedor .apellidoMaterno').val(r.data.apellidoMaterno);
+                $('#efvproveedor .pj').parent().parent().css('display','none');
+                $('#efvproveedor .pn').parent().parent().css('display','block');
+            }
             $('#modalEditar').modal('show');
         }
     });
 }
 function guardarCambios()
 {
-    if($('#formValidateEdit').valid()==false)
+    if($('#efvproveedor').valid()==false)
     {return;}
-    var idRuta = {idRuta: $('#idRuta').val(),};
-    var datos = data(false);
-    Object.assign(datos,idRuta);
+    if($('#efvproveedor .tipoPersona').val()=='PERSONA NATURAL')
+        $('#efvproveedor .pj').val('');
+    else
+        $('#efvproveedor .pn').val('');
+    var formData = new FormData($("#efvproveedor")[0]);
+    formData.append('idPro',idPro);
+    // var idRuta = {idRuta: $('#idRuta').val(),};
+    // var datos = data(false);
+    // Object.assign(datos,idRuta);
     jQuery.ajax(
     { 
-        url: __API__+'ruta/guardarCambios',
-        data: datos,
+        url: "{{ url('proveedor/guardarCambios') }}",
+        data: formData,
         method: 'post',
-        success: function(result){
-            // console.log(result);
+        dataType: 'json',
+        processData: false, 
+        contentType: false, 
+        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+        success: function(r){
+            console.log(r);
             $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
             construirTabla();
             fillRegistros();
             $('#modalEditar').modal('hide');
-            msjRee(result);
+            msjRee(r);
         }
     });
 }
@@ -568,10 +623,55 @@ function rules()
         }
     };
 }
-function initValidate()
+function erules()
 {
-    $('#fvproveedor').validate({
-        rules: rules(),
+    return {
+        tipoPersona: {
+            required: true,
+        },
+        numeroDocumento: {
+            required: true,
+            digits: true,
+            minlength: 11
+        },
+        razonSocial: {
+            required: true,
+        },
+        direccion: {
+            required: true,
+        },
+        activo: {
+            required: true,
+        },
+        habido: {
+            required: true,
+        },
+        dniRep: {
+            digits: true,
+            minlength: 8
+        },
+        nombreRep: {
+            lettersOnly: true
+        },
+        apellidoPaternoRep: {
+            lettersOnly: true
+        },
+        apellidoMaternoRep: {
+            lettersOnly: true
+        },
+        correo: {
+            required: true,
+        },
+        celular: {
+            required: true,
+            minlength: 9
+        }
+    };
+}
+function einitValidate()
+{
+    $('#efvproveedor').validate({
+        rules: erules(),
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
