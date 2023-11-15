@@ -42,6 +42,9 @@ class ProveedorController extends Controller
     public function actListar()
     {
         $tUsu = Session::get('usuario');
+        // ESTA PARTE ESTA MUY INTERESANTE ES USANDO OPERADOR TERNARIO
+        // cascascasccsacsac
+        // csacas
         $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'proveedor.*';
         // $registros = TCotizacion::select('cotizacion.*',$ban)
         //     ->where('cotizacion.estado', 1)
