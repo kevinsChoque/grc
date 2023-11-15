@@ -55,10 +55,23 @@ class CotizacionController extends Controller
     }
     public function actListar()
     {
+        $tUsu = Session::get('usuario');
+        // dd($tUsu);
+        // dd($tUsu->idUsu);
     	// $registros = TCotizacion::orderBy('idCot','desc')->get();
-    	$registros = TCotizacion::where('estado', 1)
-		    ->orderBy('idCot', 'desc')
-		    ->get();
+    	// $registros = TCotizacion::select('cotizacion.*',
+     //        DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"))
+     //        ->where('cotizacion.estado', 1)
+     //        ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
+		   //  ->orderBy('cotizacion.idCot', 'desc')
+		   //  ->get();
+        $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'cotizacion.*';
+        $registros = TCotizacion::select('cotizacion.*',$ban)
+            ->where('cotizacion.estado', 1)
+            ->where('cotizacion.idUsu', $tUsu->idUsu)
+            ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
+            ->orderBy('cotizacion.idCot', 'desc')
+            ->get();
         return response()->json(["data"=>$registros]);
     }
     public function actEliminar(Request $r)

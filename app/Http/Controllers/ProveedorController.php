@@ -41,8 +41,18 @@ class ProveedorController extends Controller
     }
     public function actListar()
     {
-        $registros = TProveedor::select('proveedor.*','suspension.idSus')
+        $tUsu = Session::get('usuario');
+        $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'proveedor.*';
+        // $registros = TCotizacion::select('cotizacion.*',$ban)
+        //     ->where('cotizacion.estado', 1)
+        //     ->where('cotizacion.idUsu', $tUsu->idUsu)
+        //     ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
+        //     ->orderBy('cotizacion.idCot', 'desc')
+        //     ->get();
+        $registros = TProveedor::select('proveedor.*','suspension.idSus',$ban)
             ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+            ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
+            // ->where('proveedor.idUsu', $tUsu->idUsu)
             ->orderBy('proveedor.idPro', 'desc')
             ->get();
         // $registros = TProveedor::orderBy('', 'desc')->get();

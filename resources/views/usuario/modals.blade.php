@@ -395,12 +395,14 @@ function guardarCambios()
         contentType: false, 
         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
         success: function(r){
-            // console.log(r);
+            if (r.estado)
+            {
+                $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
+                construirTabla();
+                fillRegistros();
+                $('#modalEditar').modal('hide');
+            }
             $('.guardarCambios').prop('disabled',false);
-            $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
-            construirTabla();
-            fillRegistros();
-            $('#modalEditar').modal('hide');
             msjRee(r);
         }
     });

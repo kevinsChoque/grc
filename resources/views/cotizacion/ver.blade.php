@@ -36,6 +36,9 @@
                             <table id="registros" class="table table-hover table-striped table-bordered dt-responsive nowrap">
                                 <thead class="thead-dark">
                                     <tr>
+                                        @if(session()->get('usuario')->tipo=="administrador")
+                                        <th class="text-center" data-priority="1" width="10%">Personal</th>
+                                        @endif
                                         <th class="text-center" data-priority="1">Numero</th>
                                         <th class="text-center" data-priority="2">Concepto</th>
                                         <th class="text-center" data-priority="3">Tipo</th>
@@ -48,6 +51,9 @@
                                 </tbody>
                                 <tfoot class="thead-light">
                                     <tr>
+                                        @if(session()->get('usuario')->tipo=="administrador")
+                                        <th class="text-center" data-priority="1" width="10%">Personal</th>
+                                        @endif
                                         <th class="text-center" data-priority="1">Numero</th>
                                         <th class="text-center" data-priority="2">Concepto</th>
                                         <th class="text-center" data-priority="3">Tipo</th>
@@ -103,6 +109,9 @@ localStorage.setItem("sba",4);
                         opcRec = '<button type="button" class="btn text-info" onclick="showRecotizar(\''+r.data[i].idCot+'\')"><i class="fa fa-calendar-alt"></i></button>';
                     }
                     html += '<tr>' +
+                        @if(session()->get('usuario')->tipo=="administrador")
+                        '<td class="text-left text-uppercase">' + novDato(r.data[i].nameUser) + '</td>' +
+                        @endif
                         '<td class="text-center font-weight-bold">' + r.data[i].numeroCotizacion + '</td>' +
                         '<td class="text-left"><p class="m-0 ocultarTextIzqNameUser">' + novDato(r.data[i].concepto) + '</p></td>' +
                         '<td class="text-center">' + badgeTipoCot(r.data[i].tipo) +'</td>' +

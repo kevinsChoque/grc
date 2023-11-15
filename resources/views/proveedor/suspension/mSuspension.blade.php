@@ -107,7 +107,6 @@ $(document).ready( function () {
 });
 function addSuspension(id)
 {
-    // $('#modalEditar').modal('show');
     jQuery.ajax(
     { 
         url: "{{ url('proveedor/editar') }}",
@@ -132,44 +131,6 @@ function addSuspension(id)
                 $('.datosProveedor .pn').parent().parent().css('display','block');
                 $('.datosProveedor .pj').parent().parent().css('display','none');
             }
-            // $('#efvproveedor .numeroDocumento').val(r.data.numeroDocumento);
-            // $('#efvproveedor #direccion').val(r.data.direccion);
-            // $('#efvproveedor .activo').val(r.data.activo);
-            // $('#efvproveedor .habido').val(r.data.habido);
-            // $('#efvproveedor #correo').val(r.data.correo);
-            // $('#efvproveedor #celular').val(r.data.celular);
-            // $('#efvproveedor #obs').val(r.data.obs);
-            // if(r.data.tipoPersona=='PERSONA JURIDICA')
-            // {
-            //     $('#efvproveedor .razonSocial').rules('add', {required: true});
-            //     $('#efvproveedor .nombre').rules('remove', 'required');
-            //     $('#efvproveedor .apellidoPaterno').rules('remove', 'required');
-            //     $('#efvproveedor .apellidoMaterno').rules('remove', 'required');
-            //     $('#efvproveedor .pn').val('');
-            //     // --
-            //     $('#efvproveedor .razonSocial').val(r.data.razonSocial);
-            //     $('#efvproveedor #dniRep').val(r.data.dniRep);
-            //     $('#efvproveedor #nombreRep').val(r.data.nombreRep);
-            //     $('#efvproveedor #apellidoPaternoRep').val(r.data.apellidoPaternoRep);
-            //     $('#efvproveedor #apellidoMaternoRep').val(r.data.apellidoMaternoRep);
-            //     $('#efvproveedor #direccionRep').val(r.data.direccionRep);
-            //     $('#efvproveedor .pj').parent().parent().css('display','block');
-            //     $('#efvproveedor .pn').parent().parent().css('display','none');
-            // }
-            // else
-            // {
-            //     $('#efvproveedor .nombre').rules('add', {required: true});
-            //     $('#efvproveedor .apellidoPaterno').rules('add', {required: true});
-            //     $('#efvproveedor .apellidoMaterno').rules('add', {required: true});
-            //     $('#efvproveedor .razonSocial').rules('remove', 'required');
-            //     $('#efvproveedor .pj').val('');
-            //     // --
-            //     $('#efvproveedor .nombre').val(r.data.nombre);
-            //     $('#efvproveedor .apellidoPaterno').val(r.data.apellidoPaterno);
-            //     $('#efvproveedor .apellidoMaterno').val(r.data.apellidoMaterno);
-            //     $('#efvproveedor .pj').parent().parent().css('display','none');
-            //     $('#efvproveedor .pn').parent().parent().css('display','block');
-            // }
             $('#mSuspension').modal('show');
         }
     });

@@ -15,7 +15,7 @@
                         Session::has('usuario')?
                             Session::get('usuario')->tipo:
                             '--';
-                    }}
+                    }}<br>
                 </a>
             </div>
         </div>

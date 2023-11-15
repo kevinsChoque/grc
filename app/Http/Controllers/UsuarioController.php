@@ -8,19 +8,22 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\TUsuario;
 
-
 class UsuarioController extends Controller
 {
     public function actGuardar(Request $r)
     {
-        $existeDni = TUsuario::where('dni',$r->dni)->where('estado','1')->first();
-        if($existeDni!=null)
+        $tUsu = TUsuario::where('dni',$r->dni)->where('estado','1')->orWhere('usuario',$r->usuario)->first();
+        if($tUsu!=null)
         {
-            return response()->json(['estado' => false, 'message' => 'El numero de DNI: '.$r->dni.' ya fue registrado.']);
+            if($tUsu->dni == $r->dni)
+                return response()->json(['estado' => false, 'message' => 'El numero de DNI: '.$r->dni.' ya fue registrado.']); 
+            if($tUsu->usuario == $r->usuario)
+                return response()->json(['estado' => false, 'message' => 'El usuario : '.$r->usuario.' ya fue registrado.']); 
         }
-        
-     //    $r->merge(['estadoCotizacion' => 1]);
-    	// $r->merge(['archivo' => $nombreArchivo]);
+        // if($existeDni!=null)
+        // {
+        //     return response()->json(['estado' => false, 'message' => 'El numero de DNI: '.$r->dni.' ya fue registrado.']);
+        // }
         $r->merge(['password' => Hash::make($r->password)]);
     	$r->merge(['estado' => '1']);
         $r->merge(['fr' => Carbon::now()]);
@@ -60,11 +63,16 @@ class UsuarioController extends Controller
         $tUse = TUsuario::find($r->idUsu);
         if($r->dni!=$tUse->dni)
         {
-            $existeDni = TUsuario::where('dni', $r->dni)->first();
-            if($existeDni!=null)
-                return response()->json(['estado' => false, 'message' => 'El numero de DNI: '.$r->dni.' ya fue registrado.']);
+            $tusuario = TUsuario::where('dni', $r->dni)->where('estado','1')->first();
+            if($tusuario!=null)
+                return response()->json(['estado' => false, 'message' => 'El numero de DNI: '.$r->dni.' ya fue registrado.']); 
         }
-        // dd($r->password!=null);
+        if ($r->usuario!=$tUse->usuario) 
+        {
+            $tusuario = TUsuario::where('usuario', $r->usuario)->where('estado','1')->first();
+            if($tusuario!=null)
+                return response()->json(['estado' => false, 'message' => 'El usuario : '.$r->usuario.' ya fue registrado.']); 
+        }
         if($r->password!=null)
         {
             $r->merge(['password' => Hash::make($r->password)]);

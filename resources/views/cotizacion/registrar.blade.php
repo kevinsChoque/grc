@@ -1,15 +1,6 @@
 @extends('layout.layout')
 @section('nombreContenido', '----')
 @section('pageTitle')
-<?php
-// Redireccionar a la página example.com
-if(false)
-{
-    header("Location: http://www.youtube.com");
-    exit(); // Asegúrate de salir después de la redirección
-}
-?>
-
 <div class="content-header pb-0 pt-2">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -172,220 +163,92 @@ if(false)
 <script>
 // localStorage.setItem("sbd",1);
 // localStorage.setItem("sba",4);
-    // var tablaDeRegistros;
-    // var flip=0;
-    
-    $(document).ready( function () {
-        loadPage();
-        initValidate();
-        $('.overlayPagina').css("display","none");
-        $('.overlayRegistros').css("display","none");
-        // var Toast = Swal.mixin({
-        //     toast: true,
-        //     position: 'top-end',
-        //     showConfirmButton: false,
-        //     timer: 3000
-        // });
-        // Toast.fire({
-        //     icon: 'error',
-        //     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        // });
-    });
-    $('.guardar').on('click',function(){
-        guardar();
-    });
-    function rules()
-    {
-        return {
-            numeroCotizacion: {
-                required: true,
-            },
-            tipo: {
-                required: true,
-            },
-            unidadEjecutora: {
-                required: true,
-            },
-            documento: {
-                required: true,
-            },
-            fechaCotizacion: {
-                required: true,
-            },
-            fechaFinalizacion: {
-                required: true,
-            },
-            concepto: {
-                required: true,
-            },
-            file: {
-                required: true,
-            },
-            estado: {
-                required: true,
-            },
-        };
-    }
-    function loadPage()
-    {
-        var fechaActual = new Date();
-        var fecha = fechaActual.toISOString().split('T')[0];
-        $('#fechaCotizacion').val(fecha);
-    }
-    function initValidate()
-    {
-        $('#fvcotizacion').validate({
-            rules: rules(),
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-                $(element).addClass('is-valid');
+$(document).ready( function () {
+    $.validator.addMethod("extensionPdf", function(value, element) {
+        return this.optional(element) || value.toLowerCase().endsWith(".pdf");
+    }, "Solo se permiten archivos PDF");
+    loadPage();
+    initFv('fvcotizacion',rules());
+    $('.overlayPagina').css("display","none");
+    $('.overlayRegistros').css("display","none");
+});
+$('.guardar').on('click',function(){
+    guardar();
+});
+function loadPage()
+{
+    var fechaActual = new Date();
+    var fecha = fechaActual.toISOString().split('T')[0];
+    $('#fechaCotizacion').val(fecha);
+}
+function rules()
+{
+    return {
+        numeroCotizacion: {required: true,},
+        tipo: {required: true,},
+        unidadEjecutora: {required: true,},
+        documento: {required: true,},
+        fechaCotizacion: {required: true,},
+        fechaFinalizacion: {required: true,},
+        concepto: {required: true,},
+        file: {required: true,extensionPdf: "pdf"},
+        estado: {required: true,},
+    };
+}
+function guardar()
+{
+    if($('#fvcotizacion').valid()==false)
+    {return;}
+    var formData = new FormData($("#fvcotizacion")[0]);
+    // formData.append('id', idDocumento); 
+    // formData.append('file', $('#archivo')[0].files.length>0?'true':'false');
+    $('.guardar').prop('disabled',true); 
+    $('.overlayRegistros').css("display","flex");
+    jQuery.ajax({
+        url: "{{ url('cotizacion/guardar') }}",
+        method: 'POST', 
+        data: formData,
+        dataType: 'json',
+        processData: false, 
+        contentType: false, 
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        success: function (r) {
+            // limpiarForm();
+            if (r.estado) {
+                Swal.fire({
+                    title: "COTIZACION",
+                    text: r.message,
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "OK",
+                    allowOutsideClick: false, 
+                    allowEscapeKey: false, 
+                    showCancelButton: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{url('cotizacion/ver')}}";
+                    }
+                });
+            } 
+            else 
+            {
+                $('.overlayRegistros').css("display","none");
+                msjRee(r); 
             }
-        });
-    }
-    function guardar()
-    {
-        if($('#fvcotizacion').valid()==false)
-        {return;}
-        var formData = new FormData($("#fvcotizacion")[0]);
-        // formData.append('id', idDocumento); 
-        // formData.append('file', $('#archivo')[0].files.length>0?'true':'false');
-        $('.guardar').prop('disabled',true); 
-        $('.overlayRegistros').css("display","flex");
-        jQuery.ajax({
-            url: "{{ url('cotizacion/guardar') }}",
-            method: 'POST', 
-            data: formData,
-            dataType: 'json',
-            processData: false, 
-            contentType: false, 
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            success: function (r) {
-                // limpiarForm();
-                if (r.estado) {
-                    Swal.fire({
-                        title: "COTIZACION",
-                        text: r.message,
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        confirmButtonText: "OK",
-                        allowOutsideClick: false, 
-                        allowEscapeKey: false, 
-                        showCancelButton: false,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "{{url('cotizacion/ver')}}";
-                        }
-                    });
-                } 
-                else 
-                {
-                    $('.overlayRegistros').css("display","none");
-                    msjRee(r); 
-                }
-                $('.guardar').prop('disabled',false);
-            },
-            error: function (xhr, status, error) {
-                alert('salio un error');
-            }
-        });
-    }
-    function limpiarForm()
-    {
-        // $(".select2").val("0").trigger("change.select2");
-        $('.input').val('');
-    }
-    
-
-    
-    
-    // -----------------------------------------------------------------------------------------------DropzoneJS Demo Code Start
-  
-  // -----------------------------------------------------------------------------------------------DropzoneJS Demo Code End
-    
-    // function fillRegistros()
-    // {
-    //     if(pmsFlat.l)
-    //     {
-    //         $('.contenedorRegistros').css('display','block');
-    //         jQuery.ajax(
-    //         { 
-    //             url: __API__+"ruta/listar",
-    //             method: 'post',
-    //             success: function(result){
-    //                 var html = '';
-    //                 for (var i = 0; i < result.data.length; i++) 
-    //                 {
-    //                     edit = pmsFlat.a?'<button type="button" class="btn text-info" title="Editar registro" onclick="editar('+result.data[i].idRuta+');"><i class="fa fa-edit" ></i></button>':'-';
-    //                     dele = pmsFlat.e?'<button type="button" class="btn text-danger" title="Eliminar registro" onclick="eliminar('+result.data[i].idRuta+');"><i class="fa fa-trash"></i></button>':'-';
-    //                     html += '<tr>' +
-    //                         '<td class="text-center">' + result.data[i].nombre + '</td>' +
-    //                         '<td class="text-center">' + novDato(result.data[i].observacion) +'</td>' +
-    //                         '<td class="text-center">' + formatoEstado(result.data[i].estado) + '</td>' +
-    //                         '<td class="text-center">' + formatoDateHours(result.data[i].fechaRegistro) + '</td>' +
-    //                         '<td class="text-center">' + verificarFecha(novDato(result.data[i].fechaActualizacion)) + '</td>' +
-    //                         '<td class="text-center"><div class="btn-group btn-group-sm" role="group">'+
-    //                         edit+
-    //                         dele+
-    //                         '</div></td></tr>';
-    //                 }
-    //                 $('#data').html(html);
-    //                 initDatatable('registros');
-    //                 $('.overlayRegistros').css('display','none');
-    //             }
-    //         });
-    //     }
-    //     else
-    //     {
-    //         notPmsList();
-    //     }
-    // }
-    // function eliminar(id)
-    // {
-    //     Swal.fire({
-    //         title: 'Esta seguro de eliminar el registro?',
-    //         text: "¡No podrás revertir esto!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#28a745',
-    //         cancelButtonColor: '#6c757d',
-    //         confirmButtonText: 'Si, eliminar!'
-    //     }).then((result) => {
-    //         if(result.isConfirmed)
-    //         {
-    //             $( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
-    //             jQuery.ajax(
-    //             { 
-    //                 url: __API__+'ruta/eliminar',
-    //                 data: {id:id},
-    //                 method: 'post',
-    //                 success: function(result){
-    //                     construirTabla();
-    //                     fillRegistros();
-    //                     msjRee(result);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-    // function construirTabla()
-    // {
-    //     $('.contenedorRegistros>div').remove();
-    //     $('.contenedorRegistros').html(tablaDeRegistros);
-    // }
-    // function limpiarForm()
-    // {
-    //     $('.contenedorFormularioRegistrar :input').val('');
-    // }
+            $('.guardar').prop('disabled',false);
+        },
+        error: function (xhr, status, error) {
+            alert('salio un error');
+        }
+    });
+}
+function limpiarForm()
+{
+    // $(".select2").val("0").trigger("change.select2");
+    $('.input').val('');
+}
 </script>
 @endsection

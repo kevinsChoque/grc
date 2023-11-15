@@ -39,6 +39,9 @@
                             <table id="registros" class="table table-hover table-striped table-bordered dt-responsive nowrap">
                                 <thead class="thead-dark">
                                     <tr>
+                                        @if(session()->get('usuario')->tipo=="administrador")
+                                        <th class="text-center" data-priority="1" width="10%">Personal</th>
+                                        @endif
                                         <th class="text-center" data-priority="1">Tipo</th>
                                         <th class="text-center" data-priority="3">Proveedor</th>
                                         <th class="text-center" data-priority="4">Contacto proveedor</th>
@@ -53,6 +56,9 @@
                                 </tbody>
                                 <tfoot class="thead-light">
                                     <tr>
+                                        @if(session()->get('usuario')->tipo=="administrador")
+                                        <th class="text-center" data-priority="1" width="10%">Personal</th>
+                                        @endif
                                         <th class="text-center" data-priority="1">Tipo</th>
                                         <th class="text-center" data-priority="3">Proveedor</th>
                                         <th class="text-center" data-priority="4">Contacto proveedor</th>
@@ -103,6 +109,9 @@
                         '<button type="button" class="btn text-info" title="Suspender" onclick="addSuspension('+r.data[i].idPro+');"><i class="fa fa-user-slash"></i></button>';
                     sunatPro = 'Activo: '+(r.data[i].activo=='1'?'ACTIVO':'INACTIVO')+'<br>Habido:'+(r.data[i].habido=='1'?'HABIDO':'NO HABIDO');
                     html += '<tr>' +
+                        @if(session()->get('usuario')->tipo=="administrador")
+                        '<td class="text-left text-uppercase">' + novDato(r.data[i].nameUser) + '</td>' +
+                        @endif
                         '<td class="align-middle text-center font-weight-bold">' + novDato(r.data[i].tipoPersona) + '</td>' +
                         '<td class="align-middle">' + namePro(r.data[i]) + '</td>' +
                         '<td class="align-middle">' + direccionPro(r.data[i]) + '</td>' +

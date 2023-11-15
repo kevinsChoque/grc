@@ -13,6 +13,11 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <span class="font-weight-bold font-italic"><i class="fa fa-user-tie"></i>
+            ({{
+                Session::has('usuario')?
+                    Session::get('usuario')->usuario:
+                    '--';
+            }})
             {{
                 Session::has('usuario')?
                     Session::get('usuario')->nombre.' '.Session::get('usuario')->apellidoPaterno.' '.Session::get('usuario')->apellidoMaterno:
