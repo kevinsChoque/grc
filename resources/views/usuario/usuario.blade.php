@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6"><h1 class="m-0">Usuarios</h1></div>
             <div class="col-sm-6">
-                <button class="btn btn-sm btn-success float-right" data-toggle="modal" data-target="#modalRegistrar">
+                <button class="btn btn-success float-right" data-toggle="modal" data-target="#modalRegistrar">
 	                <i class="fa fa-plus"></i> 
 	                Nuevo Usuario
 	            </button>
@@ -71,8 +71,8 @@
 </div>
 @include('usuario.modals')
 <script>
-// localStorage.setItem("sbd",1);
-// localStorage.setItem("sba",4);
+localStorage.setItem("sbd",0);
+localStorage.setItem("sba",3);
     var tablaDeRegistros;
     var flip=0;
 

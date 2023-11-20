@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\TUsuario;
+use App\Models\TProveedor;
 
 class LoginController extends Controller
 {
@@ -52,6 +53,29 @@ class LoginController extends Controller
     	session(['usuario' => $tUsu]);
     	return response()->json(['estado' => true, 'message' => 'ok']);
     }
+    public function siginpro(Request $r)
+    {
+        // session()->flush();
+        session(['proveedor' => TProveedor::find(3)]);
+        return response()->json(['estado' => true, 'message' => 'ok']);
+        // ---
+        $tPro = TProveedor::where('usuario',$r->usuario)->first();
+        if($tPro->estado=='0' || $tPro->estadoProveedor=='0')
+        {
+            return response()->json(['estado' => false, 'message' => 'El proveedor '.$r->usuario.' no cuenta con acceso al sistema.']);
+        }
+        if($tPro==null)
+        {
+            return response()->json(['estado' => false, 'message' => 'El usuario '.$r->usuario.' no se encuentra registrado.']);
+        }
+        if(!Hash::check($r->password, $tPro->password)) 
+        {
+            return response()->json(['estado' => false, 'message' => 'La contraseña es incorrecta.']);
+        }
+        session(['proveedor' => $tPro]);
+        return response()->json(['estado' => true, 'message' => 'ok']);
+    }
+    
     public function logout()
     {
     	session()->flush();

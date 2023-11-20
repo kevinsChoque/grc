@@ -42,23 +42,33 @@ class ProveedorController extends Controller
     public function actListar()
     {
         $tUsu = Session::get('usuario');
-        // ESTA PARTE ESTA MUY INTERESANTE ES USANDO OPERADOR TERNARIO
-        // cascascasccsacsac
-        // csacas
-        $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'proveedor.*';
-        // $registros = TCotizacion::select('cotizacion.*',$ban)
-        //     ->where('cotizacion.estado', 1)
-        //     ->where('cotizacion.idUsu', $tUsu->idUsu)
-        //     ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
-        //     ->orderBy('cotizacion.idCot', 'desc')
+        if($tUsu->tipo=="administrador")
+        {
+            $registros = TProveedor::select('proveedor.*',
+                'suspension.idSus',
+                DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"))
+                ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+                ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
+                ->orderBy('proveedor.idPro', 'desc')
+                ->get();
+        }
+        else
+        {
+            $registros = TProveedor::select('proveedor.*','suspension.idSus')
+                ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+                ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
+                ->where('proveedor.idUsu', $tUsu->idUsu)
+                ->where('proveedor.estado', '1')
+                ->orderBy('proveedor.idPro', 'desc')
+                ->get();
+        }
+        // $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'proveedor.*';
+        
+        // $registros = TProveedor::select('proveedor.*','suspension.idSus',$ban)
+        //     ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+        //     ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
+        //     ->orderBy('proveedor.idPro', 'desc')
         //     ->get();
-        $registros = TProveedor::select('proveedor.*','suspension.idSus',$ban)
-            ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
-            ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
-            // ->where('proveedor.idUsu', $tUsu->idUsu)
-            ->orderBy('proveedor.idPro', 'desc')
-            ->get();
-        // $registros = TProveedor::orderBy('', 'desc')->get();
         return response()->json(["data"=>$registros]);
 
     }

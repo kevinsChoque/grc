@@ -9,12 +9,12 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
         </li> -->
-        <li class="nav-item border-right infraccionPmsNavbar">
+        <!-- <li class="nav-item border-right infraccionPmsNavbar">
             <a class="nav-link border-right" href="{{url('cotizacion/registrar')}}" title="Registrar infraccion">
                 <i class="fas fa-plus d-none d-sm-inline-block"></i>
                 <span class="description-text">COT</span>
             </a>
-        </li>
+        </li> -->
         <!-- <li class="nav-item border-right">
             <a class="nav-link border-right" href="{{url('presentacion/consultar')}}" title="Consultar placa" target="_blank">
                 <i class="fas fa-plus d-none d-sm-inline-block"></i>
@@ -25,19 +25,22 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <span class="font-weight-bold font-italic"><i class="fa fa-user-tie"></i>
+            <!-- <img src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="Panel Administrativo" class="brand-image img-circle elevation-3 w-100" style="opacity: .8"> -->
             ({{
-                Session::has('usuario')?
-                    Session::get('usuario')->usuario:
+                Session::has('proveedor')?
+                    Session::get('proveedor')->usuario:
                     '--';
             }})
             ({{
-                Session::has('usuario')?
-                    Session::get('usuario')->idUsu:
+                Session::has('proveedor')?
+                    Session::get('proveedor')->idUsu:
                     '--';
             }})
             {{
-                Session::has('usuario')?
-                    Session::get('usuario')->nombre.' '.Session::get('usuario')->apellidoPaterno.' '.Session::get('usuario')->apellidoMaterno:
+                Session::has('proveedor')?
+                    Session::get('proveedor')->tipoPersona=="PERSONA JURIDICA"?
+                        Session::get('proveedor')->razonSocial:
+                        Session::get('proveedor')->nombre.' '.Session::get('proveedor')->apellidoPaterno.' '.Session::get('proveedor')->apellidoMaterno:
                     '--';
             }}
             </span>

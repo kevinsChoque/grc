@@ -28,74 +28,71 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="login-box">
-	  	<div class="card card-outline card-primary">
-		    <div class="card-header text-center">
+        <!-- align-items: center;
+    background-color: #e9ecef;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100vh;
+    -ms-flex-pack: center;
+    justify-content: center; -->
+	<div class="container-fluid" style="display: flex;flex-direction: column;height: 100vh;justify-content: center;width: 63%;">
+	  	<div class="card">
+		    <div class="card-header text-center" style="display: none;">
 		      	<a href="#" class="h1"><b>Cotizaciones </b>Apurimac</a>
 		    </div>
 	    	<div class="card-body">
-	    		<!-- <input type="text" id="d1"> -->
-	    		<form id="fvlogin">
-	    		<p class="login-box-msg">Bienvenido, ingrese con su cuenta.</p>
-	    		<div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text font-weight-bold"><i class="fa fa-user"></i></span>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- <img src="https://appcotizaciones.regioncusco.gob.pe/images/inicio.png" class="w-100"> -->
+                        <img src="https://png.pngtree.com/png-vector/20210417/ourlarge/pngtree-office-desk-computer-application-development-scenario-illustration-png-image_3228766.jpg" class="w-100">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row justify-content-center">
+                            <form id="fvlogin">
+                            <h6 class="login-box-msg text-left">Instructivo para el proceso del Registro de Cotizaciones Descargar.</h6>
+                            <h3 class="text-center font-weight-bold">COTIZACIONES EN LINEA</h3>
+                            <p class="text-left">Bienvenido, ingrese con su cuenta.</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text font-weight-bold"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control input" id="usuario" name="usuario">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text font-weight-bold"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control input" id="password" name="password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="icheck-primary" style="visibility: hidden;">
+                                        <input type="checkbox" id="remember">
+                                        <label for="remember">
+                                            Remember Me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-primary sig-in w-100"><i class="fa fa-key"></i> Ingresar</button>
+                                </div>
+                            </div>
+                            <p class="text-left">Si no se recuerda la clave, presione aquí</p>
+                            <div class="alert alert-info py-2">
+                                <p class="m-0 text-center font-weight-bold">SI NO TIENE UNA CUENTA PRESIONE <a href="{{url('portal/proveedor/registrar')}}">AQUI</a>.</p>
+                            </div>
+                            </form>
                         </div>
-                        <input type="text" class="form-control input" id="usuario" name="usuario">
+                        <!-- <p class="mb-0"><a href="#" class="text-center">Registrarse</a></p> -->
                     </div>
                 </div>
-	    		<!-- <input type="text" id="d2"> -->
-	    		<div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text font-weight-bold"><i class="fa fa-lock"></i></span>
-                        </div>
-                        <input type="password" class="form-control input" id="password" name="password">
-                    </div>
-                </div>
-	    		<!-- <button class="btn btn-success entrar"><i class="fa fa-user"></i> ingresar</button> -->
-	    		<div class="row">
-		          	<div class="col-8">
-			            <div class="icheck-primary" style="visibility: hidden;">
-			              	<input type="checkbox" id="remember">
-			              	<label for="remember">
-			                	Remember Me
-			              	</label>
-			            </div>
-		          	</div>
-		          	<button class="btn btn-primary sig-in"><i class="fa fa-user"></i> ingresar</button>
-		        </div>
-		        </form>
-		        <p class="mb-0"><a href="#" class="text-center">Registrarse</a></p>
-	    		<!-- <hr> -->
-	      		<!-- <p class="login-box-msg">Bienvenido, ingrese con su cuenta.</p> -->
-	      		<!-- <form id="fvlogin">
-			        <div class="input-group mb-3">
-			          	<input type="text" class="form-control" placeholder="usuario">
-			         	<div class="input-group-append">
-				            <div class="input-group-text"><span class="fas fa-user"></span></div>
-			          	</div>
-			        </div>
-			        <div class="input-group mb-3">
-			          	<input type="password" class="form-control" placeholder="Password">
-			          	<div class="input-group-append">
-				            <div class="input-group-text"><span class="fas fa-lock"></span></div>
-			          	</div>
-			        </div>
-			        <div class="row">
-			          	<div class="col-8">
-				            <div class="icheck-primary">
-				              	<input type="checkbox" id="remember">
-				              	<label for="remember">
-				                	Remember Me
-				              	</label>
-				            </div>
-			          	</div>
-			          	<div class="col-4"><button class="btn btn-primary btn-block sig-in">Ingresar</button></div>
-			        </div>
-	      		</form> -->
-	      		<!-- <p class="mb-0"><a href="#" class="text-center">Registrarse</a></p> -->
+	    		
 	    	</div>
 	  	</div>
 	</div>
@@ -111,6 +108,7 @@
 <script>
 	$(document).ready( function () {
 		initValidate();
+        initFv('fvlogin',rules());
         $('.overlayPagina').css("display","none");
     } );
     // function ingresar()
@@ -124,11 +122,12 @@
     $('.sig-in').on('click',function(){
         if($('#fvlogin').valid()==false)
         {return;}
+        // alert('paso la validacion')
         var formData = new FormData($("#fvlogin")[0]);
         $('.sig-in').prop('disabled',true); 
         $('.overlayPagina').css("display","flex");
         jQuery.ajax({
-            url: "{{ url('login/sigin') }}",
+            url: "{{ url('login/siginpro') }}",
             method: 'POST', 
             data: formData,
             dataType: 'json',
@@ -137,7 +136,7 @@
             headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
             success: function (r) {
                 if (r.estado) 
-                    window.location.href = "{{url('home/home')}}";
+                    window.location.href = "{{url('panelAdm/home/home')}}";
                 else 
                 {
                 	$('.overlayPagina').css("display","none");

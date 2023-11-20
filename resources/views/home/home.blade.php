@@ -18,7 +18,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <h1>dashboard</h1>
+        <h1 class="text-center text-uppercase font-weight-bold font-italic">dashboard de funcionarios segun usuario</h1>
     </div>
 </div>
 <script>

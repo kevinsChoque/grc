@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Models\TCotizacion;
 use App\Models\TCotxitm;
@@ -32,6 +33,7 @@ class CotizacionController extends Controller
 	        	$r->merge(['estado' => 1]);
                 $r->merge(['estadoCotizacion' => 1]);
 	        	$r->merge(['archivo' => $nombreArchivo]);
+                $r->merge(['fr' => Carbon::now()]);
 	        	// dd($r->all());
 	        	if(TCotizacion::create($r->all()))
 	        	{
@@ -55,7 +57,6 @@ class CotizacionController extends Controller
     }
     public function actListar()
     {
-        $tUsu = Session::get('usuario');
         // dd($tUsu);
         // dd($tUsu->idUsu);
     	// $registros = TCotizacion::orderBy('idCot','desc')->get();
@@ -65,13 +66,46 @@ class CotizacionController extends Controller
      //        ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
 		   //  ->orderBy('cotizacion.idCot', 'desc')
 		   //  ->get();
-        $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'cotizacion.*';
-        $registros = TCotizacion::select('cotizacion.*',$ban)
-            ->where('cotizacion.estado', 1)
-            ->where('cotizacion.idUsu', $tUsu->idUsu)
-            ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
-            ->orderBy('cotizacion.idCot', 'desc')
-            ->get();
+        // $ban = $tUsu->tipo=="administrador"?DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"):'cotizacion.*';
+        // $registros = TCotizacion::select('cotizacion.*',$ban)
+        //     ->where('cotizacion.estado', 1)
+        //     ->where('cotizacion.idUsu', $tUsu->idUsu)
+        //     ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
+        //     ->orderBy('cotizacion.idCot', 'desc')
+        //     ->get();
+        $tUsu = Session::get('usuario');
+        if($tUsu->tipo=="administrador")
+        {
+            // $registros = TProveedor::select('proveedor.*',
+            //     'suspension.idSus',
+            //     DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"))
+            //     ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+            //     ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
+            //     ->orderBy('proveedor.idPro', 'desc')
+            //     ->get();
+
+            $registros = TCotizacion::select('cotizacion.*',
+                DB::raw("CONCAT(usuario.nombre, ' ', usuario.apellidoPaterno, ' ', usuario.apellidoMaterno) as nameUser"))
+                ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
+                ->orderBy('cotizacion.idCot', 'desc')
+                ->get();
+        }
+        else
+        {
+            // $registros = TProveedor::select('proveedor.*','suspension.idSus')
+            //     ->leftjoin('suspension', 'suspension.idPro', '=', 'proveedor.idPro')
+            //     ->join('usuario', 'usuario.idUsu', '=', 'proveedor.idUsu')
+            //     ->where('proveedor.idUsu', $tUsu->idUsu)
+            //     ->where('proveedor.estado', '1')
+            //     ->orderBy('proveedor.idPro', 'desc')
+            //     ->get();
+            $registros = TCotizacion::select('cotizacion.*')
+                ->leftjoin('usuario', 'usuario.idUsu', '=', 'cotizacion.idUsu')
+                ->where('cotizacion.idUsu', $tUsu->idUsu)
+                ->where('cotizacion.estado', '1')
+                ->orderBy('cotizacion.idCot', 'desc')
+                ->get();
+        }
         return response()->json(["data"=>$registros]);
     }
     public function actEliminar(Request $r)
@@ -90,12 +124,23 @@ class CotizacionController extends Controller
     }
     public function actGuardarCambios(Request $r)
     {
-        $existeNumCot = TCotizacion::where('numeroCotizacion',$r->numeroCotizacion)->where('estado','1')->first();
-        if($existeNumCot!=null)
-        {
-            return response()->json(['estado' => false, 'message' => 'El numero de cotizacion ya fue ingresado.']);
-        }
         $tCot = TCotizacion::find($r->id);
+        if($r->numeroCotizacion!=$tCot->numeroCotizacion)
+        {
+            $existeNumCot = TCotizacion::where('numeroCotizacion',$r->numeroCotizacion)->where('estado','1')->first();
+            if($existeNumCot!=null)
+            {
+                return response()->json(['estado' => false, 'message' => 'El numero de cotizacion ya fue ingresado.']);
+            }
+        }
+        // ---------------------------------------------------------------------------
+        // $existeNumCot = TCotizacion::where('numeroCotizacion',$r->numeroCotizacion)->where('estado','1')->first();
+        // if($existeNumCot!=null)
+        // {
+        //     return response()->json(['estado' => false, 'message' => 'El numero de cotizacion ya fue ingresado.']);
+        // }
+        $r->merge(['fa' => Carbon::now()]);
+        // $tCot = TCotizacion::find($r->id);
         $tCot->fill($r->all());
         if($tCot->save())
             return response()->json(['estado' => true, 'message' => 'Operacion exitosa.']);

@@ -95,10 +95,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                                 </div>
-                                <input type="date" class="form-control" id="fechaFinalizacion input" name="fechaFinalizacion">
+                                <input type="date" class="form-control input" id="fechaFinalizacion" name="fechaFinalizacion">
                             </div>
                         </div>
-                        <div class="form-group col-lg-12">
+                        <div class="form-group col-lg-6">
                             <label class="m-0">Concepto: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -108,7 +108,7 @@
                                 <textarea name="concepto" id="concepto" cols="30" rows="5" class="form-control input"></textarea>
                             </div>
                         </div>
-                        <div class="form-group col-lg-12">
+                        <div class="form-group col-lg-6">
                             <label class="m-0">Descripcion: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -225,6 +225,7 @@
                 // $('#unidadEjecutora').val(r.data.unidadEjecutora);
                 $('#documento').val(r.data.documento);
                 $('#fechaCotizacion').val(r.data.fechaCotizacion);
+                console.log(r.data.fechaFinalizacion);
                 $('#fechaFinalizacion').val(r.data.fechaFinalizacion);
                 $('#concepto').val(r.data.concepto);
                 $('#descripcion').val(r.data.descripcion);
@@ -234,7 +235,7 @@
                 $('.fileCotizacion').attr('href',dir+'/'+r.data.archivo);
                 $('.overlayRegistros').css("display","none");
                 
-                console.log(r)
+                
             },
             error: function (xhr, status, error) {
                 alert('salio un error');

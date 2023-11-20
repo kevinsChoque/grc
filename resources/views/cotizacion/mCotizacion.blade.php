@@ -18,8 +18,8 @@
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-12">
-                                <button class="btn btn-sm btn-success float-right ml-2" onclick="addItemsM()"><i class="fa fa-plus"></i> Agregar items</button>
-                                <button class="btn btn-sm btn-success float-right" onclick="editarM()"><i class="fa fa-edit"></i> Modificar Cotizacion</button>
+                                <button class="btn btn-success float-right ml-2" onclick="addItemsM()"><i class="fa fa-plus"></i> Agregar items</button>
+                                <button class="btn btn-success float-right" onclick="editarM()"><i class="fa fa-edit"></i> Modificar Cotizacion</button>
                             </div>
                             <div class="col-lg-12 my-2">
                                 <h4 class="text-center font-weight-bold">Datos de cotizacion</h4>

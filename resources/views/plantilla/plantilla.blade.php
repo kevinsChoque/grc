@@ -44,10 +44,10 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
-        @include('layout.sections.navbar')
+        @include('plantilla.sections.navbar')
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        @include('layout.sections.sidebar')
+        @include('plantilla.sections.sidebar')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                         </div>
-                        @yield('content')
+                        @yield('contentPanelAdmin')
                     </div>
                 </div>
             </div>
@@ -121,15 +121,12 @@
 <!-- <link rel="stylesheet" href="{{asset('adminlte3/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}"> -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    // __ruta__
+$(document).ready( function () {
+    sideBarCollapse();
+    sideBarActivePa();
+} );
 </script>
 <!-- sweetalert2 -->
 <!-- <script src="{{asset('adminlte3/plugins/sweetalert2/sweetalert2.min.js')}}"></script> -->
-<script>
-$(document).ready( function () {
-    sideBarCollapse();
-    sideBarActive();
-} );
-</script>
 </body>
 </html>

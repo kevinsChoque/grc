@@ -13,6 +13,12 @@ use App\Http\Controllers\UnidadMedidaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\SuspensionController;
 use App\Http\Controllers\RecotizacionController;
+use App\Http\Controllers\LoginProveedorController;
+// portal
+use App\Http\Controllers\PortalProveedorController;
+use App\Http\Controllers\PaCotizacionController;
+
+
 
 use App\Http\Middleware\MDAdministrador;
 
@@ -28,7 +34,9 @@ Route::middleware([MDAdministrador::class])->group(function () {
 Route::get('/',[PortalController::class, 'actionPortal']);
 // login
 Route::get('login/login',[LoginController::class, 'actionLogin']);
+Route::get('loginProveedor/loginProveedor',[LoginProveedorController::class, 'actLogin']);
 Route::post('login/sigin',[LoginController::class, 'sigin']);
+Route::post('login/siginpro',[LoginController::class, 'siginpro']);
 Route::get('login/logout',[LoginController::class, 'logout']);
 
 // proveedor
@@ -81,5 +89,22 @@ Route::post('usuario/guardarCambios',[UsuarioController::class, 'actGuardarCambi
 Route::post('suspension/guardar',[SuspensionController::class, 'actGuardar']);
 // recotizacion
 Route::post('recotizacion/guardar',[RecotizacionController::class, 'actGuardar']);
-
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// PORTAL-------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
+// proveedor
+Route::get('portal/proveedor/registrar', function () {return view('portal.proveedor.registrar');});
+Route::post('portal/proveedor/guardar',[PortalProveedorController::class, 'actGuardar']);
+// panel administrativo del proveedor
+// home
+Route::get('panelAdm/home/home', function () {return view('panelAdm.home.home');});
+// cotizacion
+Route::get('panelAdm/paCotizacion/cotizacionesActivas', function () {return view('panelAdm.cotizacion.cotizacionesActivas');});
+Route::get('panelAdm/paCotizacion/cotizar', function () {return view('panelAdm.cotizacion.cotizar');});
+Route::get('panelAdm/paCotizacion/listar',[PaCotizacionController::class, 'actListar']);
+// portal/paCotizacion/cotizar
 

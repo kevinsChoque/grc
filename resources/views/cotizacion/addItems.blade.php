@@ -1,14 +1,13 @@
 @extends('layout.layout')
 @section('nombreContenido', '----')
 @section('pageTitle')
-
 <div class="content-header pb-0 pt-2">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6"><h1 class="m-0">Cotizaciones</h1></div>
             <div class="col-sm-6">
-                <a href="{{url('cotizacion/registrar')}}" class="btn btn-sm btn-success float-right ml-2"><i class="fa fa-plus"></i> Nueva</a>
-                <a href="{{url('cotizacion/ver')}}" class="btn btn-sm btn-success float-right"><i class="fa fa-list"></i> Cotizaciones</a>
+                <a href="{{url('cotizacion/registrar')}}" class="btn btn-success float-right ml-2"><i class="fa fa-plus"></i> Nueva</a>
+                <a href="{{url('cotizacion/ver')}}" class="btn btn-success float-right"><i class="fa fa-list"></i> Cotizaciones</a>
                 <ol class="breadcrumb float-sm-right" style="display: none;">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v3</li>
@@ -19,7 +18,6 @@
 </div>
 @endsection
 @section('content')
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 contenedorFormulario">

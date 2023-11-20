@@ -80,8 +80,8 @@
 @include('proveedor.modals')
 @include('proveedor.suspension.mSuspension')
 <script>
-// localStorage.setItem("sbd",1);
-// localStorage.setItem("sba",4);
+localStorage.setItem("sbd",0);
+localStorage.setItem("sba",6);
     var tablaDeRegistros;
     var flip=0;
 
@@ -110,7 +110,7 @@
                     sunatPro = 'Activo: '+(r.data[i].activo=='1'?'ACTIVO':'INACTIVO')+'<br>Habido:'+(r.data[i].habido=='1'?'HABIDO':'NO HABIDO');
                     html += '<tr>' +
                         @if(session()->get('usuario')->tipo=="administrador")
-                        '<td class="text-left text-uppercase">' + novDato(r.data[i].nameUser) + '</td>' +
+                        '<td class="align-middle text-left text-uppercase font-weight-bold">' + novDato(r.data[i].nameUser) + '</td>' +
                         @endif
                         '<td class="align-middle text-center font-weight-bold">' + novDato(r.data[i].tipoPersona) + '</td>' +
                         '<td class="align-middle">' + namePro(r.data[i]) + '</td>' +

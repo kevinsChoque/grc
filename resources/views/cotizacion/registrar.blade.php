@@ -20,12 +20,10 @@
 </div>
 @endsection
 @section('content')
-<i class="fas fa-file-alt"></i>
-<hr>
+<!-- <i class="fas fa-file-alt"></i><hr>
 <i class="fas fa-file-invoice"></i><hr>
 <i class="fas fa-chart-bar"></i><hr>
-<i class="fas fa-money-bill"></i>
-
+<i class="fas fa-money-bill"></i> -->
 <div class="container-fluid">
     <div class="row">
         <!-- <div class="col-md-12 mb-3">
@@ -161,8 +159,8 @@
     </div>
 </div>
 <script>
-// localStorage.setItem("sbd",1);
-// localStorage.setItem("sba",4);
+localStorage.setItem("sbd",1);
+localStorage.setItem("sba",4);
 $(document).ready( function () {
     $.validator.addMethod("extensionPdf", function(value, element) {
         return this.optional(element) || value.toLowerCase().endsWith(".pdf");

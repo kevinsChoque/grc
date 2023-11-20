@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6"><h1 class="m-0">Cotizaciones</h1></div>
             <div class="col-sm-6">
-                <a href="{{url('cotizacion/registrar')}}" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Nueva</a>
+                <a href="{{url('cotizacion/registrar')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Nueva</a>
                 <ol class="breadcrumb float-sm-right" style="display: none;">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v3</li>
@@ -25,7 +25,7 @@
                     <div class="spinner"></div>
                 </div>
                 <div class="card-header border-transparent py-2">
-                    <h3 class="card-title m-0 font-weight-bold"><i class="fa-solid fa-car-tunnel"></i> Lista de Cotizaciones</h3>
+                    <h3 class="card-title m-0 font-weight-bold"><i class="fa fa-list"></i> Lista de Cotizaciones</h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning msjPms" style="display: none;">
@@ -74,7 +74,8 @@
 @include('cotizacion.recotizar.mRecotizar')
 <script>
 localStorage.setItem("sbd",1);
-localStorage.setItem("sba",4);
+localStorage.setItem("sba",5);
+
     var tablaDeRegistros;
     var flip=0;
 
@@ -110,7 +111,7 @@ localStorage.setItem("sba",4);
                     }
                     html += '<tr>' +
                         @if(session()->get('usuario')->tipo=="administrador")
-                        '<td class="text-left text-uppercase">' + novDato(r.data[i].nameUser) + '</td>' +
+                        '<td class="text-left text-uppercase font-weight-bold">' + novDato(r.data[i].nameUser) + '</td>' +
                         @endif
                         '<td class="text-center font-weight-bold">' + r.data[i].numeroCotizacion + '</td>' +
                         '<td class="text-left"><p class="m-0 ocultarTextIzqNameUser">' + novDato(r.data[i].concepto) + '</p></td>' +

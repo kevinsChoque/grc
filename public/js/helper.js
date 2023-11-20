@@ -1,3 +1,119 @@
+function sideBarCollapse()
+{
+    if(localStorage.getItem("sbd")==1)
+    {
+        $('.sbd1').addClass('menu-is-opening menu-open');
+        $('.sbd1>ul').css('display','block');
+    }
+    if(localStorage.getItem("sbd")==2)
+    {
+        $('.sbd2').addClass('menu-is-opening menu-open');
+        $('.sbd2>ul').css('display','block');
+    }
+    if(localStorage.getItem("sbd")==3)
+    {
+        $('.sbd3').addClass('menu-is-opening menu-open');
+        $('.sbd3>ul').css('display','block');
+    }
+    if(localStorage.getItem("sbd")==4)
+    {
+        $('.sbd4').addClass('menu-is-opening menu-open');
+        $('.sbd4>ul').css('display','block');
+    }
+    if(localStorage.getItem("sbd")==5)
+    {
+        $('.sbd5').addClass('menu-is-opening menu-open');
+        $('.sbd5>ul').css('display','block');
+    }
+    if(localStorage.getItem("sbd")==6)
+    {
+        $('.sbd6').addClass('menu-is-opening menu-open');
+        $('.sbd6>ul').css('display','block');
+    }
+    if(localStorage.getItem("sba")==1)
+    {
+        $('.sba1').removeClass('bg-light');
+        $('.sba1').addClass('bg-info');
+    }
+}
+function sideBarActive()
+{
+    // console.log('este es sba---> '+localStorage.getItem("sba"));
+    // if(localStorage.getItem("sba")==5)
+    // {
+    //     console.log('entro');
+    //     $('.sba5').addClass('active');
+    // }
+    if(localStorage.getItem("sba")==2)$('.sba2').addClass('bg-info');
+    if(localStorage.getItem("sba")==3)$('.sba3').addClass('bg-info');
+    if(localStorage.getItem("sba")==4)$('.sba4').addClass('bg-info');
+    if(localStorage.getItem("sba")==5)$('.sba5').addClass('bg-info');
+    if(localStorage.getItem("sba")==6)$('.sba6').addClass('bg-info');
+    if(localStorage.getItem("sba")==7)$('.sba7').addClass('bg-info');
+    if(localStorage.getItem("sba")==8)$('.sba8').addClass('bg-info');
+    if(localStorage.getItem("sba")==9)$('.sba9').addClass('bg-info');
+    if(localStorage.getItem("sba")==10)$('.sba10').addClass('bg-info');
+    if(localStorage.getItem("sba")==11)$('.sba11').addClass('bg-info');
+    if(localStorage.getItem("sba")==12)$('.sba12').addClass('bg-info');
+    if(localStorage.getItem("sba")==13)$('.sba13').addClass('bg-info');
+    if(localStorage.getItem("sba")==14)$('.sba14').addClass('bg-info');
+    if(localStorage.getItem("sba")==15)$('.sba15').addClass('bg-info');
+    if(localStorage.getItem("sba")==16)$('.sba16').addClass('bg-info');
+    if(localStorage.getItem("sba")==17)$('.sba17').addClass('bg-info');
+    if(localStorage.getItem("sba")==18)$('.sba18').addClass('bg-info');
+    if(localStorage.getItem("sba")==19)
+    {
+        $('.sba19').removeClass('bg-light');
+        $('.sba19').addClass('bg-info');
+    }
+    if(localStorage.getItem("sba")==20)
+    {
+        $('.sba20').removeClass('bg-light');
+        $('.sba20').addClass('bg-info');
+    }
+    if(localStorage.getItem("sba")==21)$('.sba21').addClass('bg-info');
+    if(localStorage.getItem("sba")==22)$('.sba22').addClass('bg-info');
+    if(localStorage.getItem("sba")==23)$('.sba23').addClass('bg-info');
+}
+function sideBarActivePa()
+{
+    console.log('este es sba---> '+localStorage.getItem("sba"));
+    if(localStorage.getItem("sba")==5)
+    {
+        console.log('entro');
+        $('.sba5').addClass('active');
+    }
+    if(localStorage.getItem("sba")==2)$('.sba2').addClass('bg-info');
+    if(localStorage.getItem("sba")==3)$('.sba3').addClass('bg-info');
+    if(localStorage.getItem("sba")==4)$('.sba4').addClass('bg-info');
+    // if(localStorage.getItem("sba")==5)$('.sba5').addClass('bg-info');
+    if(localStorage.getItem("sba")==6)$('.sba6').addClass('bg-info');
+    if(localStorage.getItem("sba")==7)$('.sba7').addClass('bg-info');
+    if(localStorage.getItem("sba")==8)$('.sba8').addClass('bg-info');
+    if(localStorage.getItem("sba")==9)$('.sba9').addClass('bg-info');
+    if(localStorage.getItem("sba")==10)$('.sba10').addClass('bg-info');
+    if(localStorage.getItem("sba")==11)$('.sba11').addClass('bg-info');
+    if(localStorage.getItem("sba")==12)$('.sba12').addClass('bg-info');
+    if(localStorage.getItem("sba")==13)$('.sba13').addClass('bg-info');
+    if(localStorage.getItem("sba")==14)$('.sba14').addClass('bg-info');
+    if(localStorage.getItem("sba")==15)$('.sba15').addClass('bg-info');
+    if(localStorage.getItem("sba")==16)$('.sba16').addClass('bg-info');
+    if(localStorage.getItem("sba")==17)$('.sba17').addClass('bg-info');
+    if(localStorage.getItem("sba")==18)$('.sba18').addClass('bg-info');
+    if(localStorage.getItem("sba")==19)
+    {
+        $('.sba19').removeClass('bg-light');
+        $('.sba19').addClass('bg-info');
+    }
+    if(localStorage.getItem("sba")==20)
+    {
+        $('.sba20').removeClass('bg-light');
+        $('.sba20').addClass('bg-info');
+    }
+    if(localStorage.getItem("sba")==21)$('.sba21').addClass('bg-info');
+    if(localStorage.getItem("sba")==22)$('.sba22').addClass('bg-info');
+    if(localStorage.getItem("sba")==23)$('.sba23').addClass('bg-info');
+}
 $('.soloNumeros').on('input', function () { 
     this.value = this.value.replace(/[^0-9]/g,'');
 });

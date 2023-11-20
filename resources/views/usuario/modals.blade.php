@@ -109,8 +109,8 @@
                 </form>
             </div>
             <div class="modal-footer py-1 border-transparent">
-                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-sm btn-success guardar"><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success guardar"><i class="fa fa-save"></i> Guardar</button>
             </div>
         </div>
     </div>
@@ -231,8 +231,8 @@
                 </form>
             </div>
             <div class="modal-footer py-1 border-transparent">
-                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-sm btn-success guardarCambios"><i class="fa fa-save"></i> Guardar cambios</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success guardarCambios"><i class="fa fa-save"></i> Guardar cambios</button>
             </div>
         </div>
     </div>
