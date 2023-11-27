@@ -18,15 +18,18 @@
 @section('contentPanelAdmin')
 <div class="container-fluid mt-3">
     <div class="card">
+    	<div class="overlay overlayRegistros">
+            <div class="spinner"></div>
+        </div>
     	<div class="card-body">
     		<h3 class="text-center font-weight-bold font-italic">ENVIE SU COTIZACION</h3>
-    		<form action="fvbuscot">
+    		<form id="fvcotpro">
     		<div class="row">
     			<div class="col-lg-12">
     				<div class="form-group row">
 						<label class="col-sm-2 col-form-label text-right">Cotizacion: <span class="text-danger">*</span></label>
 						<div class="col-sm-9">
-							<input type="text" id="numeroCotizacion" name="numeroCotizacion" class="form-control">
+							<input type="text" id="concepto" name="concepto" class="form-control concepto" disabled>
 						</div>
 					</div>
 				</div>
@@ -34,7 +37,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Tipo de persona: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="tipoPersona" name="tipoPersona" class="form-control tipoPersona" disabled>
 						</div>
 					</div>
 				</div>
@@ -42,7 +45,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Nro. Documento (RUC): <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="numeroDocumento" name="numeroDocumento" class="form-control numeroDocumento" disabled>
 						</div>
 					</div>
 				</div>
@@ -50,7 +53,7 @@
     				<div class="form-group row">
 						<label class="col-sm-2 col-form-label text-right">Nombres: <span class="text-danger">*</span></label>
 						<div class="col-sm-9">
-							<input type="text" id="numeroCotizacion" name="numeroCotizacion" class="form-control">
+							<input type="text" id="nombreRazon" name="nombreRazon" class="form-control nombreRazon" disabled>
 						</div>
 					</div>
 				</div>
@@ -58,7 +61,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Celular: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="celular" name="celular" class="form-control celular" disabled>
 						</div>
 					</div>
 				</div>
@@ -66,7 +69,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Correo: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="correo" name="correo" class="form-control correo" disabled>
 						</div>
 					</div>
 				</div>
@@ -74,7 +77,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Tiempo de Entrega: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="timeEntrega" name="timeEntrega" class="form-control timeEntrega">
 						</div>
 					</div>
 				</div>
@@ -82,7 +85,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Tiempo Validez: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="timeValidez" name="timeValidez" class="form-control timeValidez">
 						</div>
 					</div>
 				</div>
@@ -90,7 +93,12 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Se dedica al objeto de contratacion: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<!-- <input type="text" id="dedica" name="dedica" class="form-control dedica"> -->
+							<select name="dedica" id="dedica" class="form-control">
+								<option disabled>Seleccione una opcion</option>
+								<option value="1" selected>SI</option>
+								<option value="0">NO</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -98,7 +106,7 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Tiempo de garantia: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<input type="text" id="descripcion" name="descripcion" class="form-control">
+							<input type="text" id="timeGarantia" name="timeGarantia" class="form-control timeGarantia">
 						</div>
 					</div>
 				</div>
@@ -121,7 +129,7 @@
 	                                <th width="10%">U.Medida</th>
 	                                <th width="5%">Cantidad</th>
 	                                <th width="15%">Precio</th>
-	                                <th width="15%">Opc.</th>
+	                                <th width="15%">Subtotal</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody id="listItems">
@@ -132,7 +140,7 @@
 	                        <tfoot>
 	                        	<tr>
 	                        		<td colspan="7" class="text-right">TOTAL:</td>
-	                        		<td colspan="1" class="text-center">TOTAL</td>
+	                        		<td colspan="1" class="text-center shadow bg-info"><span class="total font-weight-bold"></span></td>
 	                        	</tr>
 	                        </tfoot>
 	                    </table>
@@ -141,15 +149,176 @@
             </div>
     		</form>
     	</div>
+    	<div class="card-footer text-center">
+    		<button type="button" class="btn btn-success guardarCotPro ml-2"><i class="fa fa-save"></i> Guardar postulacion a cotizaciuon</button>
+			<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+    	</div>
     </div>
 </div>
+
 <script>
+	var flip=0;
     $(document).ready( function () {
     	// fillRegistros();
+    	initFv('fvcotpro',rules());
+    	loadData();
     	loadItemsCotizacion()
         $('.overlayPagina').css("display","none");
         $('.overlayRegistros').css("display","none");
     });
+    $('.guardarCotPro').on('click',function(){
+    	guardarCotPro();
+    });
+    function rules()
+	{
+	    return {
+	        timeEntrega: {required: true,},
+	        timeValidez: {required: true,},
+	        dedica: {required: true,},
+	        timeGarantia: {required: true,},
+	    };
+	}
+	var obj;
+	var estado;
+    function guardarCotPro()
+    {
+    	let banMarca = true;
+    	let banModelo = true;
+    	let banPrecio = true;
+    	let ids = [];
+    	let marca = [];
+    	let modelo = [];
+    	let precio = [];
+    	var miObjeto = {};
+    	$(".idCi").each(function(){
+    	    ids.push($(this).attr('data-id'))
+    	});
+    	$(".marca").each(function(){
+    	    if($(this).val()=='')
+    	    	banMarca = false
+    	    marca.push($(this).val())
+    	});
+    	$(".modelo").each(function(){
+    	    if($(this).val()=='')
+    	    	banModelo = false
+    	   	modelo.push($(this).val())
+    	});
+    	$(".precio").each(function(){
+    	    if($(this).val()=='')
+    	    	banPrecio = false
+    	    precio.push($(this).val())
+    	});
+    	
+		// console.log(miObjeto);
+    	if($('#fvcotpro').valid()==false)
+    	{return;}
+    	// console.log(banMarca)
+    	if(banMarca && banModelo && banPrecio)
+    	{
+    		for (var i = 0; i < $(".marca").length; i++) 
+	    	{
+			  	miObjeto["item" + i] = {
+			  		id: ids[i],
+				    marca: marca[i],
+				    modelo: modelo[i],
+				    precio: precio[i]
+			  	};
+			}
+			// console.log('miObjeto');
+			// console.log(miObjeto);
+			obj=miObjeto;
+			// console.log('miObjeto');
+			var formData = new FormData($("#fvcotpro")[0]);
+			formData.append('items',JSON.stringify(miObjeto));
+			formData.append('idCot',localStorage.getItem('idCot'));
+			formData.append('total',$('.total').html());
+
+			$('.guardarCotPro').prop('disabled',true);
+    		// console.log('enviardata');
+    		$( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
+    		jQuery.ajax(
+	        { 
+	            url: "{{url('panelAdm/paCotRecPro/guardar')}}",
+	            data: formData,
+	            // data: {items:miObjeto},
+	            method: 'post',
+	            dataType: 'json',
+		        processData: false, 
+		        contentType: false, 
+	            headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+	            success: function(r){
+	            	console.log('entro aki esto estoy evaluando');
+	                console.log(r.estado);
+	                estado=r.estado;
+	                if (r.estado)
+		            {
+		            	// alert('entro aki');
+		                Swal.fire({
+		                    title: "COTIZACION",
+		                    text: r.message,
+		                    icon: "success",
+		                    showCancelButton: true,
+		                    confirmButtonColor: "#3085d6",
+		                    confirmButtonText: "OK",
+		                    allowOutsideClick: false, 
+		                    allowEscapeKey: false, 
+		                    showCancelButton: false,
+		                }).then((result) => {
+		                    if (result.isConfirmed) {
+		                        window.location.href = "{{url('panelAdm/paCotizacion/misCotizaciones')}}";
+		                    }
+		                });
+		            }
+		            else
+		            {
+		            	$( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
+		            	$('.guardarCotPro').prop('disabled',false);
+		            	msjRee(r);
+		            }
+		            // alert('final')
+		            
+	            },
+		        error: function (xhr, status, error) {
+		            msjSimple(false,"Ocurrio un problema, porfavor contactese con el Administrador del sistema.");
+		        }
+	        });
+    	}
+    	else
+    	{
+    		msjSimple(false,"Ingrese todos los datos de los items.");
+    	}
+    }
+    function loadData()
+    {
+    	console.log('entro')
+    	$('#mCotizacion').modal('show');
+        jQuery.ajax(
+        { 
+        	// panelAdm/paCotizacion/listar
+            url: "{{url('panelAdm/paCotizacion/showProCot')}}",
+            data: {id:localStorage.getItem('idCot')},
+            method: 'post',
+            headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+            success: function(r){
+                // showDataCotizacion(r);
+                console.log(r.pro.tipoPersona);
+
+                $('.nombreRazon').val(r.pro.tipoPersona=="PERSONA NATURAL"?
+                	r.pro.nombre+' '+r.pro.apellidoPaterno+' '+r.pro.apellidoMaterno:r.pro.razonSocial);
+                $('.concepto').val(r.cot.concepto);
+                $('.tipoPersona').val(r.pro.tipoPersona);
+                $('.numeroDocumento').val(r.pro.numeroDocumento);
+                // $('.nombreRazon').val(r.pro.nombreRazon);
+                $('.celular').val(r.pro.celular);
+                $('.correo').val(r.pro.correo);
+
+				// timeEntrega
+				// timeValidez
+				// dedica
+				// timeGarantia
+            }
+        });
+    }
     function loadItemsCotizacion()
 	{
 	    jQuery.ajax({
@@ -159,26 +328,28 @@
 	        dataType: 'json',
 	        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
 	        success: function (r) {
+	        	console.log('--------------');
 	            console.log(r);
+	            console.log('--------------');
 	            let idFila = '';
 	            var html = '';
 	            for (var i = 0; i < r.data.length; i++) 
 	            {
 	                idFila = localStorage.getItem('idCot')+r.data[i].idItm;
 	                html += '<tr class="fila'+idFila+'">' +
-	                    '<td class="font-weight-bold">' + novDato(r.data[i].nombre) +'</td>' +
+	                    '<td class="font-weight-bold idCi" data-id="'+novDato(r.data[i].idCi)+'">' + novDato(r.data[i].nombre) +'</td>' +
 	                    '<td class="text-center">' + novDato(r.data[i].clasificador) + '</td>' +
-	                    '<td class="text-center">' + 'marca' + '</td>' +
-	                    '<td class="text-center">' + 'modelo' + '</td>' +
+	                    '<td class="text-center">' + '<input type="text" class="form-control marca">' + '</td>' +
+	                    '<td class="text-center">' + '<input type="text" class="form-control modelo">' + '</td>' +
 	                    '<td class="text-center"><span class="font-weight-bold badge badge-light shadow um'+idFila+'">'+ novDato(r.data[i].nombreUm) +
 	                    '</td>' +
-	                    '<td class="text-center">' + r.data[i].cantidad + '</td>' +
+	                    '<td class="text-center cant'+r.data[i].idItm+'">' + r.data[i].cantidad + '</td>' +
 	                    '<td class="text-center">' + 
 	                        '<div class="input-group">' +
 	                            '<div class="input-group-prepend">' +
-	                                '<span class="input-group-text font-weight-bold"><i class="fa fa-hashtag"></i></span>' +
+	                                '<span class="input-group-text font-weight-bold"><i class="fa fa-tag"></i></span>' +
 	                            '</div>' + 
-	                            '<input type="text" class="form-control" onblur="changeCant(this,'+r.data[i].idItm+');" value="'+novDato(r.data[i].cantidad)+'">' +
+	                            '<input type="text" class="form-control precio" onblur="calcSubTotal(this,'+r.data[i].idItm+');">' +
 	                        '</div>' +
 	                    '</td>' +
 	                    '<td class="text-center">' + 
@@ -186,17 +357,33 @@
 	                            '<div class="input-group-prepend">' +
 	                                '<span class="input-group-text font-weight-bold"><i class="fa fa-hashtag"></i></span>' +
 	                            '</div>' + 
-	                            '<input type="text" class="form-control text-center" onblur="changeCant(this,'+r.data[i].idItm+');" value="subtotal" disabled>' +
+	                            '<input type="text" class="form-control text-center subtotal st'+r.data[i].idItm+'" value="0" disabled>' +
 	                        '</div>' +
 	                    '</td>' +
 	                '</tr>';
 	            }
+	            calcTotal();
 	            $('#listItems').html(html);
 	        },
 	        error: function (xhr, status, error) {
 	            alert('salio un error');
 	        }
 	    });
+	}
+	function calcSubTotal(ele,id)
+	{
+		// alert(parseFloat($('.cant'+id).html()));
+		$('.st'+id).val($(ele).val()*parseFloat($('.cant'+id).html()));
+		calcTotal();
+
+	}
+	function calcTotal()
+	{
+		let total = 0;
+		$(".subtotal").each(function(){
+    	    total = total + parseFloat($(this).val());
+    	});
+    	$('.total').html(total);
 	}
     // function fillRegistros()
     // {

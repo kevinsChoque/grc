@@ -21,7 +21,8 @@ class PortalProveedorController extends Controller
         $existeNumeroDocumento = TProveedor::where('numeroDocumento',$r->ruc)->first();
         if($existeNumeroDocumento!=null)
             return response()->json(['estado' => false, 'message' => 'El Proveedor con numero de documento: '.$r->numeroDocumento.' ya fue registrado.']);
-        $r->merge(['usuario' => $r->numeroDocumento]);
+        $r->merge(['usuario' => $r->ruc]);
+        $r->merge(['numeroDocumento' => $r->ruc]);
         // $r->merge(['password' => Hash::make($r->numeroDocumento)]);
         $password = Str::random(8);
         $r->merge(['password' => Hash::make($password)]);

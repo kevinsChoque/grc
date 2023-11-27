@@ -56,10 +56,11 @@ class LoginController extends Controller
     public function siginpro(Request $r)
     {
         // session()->flush();
-        session(['proveedor' => TProveedor::find(3)]);
-        return response()->json(['estado' => true, 'message' => 'ok']);
+        // session(['proveedor' => TProveedor::find(3)]);
+        // return response()->json(['estado' => true, 'message' => 'ok']);
         // ---
         $tPro = TProveedor::where('usuario',$r->usuario)->first();
+        // dd($tPro);
         if($tPro->estado=='0' || $tPro->estadoProveedor=='0')
         {
             return response()->json(['estado' => false, 'message' => 'El proveedor '.$r->usuario.' no cuenta con acceso al sistema.']);
@@ -80,5 +81,11 @@ class LoginController extends Controller
     {
     	session()->flush();
     	return redirect('login/login');
+    }
+    public function logoutPro()
+    {
+        // session()->flush();
+        session()->forget('proveedor');
+        return redirect('loginProveedor/loginProveedor');
     }
 }

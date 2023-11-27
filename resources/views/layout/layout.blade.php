@@ -28,7 +28,8 @@
     <!-- datatable -->
     
     
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <!-- https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css -->
+    <link rel="stylesheet" href="{{asset('cdn/jquery.dataTables.min.css')}}">
     <!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script> -->
 </head>
@@ -113,19 +114,23 @@
 <!-- <script src="{{asset('adminlte3/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
 <!-- helpers -->
 <script src="{{asset('js/helper.js')}}"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<!-- https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js -->
+<script src="{{asset('cdn/jquery.dataTables.min.js')}}"></script>
+<!-- https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js -->
+    <!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script> -->
 
-
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css -->
+<link href="{{asset('cdn/select2.min.css')}}" rel="stylesheet" />
 <!-- <link rel="stylesheet" href="{{asset('adminlte3/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}"> -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js -->
+<script src="{{asset('cdn/select2.min.js')}}"></script>
 <script>
     // __ruta__
 </script>
 <!-- sweetalert2 -->
 <!-- <script src="{{asset('adminlte3/plugins/sweetalert2/sweetalert2.min.js')}}"></script> -->
 <script>
+    // var __PUBLIC__ = "{{ route('ver-archivo') }}";
 $(document).ready( function () {
     sideBarCollapse();
     sideBarActive();

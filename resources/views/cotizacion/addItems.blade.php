@@ -237,7 +237,7 @@ function loadItemsCotizacion()
             $('#listItems').html(html);
         },
         error: function (xhr, status, error) {
-            alert('salio un error');
+            msjSimple(false,'Algo salio mal, porfavor contactese con el Administrador.');
         }
     });
 }
@@ -342,7 +342,7 @@ function changeCant(ele,idItm)
 
             },
             error: function (xhr, status, error) {
-                alert('Ocurrio un conflicto, porfavor contactese con el administrador.');
+                msjSimple(false,'Ocurrio un conflicto, porfavor contactese con el administrador.');
             }
         });
     }
@@ -405,7 +405,7 @@ function loadCotizacion()
             $('.fechaCotizacion').html(r.data.fechaCotizacion);
             $('.fechaFinalizacion').html(r.data.fechaFinalizacion);
             $('.concepto').html(r.data.concepto);
-            $('.descripcion').html(r.data.descripcion);
+            $('.descripcion').html(novDato(r.data.descripcion));
             $('.archivo').html(r.data.archivo);
             $('.estadoCotizacion').html(estateCotizacion);
             var dir = $('.fileCotizacion').attr('href');

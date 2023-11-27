@@ -26,14 +26,14 @@
         <li class="nav-item">
             <span class="font-weight-bold font-italic"><i class="fa fa-user-tie"></i>
             <!-- <img src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="Panel Administrativo" class="brand-image img-circle elevation-3 w-100" style="opacity: .8"> -->
-            ({{
+            (Usuario: {{
                 Session::has('proveedor')?
                     Session::get('proveedor')->usuario:
                     '--';
             }})
             ({{
                 Session::has('proveedor')?
-                    Session::get('proveedor')->idUsu:
+                    Session::get('proveedor')->idPro:
                     '--';
             }})
             {{

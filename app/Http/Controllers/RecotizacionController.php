@@ -12,10 +12,10 @@ use App\Models\TCotizacion;
 
 class RecotizacionController extends Controller
 {
-    public function actGuardar_b(Request $r)
-    {
-    	dd('llego hasta aki');
-    }
+    // public function actGuardar_b(Request $r)
+    // {
+    // 	dd('llego hasta aki');
+    // }
     public function actGuardar(Request $r)
     {
         $tCot = TCotizacion::where('idCot',$r->idCot)->where('estadoCotizacion','2')->first();
@@ -31,6 +31,7 @@ class RecotizacionController extends Controller
             if (Storage::put('public/recotizaciones/'.$r->idCot.'/' . $nombreArchivo, file_get_contents($archivo))) 
             {
                 $r->merge(['archivo' => $nombreArchivo]);
+                $r->merge(['estadoRecotizacion' => '1']);
                 $r->merge(['fr' => Carbon::now()]);
                 if(TRecotizacion::create($r->all()))
                 {

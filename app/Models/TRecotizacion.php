@@ -19,6 +19,7 @@ class TRecotizacion extends Model
         'archivo', 
         'fechaCotizacion', 
         'fechaFinalizacion',
+        'estadoRecotizacion',
         'fr',
     ];
 }

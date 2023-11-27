@@ -59,7 +59,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text font-weight-bold"><i class="fa fa-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control input" id="usuario" name="usuario">
+                                    <input type="text" class="form-control input" id="usuario" name="usuario" maxlength="11">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -136,7 +136,10 @@
             headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
             success: function (r) {
                 if (r.estado) 
-                    window.location.href = "{{url('panelAdm/home/home')}}";
+                {
+                    // window.location.href = "{{url('panelAdm/home/home')}}";
+                    window.location.href = "{{url('panelAdm/paCotizacion/cotizacionesActivas')}}";
+                }
                 else 
                 {
                 	$('.overlayPagina').css("display","none");

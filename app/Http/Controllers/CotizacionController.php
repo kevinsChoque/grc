@@ -120,6 +120,32 @@ class CotizacionController extends Controller
     public function actShow(Request $r)
     {
     	$registro = TCotizacion::find($r->id);
+        // dd($r->all());
+        // $registro = TCotizacion::select(DB::raw('count(cotxitm.idCi) as cantidad'),
+        //             'cotizacion.idCot',
+        //             'cotizacion.numeroCotizacion',
+        //             'cotizacion.tipo',
+        //             'cotizacion.concepto',
+        //             'cotizacion.estadoCotizacion',
+        //             'cotizacion.fechaCotizacion',
+        //             'cotizacion.fechaFinalizacion',
+        //             'cotizacion.archivo',
+        //             'cotizacion.estadoCotizacion',
+        //         )
+        //         ->join('cotxitm', 'cotxitm.idCot', '=', 'cotizacion.idCot')
+        //         ->where('cotizacion.idCot', $r->id)
+        //         ->groupBy('cotizacion.idCot',
+        //             'cotizacion.numeroCotizacion',
+        //             'cotizacion.tipo',
+        //             'cotizacion.concepto',
+        //             'cotizacion.estadoCotizacion',
+        //             'cotizacion.fechaCotizacion',
+        //             'cotizacion.fechaFinalizacion',
+        //             'cotizacion.archivo',
+        //             'cotizacion.estadoCotizacion',
+        //         )
+        //         ->first();
+        // echo(json_encode($registro));exit();
         return response()->json(["data"=>$registro]);
     }
     public function actGuardarCambios(Request $r)

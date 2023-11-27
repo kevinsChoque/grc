@@ -34,18 +34,18 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">COTIZACIONES</li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="pages/gallery.html" class="nav-link sba2">
                         <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a href="{{url('usuario')}}" class="nav-link sba3">
+                    <a href="{{url('panelAdm/paProveedor/datos')}}" class="nav-link sba3">
                         <i class="nav-icon fas fa-file"></i><p>Mis datos</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('proveedor')}}" class="nav-link sba4">
+                    <a href="{{url('panelAdm/paCotizacion/misCotizaciones')}}" class="nav-link sba4">
                         <i class="nav-icon fas fa-file"></i><p>Mis cotizaciones</p>
                     </a>
                 </li>
@@ -54,7 +54,7 @@
                         <i class="nav-icon fas fa-file"></i><p>Cotizaciones activas</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{url('proveedor')}}" class="nav-link sba6">
                         <i class="nav-icon fas fa-file"></i><p>Ayuda</p>
                     </a>
@@ -63,9 +63,9 @@
                     <a href="{{url('proveedor')}}" class="nav-link sba7">
                         <i class="nav-icon fas fa-file"></i><p>Instructivos</p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a href="{{url('login/logout')}}" class="nav-link">
+                    <a href="{{url('loginProveedor/logoutPro')}}" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i><p>cerrar sesion</p>
                     </a>
                 </li>

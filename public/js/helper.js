@@ -1,3 +1,27 @@
+// Función para obtener el nombre del mes
+function obtenerNombreMes(numeroMes) {
+    var meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+    return meses[numeroMes - 1];
+}
+
+// Función para obtener el formato de 12 horas
+function obtenerFormato12Horas(horas) {
+    return horas % 12 || 12; // Devuelve 12 en lugar de 0 para las 12:00 PM
+}
+
+// Función para agregar un cero inicial a minutos y segundos
+function agregarCeroInicial(valor) {
+    return valor < 10 ? "0" + valor : valor;
+}
+
+// Función para obtener AM o PM
+function obtenerAMPM(horas) {
+    return horas >= 12 ? "PM" : "AM";
+}
+// ----
 function sideBarCollapse()
 {
     if(localStorage.getItem("sbd")==1)
@@ -77,16 +101,16 @@ function sideBarActive()
 }
 function sideBarActivePa()
 {
-    console.log('este es sba---> '+localStorage.getItem("sba"));
-    if(localStorage.getItem("sba")==5)
-    {
-        console.log('entro');
-        $('.sba5').addClass('active');
-    }
-    if(localStorage.getItem("sba")==2)$('.sba2').addClass('bg-info');
-    if(localStorage.getItem("sba")==3)$('.sba3').addClass('bg-info');
-    if(localStorage.getItem("sba")==4)$('.sba4').addClass('bg-info');
-    // if(localStorage.getItem("sba")==5)$('.sba5').addClass('bg-info');
+    // console.log('este es sba---> '+localStorage.getItem("sba"));
+    // if(localStorage.getItem("sba")==5)
+    // {
+    //     console.log('entro');
+    //     $('.sba5').addClass('active');
+    // }
+    if(localStorage.getItem("sba")==2)$('.sba2').addClass('active');
+    if(localStorage.getItem("sba")==3)$('.sba3').addClass('active');
+    if(localStorage.getItem("sba")==4)$('.sba4').addClass('active');
+    if(localStorage.getItem("sba")==5)$('.sba5').addClass('active');
     if(localStorage.getItem("sba")==6)$('.sba6').addClass('bg-info');
     if(localStorage.getItem("sba")==7)$('.sba7').addClass('bg-info');
     if(localStorage.getItem("sba")==8)$('.sba8').addClass('bg-info');
