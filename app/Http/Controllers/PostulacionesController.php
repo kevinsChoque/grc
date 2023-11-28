@@ -73,11 +73,13 @@ class PostulacionesController extends Controller
 		        'ci.cantidad',
 		        'd.marca',
 		        'd.modelo',
-		        'd.precio'
+		        'd.precio',
+		        'u.nombre as umn'
 		    )
 		    ->join('proveedor as p', 'p.idPro', '=', 'c.idPro')
 		    ->join('detalleprocot as d', 'd.idCrp', '=', 'c.idCrp')
 		    ->join('cotxitm as ci', 'ci.idCi', '=', 'd.idItm')
+		    ->join('unidadmedida as u', 'u.idUm', '=', 'ci.idUm')//cascas
 		    ->join('item as i', 'i.idItm', '=', 'ci.idItm')
 		    ->where('c.idCot', $r->id)
 		    ->get();

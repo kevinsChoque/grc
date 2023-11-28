@@ -250,7 +250,7 @@ localStorage.setItem("sba",7);
 	                            '</div>'+
 	                            '<div class="col-lg-3">'+
 	                                '<p class="text-sm">Se dedica:'+
-	                                    '<b class="d-block">'+novDato(r.data[i].dedica)+'</b>'+
+	                                    '<b class="d-block">'+novDato(r.data[i].dedica=='1'?'SI':'NO')+'</b>'+
 	                                '</p>'+
 	                            '</div>'+
 	                            '<div class="col-lg-3">'+
@@ -288,7 +288,7 @@ localStorage.setItem("sba",7);
 					html += '<tr>'+
                       	// '<td>1.</td>'+
                       	'<td>'+novDato(r.data[i].nombre)+'</td>'+
-                      	'<td>'+novDato(r.data[i].idUm)+'</td>'+
+                      	'<td>'+novDato(r.data[i].umn)+'</td>'+
                       	'<td>'+novDato(r.data[i].cantidad)+'</td>'+
                       	'<td>'+novDato(r.data[i].marca)+'</td>'+
                       	'<td>'+novDato(r.data[i].modelo)+'</td>'+
