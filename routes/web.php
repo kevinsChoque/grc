@@ -20,6 +20,7 @@ use App\Http\Controllers\PaCotizacionController;
 use App\Http\Controllers\PaCotRecProController;
 use App\Http\Controllers\PaProveedorController;
 use App\Http\Controllers\PostulacionesController;
+use App\Http\Controllers\DetalleprocotController;
 
 
 
@@ -128,3 +129,6 @@ Route::get('panelAdm/paCotRecPro/{nombreArchivo?}',[PaCotRecProController::class
 // proveedor
 Route::get('panelAdm/paProveedor/datos', function () {return view('panelAdm.proveedor.datos');});
 Route::post('panelAdm/paProveedor/guardar',[PaProveedorController::class, 'actGuardar']);
+// detalle de las cotizaciones que envian
+
+Route::get('panelAdm/detalleprocot/{nombreArchivo?}',[DetalleprocotController::class, 'verArchivo'])->name('detalle-archivo');

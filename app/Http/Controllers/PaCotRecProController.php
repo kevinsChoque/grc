@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\TCotrecpro;
 use App\Models\TRecotizacion;
@@ -13,32 +14,55 @@ use App\Models\TDetalleprocot;
 
 class PaCotRecProController extends Controller
 {
+    public $arrayNombresFiles= array();
+
 	public function saveDetalleProCot($r,$idCrp)
     {
+        $i=1;
         foreach (json_decode($r->items,true) as $item) 
         {
-        	// echo($item['marca']);
-        	// echo '<br>';
             $tDpc=new TDetalleprocot();
             $tDpc->idCrp=$idCrp;
             $tDpc->idItm=$item['id'];
             $tDpc->marca=$item['marca'];
             $tDpc->modelo=$item['modelo'];
             $tDpc->precio=$item['precio'];
+            
             // $tDpc->archivo=$idCrp;
-            if(!$tDpc->save())
+            if($item['archivo']!='no tiene')
             {
-                return false;
+                // $this->arrayNombresFiles = array();
+                $tDpc->archivo=$idCrp.'_'.$i.'.pdf';
+                array_push($this->arrayNombresFiles, $idCrp.'_'.$i);
             }
+            if(!$tDpc->save())
+            {return false;}
+            $i++;
         }
-        // exit();
         return true;
     }
     public function actGuardar(Request $r)
     {
         // dd($r->all());
+        // $arc = $r->file('archivos');
+        // dd($arc[0]);
+        // dd(count($arc));
+
+        // $archivos = $r->file('archivos');
+        // foreach ($archivos as $archivo) {
+        //     // $ruta = Storage::putFile('public/ofetas', $archivo);
+
+        //     $nombreArchivo = uniqid() . '_' . time() . '.' . $archivo->getClientOriginalExtension();
+        //     // Guarda el archivo en la ubicación deseada con el nuevo nombre
+        //     $ruta = Storage::putFileAs('public/ofertas', $archivo, $nombreArchivo);
+        // }
+        // dd($r->all());
+        // ----------------------------------------------------------------------------
+
     	// return response()->json(['estado' => true, 'message' => 'Se registro la postulacion correctamente----------']);
-    	$ttt = json_decode($r->items,true);
+    	
+        // $ttt = json_decode($r->items,true);
+
     	// dd($r->all());
     	// dd($ttt['item0']['marca']);
     	$tRec = TRecotizacion::where('idCot',$r->idCot)->where('estadoRecotizacion','1')->first();
@@ -53,12 +77,29 @@ class PaCotRecProController extends Controller
         $r->merge(['fr' => Carbon::now()]);
     	DB::beginTransaction();
     	// if(TCotrecpro::create($r->all()))
+        // if(true)
     	$tCrp = TCotrecpro::create($r->all());
     	if($tCrp)
     	{
     		// $this->saveDetalleProCot($r,'3');
     		if($this->saveDetalleProCot($r,$tCrp->idCrp))
     		{
+                // ---
+                // ---
+                // ---
+                // dd(gettype($r->file('archivos')));
+                if($r->file('archivos')!==null)
+                {
+                    for ($i=0; $i < count($r->file('archivos')) ; $i++) 
+                    { 
+                        $archivo = $r->file('archivos')[$i];
+                        $nombreArchivo = $this->arrayNombresFiles[$i]. '.' . $archivo->getClientOriginalExtension();
+                        $ruta = Storage::putFileAs('public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/', $archivo, $nombreArchivo);
+                    }
+                }
+                // ---
+                // ---
+                // ---
 	    		DB::commit();
 	    		return response()->json(['estado' => true, 'message' => 'Se registro la postulacion correctamente']);
     		}

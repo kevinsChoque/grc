@@ -25,6 +25,15 @@
     		<h3 class="text-center font-weight-bold font-italic">ENVIE SU COTIZACION</h3>
     		<form id="fvcotpro">
     		<div class="row">
+    			<!-- <div class="col-lg-4">
+					<div class="form-group">
+                    	<label for="customFile">Custom File</label>
+	                    <div class="custom-file">
+	                      	<input type="file" class="custom-file-input" id="fileItem">
+	                      	<label class="custom-file-label changeNameFile" for="customFile">Choose file</label>
+	                    </div>
+                  	</div>
+    			</div> -->	
     			<div class="col-lg-12">
     				<div class="form-group row">
 						<label class="col-sm-2 col-form-label text-right">Cotizacion: <span class="text-danger">*</span></label>
@@ -126,10 +135,11 @@
 	                                <th width="10%">Clasificador</th>
 	                                <th width="8%">marca</th>
 	                                <th width="7%">modelo</th>
-	                                <th width="10%">U.Medida</th>
-	                                <th width="5%">Cantidad</th>
-	                                <th width="15%">Precio</th>
-	                                <th width="15%">Subtotal</th>
+	                                <th width="5%">U.M</th>
+	                                <th width="5%">Cant.</th>
+	                                <th width="12%">Precio</th>
+	                                <th width="10%">Subtotal</th>
+	                                <th width="13%">Arc.</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody id="listItems">
@@ -165,10 +175,18 @@
     	loadItemsCotizacion()
         $('.overlayPagina').css("display","none");
         $('.overlayRegistros').css("display","none");
+  		// bsCustomFileInput.init();
     });
+    
     $('.guardarCotPro').on('click',function(){
     	guardarCotPro();
     });
+	// $('.fileItem').on('change',function(){
+	// 	var fileName = $(this).val().split('\\').pop();
+ //    	console.log(fileName);
+ //    	$(this).parent().find('label').html(fileName);
+ //    	// $('.changeNameFile').html(fileName);
+ //    });
     function rules()
 	{
 	    return {
@@ -180,6 +198,7 @@
 	}
 	var obj;
 	var estado;
+	var arc;
     function guardarCotPro()
     {
     	let banMarca = true;
@@ -189,6 +208,7 @@
     	let marca = [];
     	let modelo = [];
     	let precio = [];
+    	var archivos = [];
     	var miObjeto = {};
     	$(".idCi").each(function(){
     	    ids.push($(this).attr('data-id'))
@@ -208,6 +228,19 @@
     	    	banPrecio = false
     	    precio.push($(this).val())
     	});
+    	// $('.fileItem').each(function() {
+     //        var archivoInput = $(this)[0];
+     //        // Verifica si se seleccionó un archivo
+     //        if (archivoInput.files.length > 0) {
+     //            var archivo = archivoInput.files[0];
+     //            archivos.push(archivo);
+     //        }
+     //        else
+     //        {
+     //        	archivos.push('null');
+     //        }
+     //    });
+        arc=archivos;
     	
 		// console.log(miObjeto);
     	if($('#fvcotpro').valid()==false)
@@ -215,21 +248,54 @@
     	// console.log(banMarca)
     	if(banMarca && banModelo && banPrecio)
     	{
+    		var fileInputs = document.getElementsByClassName('fileItem');
+    		// var archivoInput;
+    		var nombreArchivo='no tiene';
     		for (var i = 0; i < $(".marca").length; i++) 
 	    	{
+			    if (fileInputs[i].files.length > 0) 
+			    {
+			        // Accede al primer archivo seleccionado y muestra su nombre
+			        nombreArchivo = fileInputs[i].files[0].name;
+			        // console.log('Nombre del archivo:', nombreArchivo);
+			    }
 			  	miObjeto["item" + i] = {
 			  		id: ids[i],
 				    marca: marca[i],
 				    modelo: modelo[i],
-				    precio: precio[i]
+				    precio: precio[i],
+				    archivo: nombreArchivo,
 			  	};
+			  	nombreArchivo='no tiene';
 			}
 			// console.log('miObjeto');
 			// console.log(miObjeto);
 			obj=miObjeto;
 			// console.log('miObjeto');
+
 			var formData = new FormData($("#fvcotpro")[0]);
+			// -----------------------
+			for (var i = 0; i < archivos.length; i++) {
+	            formData.append('archivos[]', archivos[i]);
+	        }
+	        var j=0;
+	        $('.fileItem').each(function() {
+	            if ($(this)[0].files.length > 0) {
+	                // var archivo = archivoInput.files[0];
+	                // archivos.push(archivo);
+	                console.log('guardo el archivo----> '+j);
+	                formData.append('archivos[]', $(this)[0].files[0]);
+	            }
+	            // else
+	            // {
+	            // 	console.log('no hay nada');
+	            // 	formData.append('archivos[]', 'no hay nada');
+	            // }
+	            j++;
+	        });
+			// -----------------------
 			formData.append('items',JSON.stringify(miObjeto));
+			// formData.append('items',JSON.stringify(miObjeto));
 			formData.append('idCot',localStorage.getItem('idCot'));
 			formData.append('total',$('.total').html());
 
@@ -240,7 +306,6 @@
 	        { 
 	            url: "{{url('panelAdm/paCotRecPro/guardar')}}",
 	            data: formData,
-	            // data: {items:miObjeto},
 	            method: 'post',
 	            dataType: 'json',
 		        processData: false, 
@@ -353,12 +418,21 @@
 	                        '</div>' +
 	                    '</td>' +
 	                    '<td class="text-center">' + 
-	                        '<div class="input-group">' +
-	                            '<div class="input-group-prepend">' +
-	                                '<span class="input-group-text font-weight-bold"><i class="fa fa-hashtag"></i></span>' +
-	                            '</div>' + 
-	                            '<input type="text" class="form-control text-center subtotal st'+r.data[i].idItm+'" value="0" disabled>' +
-	                        '</div>' +
+	                    	'<input type="text" class="form-control text-center subtotal st'+r.data[i].idItm+'" value="0" disabled>' +
+	                        // '<div class="input-group">' +
+	                        //     '<div class="input-group-prepend">' +
+	                        //         '<span class="input-group-text font-weight-bold"><i class="fa fa-hashtag"></i></span>' +
+	                        //     '</div>' + 
+	                        //     '<input type="text" class="form-control text-center subtotal st'+r.data[i].idItm+'" value="0" disabled>' +
+	                        // '</div>' +
+	                    '</td>' +
+	                    '<td>' + 
+	                    	// '<div class="form-group">'+
+			                    '<div class="custom-file">'+
+			                      	'<input type="file" class="custom-file-input fileItem" onchange="changeNameFile(this)">'+
+			                      	'<label class="custom-file-label changeNameFile" for="customFile">Archivo</label>'+
+			                    '</div>'+
+		                  	// '</div>'+
 	                    '</td>' +
 	                '</tr>';
 	            }
@@ -369,6 +443,12 @@
 	            alert('salio un error');
 	        }
 	    });
+	}
+	function changeNameFile(elem)
+	{
+		var fileName = $(elem).val().split('\\').pop();
+    	console.log(fileName);
+    	$(elem).parent().find('label').html(fileName);
 	}
 	function calcSubTotal(ele,id)
 	{

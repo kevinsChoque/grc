@@ -74,6 +74,7 @@ class PostulacionesController extends Controller
 		        'd.marca',
 		        'd.modelo',
 		        'd.precio',
+		        'd.archivo as arcDet',
 		        'u.nombre as umn'
 		    )
 		    ->join('proveedor as p', 'p.idPro', '=', 'c.idPro')

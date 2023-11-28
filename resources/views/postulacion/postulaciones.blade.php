@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6"><h1 class="m-0">Postulaciones</h1></div>
             <div class="col-sm-6">
-                <a href="{{url('postulaciones/ver')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Ver lista de postulaciones</a>
+                <a href="{{url('postulaciones/ver')}}" class="btn btn-success float-right"><i class="fa fa-list"></i> Ver lista de postulaciones</a>
                 <ol class="breadcrumb float-sm-right" style="display: none;">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v3</li>
@@ -111,7 +111,7 @@
                	<div class="card-body box-profile p-0">
                		<!-- <a href="{{ route('ver-archivo') }}" class="d-block fileCotizacion font-weight-bold" target="_blank">-</a> -->
                		<a href="{{ route('ver-archivo') }}" class="fileCotizacion" target="_blank">
-	                	<h3 class="profile-username text-center cotizacion btn btn-link mb-0">--</h3>
+	                	<h3 class="profile-username text-center cotizacion btn btn-link mb-0 text-center w-100">--</h3>
                		</a>
 	                <p class="text-muted text-center m-0 items">Items: --</p>
               	</div>
@@ -150,7 +150,7 @@
         </div>
     </div> -->
 </div>
-<a href=""></a>
+<a href="{{ route('cotRecPro-archivo') }}" ></a>
 <script>
 localStorage.setItem("sbd",0);
 localStorage.setItem("sba",7);
@@ -285,9 +285,15 @@ localStorage.setItem("sba",7);
 					                  	'<tbody>';
 						idBan=r.data[i].idPro;
 					}
+                    // javascript:void(0)
+                    var enlaceFile = r.data[i].arcDet===null?
+                        '<i class="fa fa-cube"></i> '+novDato(r.data[i].nombre):
+                        '<a target="_blank" href="'+'{{ route('detalle-archivo') }}/'+r.data[i].arcDet+'"><i class="fa fa-file-pdf"></i></a> '+novDato(r.data[i].nombre);
+
 					html += '<tr>'+
                       	// '<td>1.</td>'+
-                      	'<td>'+novDato(r.data[i].nombre)+'</td>'+
+                      	// '<td><a target="_blank" href="{{ route('detalle-archivo') }}/'+r.data[i].arcDet+'"><i class="fa fa-file-pdf"></i></a> '+novDato(r.data[i].nombre)+'</td>'+
+                        '<td>'+enlaceFile+'</td>'+
                       	'<td>'+novDato(r.data[i].umn)+'</td>'+
                       	'<td>'+novDato(r.data[i].cantidad)+'</td>'+
                       	'<td>'+novDato(r.data[i].marca)+'</td>'+
@@ -347,7 +353,7 @@ localStorage.setItem("sba",7);
             headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
             success: function (r) {
             	console.log(r);
-                let cot = "<i class='fa fa-file-pdf'></i> COTIZACION("+r.data.tipo+"): "+r.data.numeroCotizacion;
+                let cot = "<i class='fa fa-file-pdf'></i> COTIZACION("+r.data.tipo+"): <br>"+r.data.numeroCotizacion;
                 $('.cotizacion').html(novDato(cot));
                 $('.items').html('Items: '+r.data.cantidad);
 

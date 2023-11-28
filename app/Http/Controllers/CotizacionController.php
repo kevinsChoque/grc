@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 use App\Models\TCotizacion;
