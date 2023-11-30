@@ -21,6 +21,7 @@ use App\Http\Controllers\PaCotRecProController;
 use App\Http\Controllers\PaProveedorController;
 use App\Http\Controllers\PostulacionesController;
 use App\Http\Controllers\DetalleprocotController;
+use App\Http\Controllers\FilesCotizacionController;
 
 
 
@@ -132,3 +133,8 @@ Route::post('panelAdm/paProveedor/guardar',[PaProveedorController::class, 'actGu
 // detalle de las cotizaciones que envian
 
 Route::get('panelAdm/detalleprocot/{nombreArchivo?}',[DetalleprocotController::class, 'verArchivo'])->name('detalle-archivo');
+// archivos de cotizacion
+Route::get('panelAdm/declaracionJurada',[FilesCotizacionController::class, 'declaracionJurada'])->name('declaracion-jurada');
+Route::get('panelAdm/cci',[FilesCotizacionController::class, 'cci'])->name('cci');
+Route::get('panelAdm/cotizacion',[FilesCotizacionController::class, 'cotizacion'])->name('cotizacion');
+

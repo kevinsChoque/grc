@@ -12,17 +12,18 @@
             	<form id="fvitem">
     				<div class="row">
                         <div class="col-lg-4 text-center">
-                            <a class="btn btn-app shadow bg-purple">
+                            <a href="{{route('cotizacion')}}" target="_blank" class="btn btn-app shadow bg-purple">
                                 <i class="fas fa-file"></i> Descargar Cotizacion Llenada
                             </a>
+                            <!-- <a href="{{url('comprobante/c80mm')}}/'+r.data[i].idVen+'" class="btn text-secondary" target="_blank"><i class="fa fa-file-pdf"></i> Comprobante</a> -->
                         </div>  
                         <div class="col-lg-4 text-center">
-                            <a class="btn btn-app shadow bg-purple">
+                            <a href="{{route('cci')}}" target="_blank" class="btn btn-app shadow bg-purple">
                                 <i class="fas fa-file"></i> Descargar CCI
                             </a>
                         </div> 
                         <div class="col-lg-4 text-center">
-                            <a class="btn btn-app shadow bg-purple">
+                            <a href="{{route('declaracion-jurada')}}" target="_blank" class="btn btn-app shadow bg-purple">
                                 <i class="fas fa-file"></i> Descargar Declaracion Jurada
                             </a>
                         </div> 
