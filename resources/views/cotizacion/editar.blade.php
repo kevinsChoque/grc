@@ -39,7 +39,7 @@
                     </div>
                     <form id="efvcotizacion">
                     <div class="row">
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label class="m-0">Numero de Cotizacion: <span class="text-danger">*</span> <i class="fa fa-info-circle text-info"></i></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                                 <input type="text" class="form-control soloNumeros input" id="numeroCotizacion" name="numeroCotizacion">
                             </div>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label class="m-0">Tipo de Cotizacion: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -62,7 +62,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label class="m-0">Unidad Ejecutora: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -71,7 +71,7 @@
                                 <input type="text" class="form-control" id="unidadEjecutora" name="unidadEjecutora" value="GOBIERNO REGIONAL DE APURIMAC - SEDE CENTRAL" disabled>
                             </div>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label class="m-0">Documento: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -80,7 +80,7 @@
                                 <input type="text" class="form-control input" id="documento" name="documento">
                             </div>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <!-- <div class="form-group col-lg-3">
                             <label class="m-0">Fecha de la Cotizacion: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -88,14 +88,69 @@
                                 </div>
                                 <input type="date" class="form-control" id="fechaCotizacion" name="fechaCotizacion">
                             </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="m-0">Fecha de la Cotizacion: <span class="text-danger">*</span></label>
+                                <div class="input-group date" id="ifechaCotizacion" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#ifechaCotizacion" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control datetimepicker-input inputDate" data-target="#ifechaCotizacion" id="fechaCotizacion" name="fechaCotizacion">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <!-- <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="m-0">Hora de la Cotizacion: <span class="text-danger">*</span></label>
+                                <div class="input-group date" id="ihoraCotizacion" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#ihoraCotizacion" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control datetimepicker-input inputDate" data-target="#ihoraCotizacion" id="horaCotizacion" name="horaCotizacion"/>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="m-0">Hora de la Cotizacion: <span class="text-danger">*</span></label>
+                                <div class="input-group date" id="ihoraCotizacion" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#ihoraCotizacion" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control datetimepicker-input inputDate" data-target="#ihoraCotizacion" id="horaCotizacion" name="horaCotizacion"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-lg-3">
                             <label class="m-0">Fecha de la finalizacion: <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                                 </div>
                                 <input type="date" class="form-control input" id="fechaFinalizacion" name="fechaFinalizacion">
+                            </div>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="m-0">Fecha de la finalizacion: <span class="text-danger">*</span></label>
+                                <div class="input-group date" id="ifechaFinalizacion" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#ifechaFinalizacion" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control datetimepicker-input inputDate" data-target="#ifechaFinalizacion" id="fechaFinalizacion" name="fechaFinalizacion">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="m-0">Hora de la finalizacion: <span class="text-danger">*</span></label>
+                                <div class="input-group date" id="ihoraFinalizacion" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#ihoraFinalizacion" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control datetimepicker-input inputDate" data-target="#ihoraFinalizacion" id="horaFinalizacion" name="horaFinalizacion">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-lg-6">
@@ -105,7 +160,7 @@
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                                 </div>
                                 <!-- <input type="text" class="form-control" id="concepto" name="concepto"> -->
-                                <textarea name="concepto" id="concepto" cols="30" rows="5" class="form-control input"></textarea>
+                                <textarea name="concepto" id="concepto" cols="30" rows="3" class="form-control input"></textarea>
                             </div>
                         </div>
                         <div class="form-group col-lg-6">
@@ -115,7 +170,7 @@
                                     <span class="input-group-text font-weight-bold"><i class="fa fa-angle-right"></i></span>
                                 </div>
                                 <!-- <input type="text" class="form-control" id="descripcion" name="descripcion"> -->
-                                <textarea name="descripcion" id="descripcion" cols="30" rows="5" class="form-control input"></textarea>
+                                <textarea name="descripcion" id="descripcion" cols="30" rows="3" class="form-control input"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-12 alert alert-info">
@@ -177,9 +232,16 @@
         //     icon: 'error',
         //     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
         // });
+        $('#ifechaCotizacion').datetimepicker({format: 'YYYY-MM-DD'});
+        $('#ifechaFinalizacion').datetimepicker({format: 'YYYY-MM-DD'});
+        $('#ihoraCotizacion').datetimepicker({format: 'LT'});
+        $('#ihoraFinalizacion').datetimepicker({format: 'LT'});
     });
     $('.guardarCambios').on('click',function(){
         guardarCambios();
+    });
+    $('.inputDate').on('click',function(){
+        $(this).parent().find('.input-group-prepend').click();
     });
     function rules()
     {
@@ -225,8 +287,11 @@
                 // $('#unidadEjecutora').val(r.data.unidadEjecutora);
                 $('#documento').val(r.data.documento);
                 $('#fechaCotizacion').val(r.data.fechaCotizacion);
+                $('#horaCotizacion').val(r.data.horaCotizacion);
                 console.log(r.data.fechaFinalizacion);
                 $('#fechaFinalizacion').val(r.data.fechaFinalizacion);
+                $('#horaFinalizacion').val(r.data.horaFinalizacion);
+                
                 $('#concepto').val(r.data.concepto);
                 $('#descripcion').val(r.data.descripcion);
                 $('#file').val(r.data.file);

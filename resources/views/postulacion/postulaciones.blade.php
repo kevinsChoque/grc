@@ -274,12 +274,13 @@ localStorage.setItem("sba",7);
 						                '<thead>'+
 						                    '<tr>'+
 						                      // '<th style="width: 10px">#</th>'+
-						                      '<th>Nombre</th>'+
-						                      '<th>U/M</th>'+
-						                      '<th style="width: 40px">Cant</th>'+
-						                      '<th>Marca</th>'+
-						                      '<th>Modelo</th>'+
-						                      '<th>Precio</th>'+
+						                      '<th class="align-middle">Nombre</th>'+
+						                      '<th class="align-middle">U/M</th>'+
+						                      '<th class="align-middle" style="width: 40px">Cant</th>'+
+						                      '<th class="align-middle">Marca</th>'+
+						                      '<th class="align-middle">Modelo</th>'+
+						                      '<th class="align-middle">Precio</th>'+
+						                      '<th class="align-middle">F.T</th>'+
 						                    '</tr>'+
 						                '</thead>'+
 					                  	'<tbody>';
@@ -289,16 +290,21 @@ localStorage.setItem("sba",7);
                     var enlaceFile = r.data[i].arcDet===null?
                         '<i class="fa fa-cube"></i> '+novDato(r.data[i].nombre):
                         '<a target="_blank" href="'+'{{ route('detalle-archivo') }}/'+r.data[i].arcDet+'"><i class="fa fa-file-pdf"></i></a> '+novDato(r.data[i].nombre);
+					var soloEnlaceFile = r.data[i].arcDet===null?
+                        '<i class="fa fa-cube"></i>':
+                        '<a target="_blank" href="'+'{{ route('detalle-archivo') }}/'+r.data[i].arcDet+'"><i class="fa fa-file-pdf"></i></a>';
 
 					html += '<tr>'+
                       	// '<td>1.</td>'+
                       	// '<td><a target="_blank" href="{{ route('detalle-archivo') }}/'+r.data[i].arcDet+'"><i class="fa fa-file-pdf"></i></a> '+novDato(r.data[i].nombre)+'</td>'+
-                        '<td>'+enlaceFile+'</td>'+
+                        // '<td>'+enlaceFile+'</td>'+
+                        '<td>'+novDato(r.data[i].nombre)+'</td>'+
                       	'<td>'+novDato(r.data[i].umn)+'</td>'+
                       	'<td>'+novDato(r.data[i].cantidad)+'</td>'+
                       	'<td>'+novDato(r.data[i].marca)+'</td>'+
                       	'<td>'+novDato(r.data[i].modelo)+'</td>'+
                       	'<td>'+novDato(r.data[i].precio)+'</td>'+
+                      	'<td>'+soloEnlaceFile+'</td>'+
                     '</tr>';
                     if(r.data[i+1]===undefined)
                     {
