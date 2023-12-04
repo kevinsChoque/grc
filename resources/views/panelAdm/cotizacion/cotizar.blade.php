@@ -16,6 +16,15 @@
 </div>
 @endsection
 @section('contentPanelAdmin')
+<style>
+	.custom-file-input:lang(en)~.custom-file-label::after {
+	    /*content: "\f004";*/
+	    content: "PDF"; /* Código Unicode del icono de PDF */
+      	/*font-family: 'Font Awesome 4 Free';*/
+      	font-size: .9rem;
+      	padding-inline: 3px;
+	}
+</style>
 <div class="container-fluid mt-3">
     <div class="card">
     	<div class="overlay overlayRegistros">
@@ -36,7 +45,7 @@
     			</div> -->	
     			<div class="col-lg-12">
     				<div class="form-group row">
-						<label class="col-sm-2 col-form-label text-right">Cotizacion: <span class="text-danger">*</span></label>
+						<label class="col-sm-2 col-form-label text-right"><a href="{{ route('ver-archivo') }}" target="_blank" class="btn text-info cotFile pb-3 pr-0"><i class="fa fa-file-pdf fa-lg"></i> </a> Cotizacion: <span class="text-danger">*</span></label>
 						<div class="col-sm-9">
 							<input type="text" id="concepto" name="concepto" class="form-control concepto" disabled>
 						</div>
@@ -131,15 +140,15 @@
 	                    <table class="w-100 table table-hover table-striped table-bordered">
 	                        <thead>
 	                            <tr class="text-center">
-	                                <th width="30%">Nombre</th>
-	                                <th width="10%">Clasificador</th>
-	                                <th width="8%">marca</th>
-	                                <th width="7%">modelo</th>
-	                                <th width="5%">U.M</th>
-	                                <th width="5%">Cant.</th>
-	                                <th width="12%">Precio</th>
-	                                <th width="10%">Subtotal</th>
-	                                <th width="13%">Arc.</th>
+	                                <th class="align-middle" width="30%">Nombre</th>
+	                                <th class="align-middle" width="5%">U.M</th>
+	                                <th class="align-middle" width="5%">Cant.</th>
+	                                <th class="align-middle" width="10%">Garantia</th>
+	                                <th class="align-middle" width="10%">marca</th>
+	                                <th class="align-middle" width="10%">modelo</th>
+	                                <th class="align-middle" width="10%">Precio</th>
+	                                <th class="align-middle" width="7%">Subtotal</th>
+	                                <th class="align-middle" width="13%">Ficha tecnica</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody id="listItems">
@@ -201,10 +210,12 @@
 	var arc;
     function guardarCotPro()
     {
+    	let banGarantia = true;
     	let banMarca = true;
     	let banModelo = true;
     	let banPrecio = true;
     	let ids = [];
+    	let garantia = [];
     	let marca = [];
     	let modelo = [];
     	let precio = [];
@@ -212,6 +223,11 @@
     	var miObjeto = {};
     	$(".idCi").each(function(){
     	    ids.push($(this).attr('data-id'))
+    	});
+    	$(".garantia").each(function(){
+    	    if($(this).val()=='')
+    	    	banGarantia = false
+    	    garantia.push($(this).val())
     	});
     	$(".marca").each(function(){
     	    if($(this).val()=='')
@@ -246,7 +262,7 @@
     	if($('#fvcotpro').valid()==false)
     	{return;}
     	// console.log(banMarca)
-    	if(banMarca && banModelo && banPrecio)
+    	if(banMarca && banModelo && banPrecio && banGarantia)
     	{
     		var fileInputs = document.getElementsByClassName('fileItem');
     		// var archivoInput;
@@ -261,6 +277,7 @@
 			    }
 			  	miObjeto["item" + i] = {
 			  		id: ids[i],
+				    garantia: garantia[i],
 				    marca: marca[i],
 				    modelo: modelo[i],
 				    precio: precio[i],
@@ -355,19 +372,17 @@
     }
     function loadData()
     {
-    	console.log('entro')
+    	// console.log('entro')
     	$('#mCotizacion').modal('show');
         jQuery.ajax(
         { 
-        	// panelAdm/paCotizacion/listar
             url: "{{url('panelAdm/paCotizacion/showProCot')}}",
             data: {id:localStorage.getItem('idCot')},
             method: 'post',
             headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
             success: function(r){
                 // showDataCotizacion(r);
-                console.log(r.pro.tipoPersona);
-
+                // console.log(r.pro.tipoPersona);
                 $('.nombreRazon').val(r.pro.tipoPersona=="PERSONA NATURAL"?
                 	r.pro.nombre+' '+r.pro.apellidoPaterno+' '+r.pro.apellidoMaterno:r.pro.razonSocial);
                 $('.concepto').val(r.cot.concepto);
@@ -376,6 +391,8 @@
                 // $('.nombreRazon').val(r.pro.nombreRazon);
                 $('.celular').val(r.pro.celular);
                 $('.correo').val(r.pro.correo);
+                var dir = $('.cotFile').attr('href');
+                $('.cotFile').attr('href',dir+'/'+r.cot.archivo);
 
 				// timeEntrega
 				// timeValidez
@@ -393,9 +410,9 @@
 	        dataType: 'json',
 	        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
 	        success: function (r) {
-	        	console.log('--------------');
-	            console.log(r);
-	            console.log('--------------');
+	        	// console.log('--------------');
+	         //    console.log(r);
+	         //    console.log('--------------');
 	            let idFila = '';
 	            var html = '';
 	            for (var i = 0; i < r.data.length; i++) 
@@ -403,36 +420,22 @@
 	                idFila = localStorage.getItem('idCot')+r.data[i].idItm;
 	                html += '<tr class="fila'+idFila+'">' +
 	                    '<td class="font-weight-bold idCi" data-id="'+novDato(r.data[i].idCi)+'">' + novDato(r.data[i].nombre) +'</td>' +
-	                    '<td class="text-center">' + novDato(r.data[i].clasificador) + '</td>' +
-	                    '<td class="text-center">' + '<input type="text" class="form-control marca">' + '</td>' +
-	                    '<td class="text-center">' + '<input type="text" class="form-control modelo">' + '</td>' +
-	                    '<td class="text-center"><span class="font-weight-bold badge badge-light shadow um'+idFila+'">'+ novDato(r.data[i].nombreUm) +
-	                    '</td>' +
+	                    '<td class="text-center"><span class="font-weight-bold badge badge-light um'+idFila+'">'+ novDato(r.data[i].nombreUm) + '</td>' +
 	                    '<td class="text-center cant'+r.data[i].idItm+'">' + r.data[i].cantidad + '</td>' +
+	                    '<td class="text-center">' + '<input type="text" class="form-control garantia px-1">' + '</td>' +
+	                    '<td class="text-center">' + '<input type="text" class="form-control marca px-1">' + '</td>' +
+	                    '<td class="text-center">' + '<input type="text" class="form-control modelo px-1">' + '</td>' +
 	                    '<td class="text-center">' + 
-	                        '<div class="input-group">' +
-	                            '<div class="input-group-prepend">' +
-	                                '<span class="input-group-text font-weight-bold"><i class="fa fa-tag"></i></span>' +
-	                            '</div>' + 
-	                            '<input type="text" class="form-control precio" onblur="calcSubTotal(this,'+r.data[i].idItm+');">' +
-	                        '</div>' +
+							'<input type="text" class="form-control precio px-1" onblur="calcSubTotal(this,'+r.data[i].idItm+');">' +
 	                    '</td>' +
 	                    '<td class="text-center">' + 
 	                    	'<input type="text" class="form-control text-center subtotal st'+r.data[i].idItm+'" value="0" disabled>' +
-	                        // '<div class="input-group">' +
-	                        //     '<div class="input-group-prepend">' +
-	                        //         '<span class="input-group-text font-weight-bold"><i class="fa fa-hashtag"></i></span>' +
-	                        //     '</div>' + 
-	                        //     '<input type="text" class="form-control text-center subtotal st'+r.data[i].idItm+'" value="0" disabled>' +
-	                        // '</div>' +
 	                    '</td>' +
 	                    '<td>' + 
-	                    	// '<div class="form-group">'+
-			                    '<div class="custom-file">'+
-			                      	'<input type="file" class="custom-file-input fileItem" onchange="changeNameFile(this)">'+
-			                      	'<label class="custom-file-label changeNameFile" for="customFile">Archivo</label>'+
-			                    '</div>'+
-		                  	// '</div>'+
+		                    '<div class="custom-file">'+
+		                      	'<input type="file" class="custom-file-input fileItem" onchange="changeNameFile(this)">'+
+		                      	'<label class="custom-file-label changeNameFile" for="customFile">Archivo</label>'+
+		                    '</div>'+
 	                    '</td>' +
 	                '</tr>';
 	            }
@@ -452,10 +455,8 @@
 	}
 	function calcSubTotal(ele,id)
 	{
-		// alert(parseFloat($('.cant'+id).html()));
 		$('.st'+id).val($(ele).val()*parseFloat($('.cant'+id).html()));
 		calcTotal();
-
 	}
 	function calcTotal()
 	{
@@ -465,42 +466,5 @@
     	});
     	$('.total').html(total);
 	}
-    // function fillRegistros()
-    // {
-    //     $('.contenedorRegistros').css('display','block');
-    //     jQuery.ajax(
-    //     { 
-    //         url: "{{ url('panelAdm/paCotizacion/listar') }}",
-    //         method: 'get',
-    //         success: function(r)
-    //         {
-    //             // console.log(r.data);
-    //             var html = '';
-    //             for (var i = 0; i < r.data.length; i++) 
-    //             {
-    //                 html += '<tr>' +
-    //                     '<td class="text-center font-weight-bold">' + novDato(r.data[i].tipo) + '</td>' +
-    //                     '<td class="text-center">' + novDato(r.data[i].numeroCotizacion) + '</td>' +
-    //                     '<td class=""><p class="m-0 ocultarTextIzqNameUser">' + novDato(r.data[i].concepto) + '</p></td>' +
-    //                     '<td class=""><p class="m-0 ocultarTextIzqNameUser">' + novDato(r.data[i].descripcion) + '</p></td>' +
-    //                     '<td class="text-center">' + novDato(r.data[i].fechaFinalizacion) + '</td>' +
-    //                     '<td class="text-center">' + 
-    //                         '<div class="btn-group btn-group-sm" role="group">'+
-    //                             '<button type="button" class="btn text-info" title="Editar registro" onclick="cotizar('+r.data[i].idCot+');"><i class="fa fa-edit" ></i></button>'+
-    //                         '</div>'+
-    //                     '</td></tr>';
-    //             }
-    //             $('#data').html(html);
-    //             initDatatable('registros');
-    //             $('.overlayRegistros').css('display','none');
-    //         }
-    //     });
-        
-    // }
-    // function cotizar(id)
-    // {
-    // 	localStorage.setItem("idCot",id);
-    //     window.location.href = "{{url('portal/paCotizacion/cotizar')}}";
-    // }
 </script>
 @endsection

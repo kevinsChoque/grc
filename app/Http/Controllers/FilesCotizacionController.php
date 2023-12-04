@@ -8,6 +8,29 @@ use Codedge\Fpdf\Fpdf\Fpdf;
 
 class FilesCotizacionController extends Controller
 {
+	public $lisparg = [
+			'Este es un texto largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c'];
 	public function cotizacion()
 	{
 		// dd('cascascacasc');
@@ -121,27 +144,28 @@ class FilesCotizacionController extends Controller
 		$parrafo = 'Este es un texto largo que ocupa varias líneas. ';
 		$parrafo2 = 'Este es un texto largo que ocupa vars líneas rs líneas c';
 		$lispar = [
-			'Este es un texto largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
-			'kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
-			'kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
-			'Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c'];
+			'1.-Este es un texto largo que ocupa vars líneas rs líneas c',
+			'2.-Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'3.-Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'4.-Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'5.-Este es un texto largo que ocupa vars líneas rs líneas c',
+			'6.-Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'7.-Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'8.-Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'9.- es un texto largo que ocupa vars líneas rs líneas c',
+			'10.-Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'11.-Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'12.-Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'13.-Este es un texto largo que ocupa vars líneas rs líneas c',
+			'14.-Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'15.-kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'16.-Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c',
+			'17.-Este es un texto largo que ocupa vars líneas rs líneas c',
+			'18.-Este es un texto largo que ocupa vars líneas rs líneas cccccccc',
+			'19.-kevins Este es un texto largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas c',
+			'20.-Este es un texto largo que ocupa vars líneas rs líneas c to largo independiente ocupa vars líneas rs líneas c to largo que ocupa vars líneas rs líneas cars líneas líneas independiente largo que ocupa vars líneas rs líneas c'];
 		$alcance = 0;
+		$pdf->text(95,45,count($lispar));
 		for ($i=0; $i < count($lispar); $i++) 
 		{ 
 			$tam = 4;
@@ -157,6 +181,12 @@ class FilesCotizacionController extends Controller
 			$alcance = $alcance + $mul;
 			if($alcance>35)
 			{
+				$lispar2 = array_slice($lispar, $i);
+				$pdf->text(150,42,'nuevo array tiene->'.count($lispar2));
+
+				$pdf->text(120,42,'$mul->'.$mul);
+				$pdf->text(120,44,'alcance->'.$alcance);
+				$pdf->text(120,46,'cant lista->'.count($lispar));
 				$pdf->AddPage();
 				break;
 			}
@@ -177,8 +207,10 @@ class FilesCotizacionController extends Controller
 			$pdf->Cell(20,$tam,utf8_decode('modelo'),$ssmarco,0,'C');
 			$pdf->Cell(20,$tam,utf8_decode('100.00'),$ssmarco,0,'C');
 			$pdf->Cell(20,$tam,utf8_decode('100.00'),$ssmarco,1,'C');
+
+			// unset($lispar[$i]);
 		}
-		$pdf->text(95,250,$alcance);
+		$pdf->text(95,250,$alcance.'---');
 		// $tam = 3.5;
 		// $pdf->ln(105.6);
 		// $pdf->SetFont('Arial','',9);
@@ -275,6 +307,9 @@ class FilesCotizacionController extends Controller
     	 	$p->nombreRep.' '.$p->apellidoPaternoRep.' '.$p->apellidoMaternoRep);
 		$dni = '47655230';
 		$ruc = $p->numeroDocumento;
+		$celular = $p->celular;
+		$cci = $p->cci;
+		$banco = $p->banco;
 
 		$marco = 0;
     	$smarco = 1;
@@ -329,35 +364,36 @@ class FilesCotizacionController extends Controller
 
 		$pdf->SetFont('Arial','',9);
 		
-		$pdf->MultiCell(190, $tam + 2, utf8_decode('El que suscribe, '.$nombre.', identificado(a) con DNI Nro '.$dni.' y RUC Nro '.$ruc.', con número de teléfono / celular ________, DECLARO que mi numero de CODIGO DE CUENTA INTERBANCARIA (CCI) es:'), $marco, 'J');
+		$pdf->MultiCell(190, $tam + 2, utf8_decode('El que suscribe, '.$nombre.', identificado(a) con DNI Nro '.$dni.' y RUC Nro '.$ruc.', con número de teléfono / celular '.$celular.', DECLARO que mi numero de CODIGO DE CUENTA INTERBANCARIA (CCI) es:'), $marco, 'J');
 $pdf->SetFont('Arial','B',12);
 $pdf->ln($sl+3);
+		$lnc = str_split($cci);
 		$pdf->Cell(5, 6, '-', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '1', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '2', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '3', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '4', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '5', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '6', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '7', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '8', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '9', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '1', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '1', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '2', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '3', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '4', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '5', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '6', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '7', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '8', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '9', $smarco, 0, 'C');
-		$pdf->Cell(9, 6, '2', $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[0], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[1], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[2], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[3], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[4], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[5], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[6], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[7], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[8], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[9], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[10], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[11], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[12], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[13], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[14], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[15], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[16], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[17], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[18], $smarco, 0, 'C');
+		$pdf->Cell(9, 6, $lnc[19], $smarco, 0, 'C');
 		$pdf->Cell(5, 6, '-', $smarco, 0, 'C');
 $pdf->ln($sl+9);
 $pdf->SetFont('Arial','',9);
 
-		$pdf->Cell(190,$tam+2.5,utf8_decode('ENTIDAD BANCARIA : INTERBANK'),$marco,1,'C');
+		$pdf->Cell(190,$tam+2.5,utf8_decode('ENTIDAD BANCARIA : '.strtoupper($banco)),$marco,1,'C');
 
 
 // ------
@@ -375,7 +411,7 @@ $pdf->SetFont('Arial','',9);
 		$pdf->SetFont('Arial','',8.5);
 		$pdf->Cell(190,$tam+2.5,utf8_decode('IMPORTANTE: LA CUENTA CCI CONSTA DE VEINTE DIGITOS Y DEBE SER TRAMITADA EN EL BANCO CON EL NUMERO DE RUC.'),$marco,1,'L');
 		$pdf->SetFont('Arial','',9);
-		$pdf->Cell(190,$tam+2.5,utf8_decode('Asimismo, DECLARO que mi numero de CUENTA DE DETRACCIONES es 939338383 en el BANCO BANCO DE LA NACION'),$marco,1,'L');
+		// $pdf->Cell(190,$tam+2.5,utf8_decode('Asimismo, DECLARO que mi numero de CUENTA DE DETRACCIONES es 939338383 en el BANCO BANCO DE LA NACION'),$marco,1,'L');
 
 		$pdf->MultiCell(190, $tam + 1, utf8_decode('Cuento con las condiciones necesarias para cumplir cabalmente con las caracteristicas tecnicas, requisitos y condiciones establecidas en las especificaciones Tecnicas y/o Terminos de Referencia de la contratacion.'), $marco, 'J');
 
@@ -534,6 +570,132 @@ $pdf->SetFont('Arial','',9);
 	// 	$pdf->text(155,40,utf8_decode('Nª B001 - '));
 		// --------------------------------datos de cliente
 	
+		$pdf->Output();
+
+        exit;
+    }
+    public function anexo5()
+    {
+		$p = Session::get('proveedor');
+		$nombre = strtoupper($p->tipoPersona="PERSONA NATURAL"?
+    	 	$p->nombre.' '.$p->apellidoPaterno.' '.$p->apellidoMaterno:
+    	 	$p->nombreRep.' '.$p->apellidoPaternoRep.' '.$p->apellidoMaternoRep);
+		$dni = $p->tipoPersona="PERSONA NATURAL"?
+    	 	$p->dni:
+    	 	$p->dniRep;
+		$ruc = $p->numeroDocumento;
+		$celular = $p->celular;
+		$cci = $p->cci;
+		$banco = $p->banco;
+
+		$marco = 0;
+    	$smarco = 1;
+    	$ssmarco = 1;
+    	$blanco = '';
+    	$fondo = true;
+    	$tam = 3.5;
+    	$sl = 2;
+
+    	$pdf = new Fpdf('P','mm','a4');
+    	// $pdf->SetFont('Arial','',6);
+		$pdf->AddPage();
+		// --------------------cabecera
+		// $pdf->Cell(0,$tam+35,utf8_decode('-'),$marco,1,'C');
+		$pdf->Image('img/panelAdm/logoFile.png',10,10,15);
+		$pdf->SetFont('Arial','B',12);
+		$pdf->Cell(190,5,utf8_decode('GOBIERNO REGIONAL DE APURIMAC'),$marco,1,'C');
+		$pdf->SetFont('Arial','',8);
+		$pdf->Cell(190,3,utf8_decode('SubGerencia de Abastecimientos y Servicios'),$marco,1,'C');
+		$pdf->Cell(190,3,utf8_decode('Auxiliares'),$marco,1,'C');
+		$pdf->ln(5);
+		// estas lineas borrar
+		// $pdf->Cell(190,5,utf8_decode('_______________________________________________________________________________________________________________________________'),$marco,1,'C');
+		// $pdf->Line(10, 20, 100, 20);
+// ------
+		$pdf->SetLineWidth(1); 
+		$pdf->SetDrawColor(200, 200, 200); 
+		$pdf->SetFillColor(150, 150, 150); 
+
+		$pdf->Line(10, 30, 200, 30);
+		// reestablecer valores d linea
+		$pdf->SetLineWidth(0); 
+		$pdf->SetDrawColor(0, 0, 0); 
+		$pdf->SetFillColor(255, 255, 255); 
+		// $pdf->Line(10, 40, 200, 40);
+// ------
+		// titulo
+		$pdf->ln(12);
+		$pdf->SetFont('Arial','B',13);
+		$pdf->Cell(190,6,utf8_decode('ANEXO 05'),$marco,1,'C');
+		$pdf->Cell(190,6,utf8_decode('DECLARACION JURADA'),$marco,1,'C');
+		$pdf->ln(6);
+		// datos
+		$pdf->SetFont('Arial','B',9);
+		$pdf->Cell(190,$tam+2.5,utf8_decode('SEÑORES:'),$marco,1,'L');
+		$pdf->Cell(190,$tam+2.5,utf8_decode('OFICINA DE ABASTECIMIENTO, PATRIMONIO Y MARGESI DE BIENES GOBIERNO REGIONAL DE APURIMAC'),$marco,1,'C');
+
+		$pdf->ln(3);
+		$pdf->SetFont('Arial','',9);
+		$pdf->Cell(190,$tam+2.5,utf8_decode('Yo........................................................................................................................................Con DNI Nª.......................................................'),$marco,1,'L');
+		$pdf->Cell(190,$tam+2.5,utf8_decode('Representante legal de ................................................................................................................................................................................'),$marco,1,'L');
+		$pdf->ln(3);
+		$pdf->Cell(190,$tam+2.5,utf8_decode('(Solo en caso de ser persona juridica)'),$marco,1,'C');
+		$pdf->ln(3);
+		$pdf->Cell(190,$tam+2.5,utf8_decode('Con RUC Nª ........................................................Direccion...........................................................................................................................'),$marco,1,'C');
+		$pdf->Cell(190,$tam+2.5,utf8_decode('Telefono Nª .........................................................Correo Electronico.............................................................................................................'),$marco,1,'C');
+		$pdf->ln(6);
+// ------
+		$pdf->SetLineWidth(1); 
+		$pdf->SetDrawColor(200, 200, 200); 
+		$pdf->SetFillColor(150, 150, 150); 
+
+		$pdf->Line(10, 110, 200, 110);
+		// reestablecer valores d linea
+		$pdf->SetLineWidth(0); 
+		$pdf->SetDrawColor(0, 0, 0); 
+		$pdf->SetFillColor(255, 255, 255); 
+		// $pdf->ln($sl+6);
+// ------
+
+		$pdf->SetFont('Arial','B',9);
+		$pdf->Cell(190,$tam+2.5,utf8_decode('Declaro bajo juramento'),$marco,1,'L');
+		$pdf->SetFont('Arial','',9);
+		$pdf->ln(6);
+// items
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+		$pdf->Cell(10,$tam+2.5,'1.',$marco,0,'C');
+		$pdf->MultiCell(160, $tam+1.5, utf8_decode('No estar impedido para contratar con el estado de acuerdo al articulo II de la ley Nª 30225 Ley de Contrataciones con el Estado.'), $marco, 'J');
+
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+		$pdf->Cell(10,$tam+2.5,'2.',$marco,0,'C');
+		$pdf->MultiCell(160, $tam+1.5, utf8_decode('Conocer, aceptar y someterme a las Especificaiones Tecnicas y/o Terminos de Referencia de la presente contratacion de bienes o servicios.'), $marco, 'J');
+
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+		$pdf->Cell(10,$tam+2.5,'3.',$marco,0,'C');
+		$pdf->MultiCell(160, $tam+2.5, utf8_decode('De la veracidad de los datos y/o documentos que presento a efectos del presente proceso de contratacion.'), $marco, 'J');
+
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+		$pdf->Cell(10,$tam+2.5,'4.',$marco,0,'C');
+		$pdf->MultiCell(160, $tam+1.5, utf8_decode('Conocer las sanciones contenidas en la ley de Contrataciones del Estado y su Reglamento, asi como en la ley Nª 27444 ley de Procedimiento Administrativo General y las sanciones previstas en la directiva.'), $marco, 'J');
+
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+		$pdf->Cell(10,$tam+2.5,'5.',$marco,0,'C');
+		$pdf->MultiCell(160, $tam+2.5, utf8_decode('Aceptar a travez del siguiente correo electronico para efectos de notificacion durante la ejecucion contractual.'), $marco, 'J');
+		$pdf->ln(18);
+
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+		$pdf->Cell(170,$tam+2.5,'Abancay..................De................del 2023',$marco,0,'R');
+		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
+
+
+$pdf->ln(48);
+		// firma
+		$pdf->SetFont('Arial','',8);
+		$pdf->Cell(190,$tam,utf8_decode('.....................................................'),$marco,1,'C');
+		$pdf->Cell(190,$tam,utf8_decode('Firma, Nombres y Apellidos del postor o'),$marco,1,'C');
+		$pdf->Cell(190,$tam,utf8_decode('Representante legal, segun corresponda'),$marco,1,'C');
+
+
 		$pdf->Output();
 
         exit;

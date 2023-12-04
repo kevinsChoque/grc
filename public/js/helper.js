@@ -107,10 +107,10 @@ function sideBarActivePa()
     //     console.log('entro');
     //     $('.sba5').addClass('active');
     // }
-    if(localStorage.getItem("sba")==2)$('.sba2').addClass('active');
-    if(localStorage.getItem("sba")==3)$('.sba3').addClass('active');
-    if(localStorage.getItem("sba")==4)$('.sba4').addClass('active');
-    if(localStorage.getItem("sba")==5)$('.sba5').addClass('active');
+    if(localStorage.getItem("sba")==2)$('.sba2').addClass('active active-p');
+    if(localStorage.getItem("sba")==3)$('.sba3').addClass('active active-p');
+    if(localStorage.getItem("sba")==4)$('.sba4').addClass('active active-p');
+    if(localStorage.getItem("sba")==5)$('.sba5').addClass('active active-p');
     if(localStorage.getItem("sba")==6)$('.sba6').addClass('bg-info');
     if(localStorage.getItem("sba")==7)$('.sba7').addClass('bg-info');
     if(localStorage.getItem("sba")==8)$('.sba8').addClass('bg-info');

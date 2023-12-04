@@ -32,6 +32,13 @@
     <link rel="stylesheet" href="{{asset('cdn/jquery.dataTables.min.css')}}">
     <!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script> -->
+
+
+
+
+    <!-- ---------------------- -->
+    <link rel="stylesheet" href="{{asset('adminlte3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+<link rel="stylesheet" href="{{asset('adminlte3/plugins/daterangepicker/daterangepicker.css')}}">
 </head>
 <!--
 `body` tag options:
@@ -124,9 +131,12 @@
 <!-- <link rel="stylesheet" href="{{asset('adminlte3/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}"> -->
 <!-- https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js -->
 <script src="{{asset('cdn/select2.min.js')}}"></script>
-<script>
-    // __ruta__
-</script>
+<!-- --------------------------------datepicker-------------------- -->
+<script src="{{asset('adminlte3/plugins/moment/moment.min.js')}}"></script>
+
+<script src="{{asset('adminlte3/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('adminlte3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
 <!-- sweetalert2 -->
 <!-- <script src="{{asset('adminlte3/plugins/sweetalert2/sweetalert2.min.js')}}"></script> -->
 <script>

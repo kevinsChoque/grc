@@ -37,7 +37,9 @@ class LoginController extends Controller
     }
     public function sigin(Request $r)
     {
+        // dd($r->all());
     	$tUsu = TUsuario::where('usuario',$r->usuario)->first();
+        // dd($tUsu);
         if($tUsu->estado=='0')
         {
             return response()->json(['estado' => false, 'message' => 'El usuario '.$r->usuario.' no cuenta con acceso al sistema.']);
@@ -59,8 +61,9 @@ class LoginController extends Controller
         // session(['proveedor' => TProveedor::find(3)]);
         // return response()->json(['estado' => true, 'message' => 'ok']);
         // ---
+
         $tPro = TProveedor::where('usuario',$r->usuario)->first();
-        // dd($tPro);
+        // dd($r->all());
         if($tPro->estado=='0' || $tPro->estadoProveedor=='0')
         {
             return response()->json(['estado' => false, 'message' => 'El proveedor '.$r->usuario.' no cuenta con acceso al sistema.']);

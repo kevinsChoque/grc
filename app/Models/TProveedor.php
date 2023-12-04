@@ -29,6 +29,8 @@ class TProveedor extends Model
         'apellidoPaternoRep',
         'apellidoMaternoRep',
         'direccionRep',
+        'banco',
+        'cci',
         'correo',
         'celular',
         'usuario',

@@ -188,9 +188,8 @@
                             '<td class="text-center">' + novDato(r.data[i].fechaFinalizacion) + '</td>' +
                             '<td class="text-center">' + estadoCotizacion(r.data[i].estadoCotizacion) + '</td>' +
                             '<td class="text-center">' + 
-                                '<div class="btn-group btn-group-sm" role="group">'+
-                                    '<button type="button" class="btn text-info" title="Editar registro" onclick="cotizar('+r.data[i].idCot+');"><i class="far fa-file-alt" ></i></button>'+
-                                '</div>'+
+                                '<a href="{{ route('ver-archivo') }}/'+r.data[i].archivo+'" target="_blank" class="btn text-info pr-0"><i class="far fa-file-pdf" ></i></a>'+
+                                '<button type="button" class="btn text-info" title="Editar registro" onclick="cotizar('+r.data[i].idCot+');"><i class="far fa-file-alt" ></i></button>'+
                             '</td>' +
                         '</tr>';
                     }

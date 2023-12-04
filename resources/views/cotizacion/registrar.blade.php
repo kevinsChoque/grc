@@ -4,7 +4,7 @@
 <div class="content-header pb-0 pt-2">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-6"><h1 class="m-0">Cotizaciones</h1></div>
+            <div class="col-sm-6"><h1 class="m-0">Cotizaciones-</h1></div>
             <div class="col-sm-6">
                 <!-- <button class="btn btn-sm btn-success float-right btnPmsRegistrar" data-toggle="modal" data-target="#modalRegistrar">
                     <i class="fa fa-list"></i> Cotizaciones
@@ -24,6 +24,39 @@
 <i class="fas fa-file-invoice"></i><hr>
 <i class="fas fa-chart-bar"></i><hr>
 <i class="fas fa-money-bill"></i> -->
+
+<!-- <div class="bootstrap-timepicker">
+    <div class="form-group">
+        <label>Time picker:</label>
+        <div class="input-group date" id="timepicker" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#timepicker">
+            <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="far fa-clock"></i></div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3"/>
+                    <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker3').datetimepicker({
+                    format: 'LT'
+                });
+            });
+        </script> -->
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <!-- <div class="col-md-12 mb-3">
@@ -159,6 +192,7 @@
     </div>
 </div>
 <script>
+    
 localStorage.setItem("sbd",1);
 localStorage.setItem("sba",4);
 $(document).ready( function () {
@@ -169,6 +203,12 @@ $(document).ready( function () {
     initFv('fvcotizacion',rules());
     $('.overlayPagina').css("display","none");
     $('.overlayRegistros').css("display","none");
+    // $('#timepicker').datetimepicker({
+    //     format: 'LT'
+    // })
+        $('#datetimepicker3').datetimepicker({
+            format: 'LT'
+        });
 });
 $('.guardar').on('click',function(){
     guardar();

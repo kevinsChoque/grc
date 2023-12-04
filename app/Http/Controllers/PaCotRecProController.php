@@ -24,6 +24,7 @@ class PaCotRecProController extends Controller
             $tDpc=new TDetalleprocot();
             $tDpc->idCrp=$idCrp;
             $tDpc->idItm=$item['id'];
+            $tDpc->garantia=$item['garantia'];
             $tDpc->marca=$item['marca'];
             $tDpc->modelo=$item['modelo'];
             $tDpc->precio=$item['precio'];

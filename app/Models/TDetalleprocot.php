@@ -16,6 +16,7 @@ class TDetalleprocot extends Model
         'idDpc', 
         'idCrp',
         'idItm', 
+        'garantia',
         'marca',
         'modelo', 
         'precio',

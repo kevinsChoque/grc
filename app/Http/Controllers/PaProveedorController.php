@@ -41,4 +41,18 @@ class PaProveedorController extends Controller
         else
             return response()->json(['estado' => false, 'message' => 'Ocurrio un error.']);
     }
+    public function actSavePassword(Request $r)
+    {
+        $tPro = Session::get('proveedor');
+        $tPro = TProveedor::find($tPro->idPro);
+        $tPro->password = Hash::make($r->password);
+        $tPro->fa = Carbon::now();
+        if($tPro->save())
+        {
+            session(['proveedor' => $tPro]);
+            return response()->json(['estado' => true, 'message' => 'Operacion exitosa.']);
+        }
+        else
+            return response()->json(['estado' => false, 'message' => 'Ocurrio un error.']);
+    }
 }
