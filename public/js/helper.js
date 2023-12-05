@@ -111,9 +111,9 @@ function sideBarActivePa()
     if(localStorage.getItem("sba")==3)$('.sba3').addClass('active active-p');
     if(localStorage.getItem("sba")==4)$('.sba4').addClass('active active-p');
     if(localStorage.getItem("sba")==5)$('.sba5').addClass('active active-p');
-    if(localStorage.getItem("sba")==6)$('.sba6').addClass('bg-info');
-    if(localStorage.getItem("sba")==7)$('.sba7').addClass('bg-info');
-    if(localStorage.getItem("sba")==8)$('.sba8').addClass('bg-info');
+    if(localStorage.getItem("sba")==6)$('.sba6').addClass('active active-p');
+    if(localStorage.getItem("sba")==7)$('.sba7').addClass('active active-p');
+    if(localStorage.getItem("sba")==8)$('.sba8').addClass('active active-p');
     if(localStorage.getItem("sba")==9)$('.sba9').addClass('bg-info');
     if(localStorage.getItem("sba")==10)$('.sba10').addClass('bg-info');
     if(localStorage.getItem("sba")==11)$('.sba11').addClass('bg-info');

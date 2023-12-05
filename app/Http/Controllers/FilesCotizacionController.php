@@ -299,7 +299,7 @@ class FilesCotizacionController extends Controller
 	}
 	public function cci()
 	{
-		// dd('aki sta');
+		// dd('ok llego aki');
 		$p = Session::get('proveedor');
 
 		$nombre = strtoupper($p->tipoPersona="PERSONA NATURAL"?
@@ -423,6 +423,7 @@ $pdf->SetFont('Arial','',9);
 
 
 		$pdf->Output();
+		
 
         exit;
 
@@ -435,6 +436,14 @@ $pdf->SetFont('Arial','',9);
     	$nombre = strtoupper($p->tipoPersona="PERSONA NATURAL"?
     	 	$p->nombre.' '.$p->apellidoPaterno.' '.$p->apellidoMaterno:
     	 	$p->nombreRep.' '.$p->apellidoPaternoRep.' '.$p->apellidoMaternoRep);
+    	$dni = $p->tipoPersona="PERSONA NATURAL"?
+    	 	substr($p->numeroDocumento, 2, 8):
+    	 	$p->dniRep;
+    	$ruc  = $p->numeroDocumento;
+    	$celular  = $p->celular;
+    	$domicilio  = $p->tipoPersona="PERSONA NATURAL"?
+    		$p->direccion:
+    		$p->direccionRep;
     	// $nombre = mb_convert_case($nombre, MB_CASE_LOWER, "UTF-8");
                 // $r->merge(['idUsu' => $tUsu->idUsu]);
     	// -------------------
@@ -490,7 +499,7 @@ $pdf->SetFont('Arial','',9);
 
 		$pdf->SetFont('Arial','',9);
 		
-		$pdf->MultiCell(190, $tam + 2.5, utf8_decode('Por medio de la presente, yo '.$nombre.', identificado(a) con DNI Nro __________ y RUC __________, con número de teléfono / celular teléfono ________, DECLARO BAJO JURAMENTO lo siguiente:'), $marco, 'J');
+		$pdf->MultiCell(190, $tam + 2.5, utf8_decode('Por medio de la presente, yo '.$nombre.', identificado(a) con DNI Nro '.$dni.' y RUC '.$ruc.', con número de teléfono / celular '.$celular.', DECLARO BAJO JURAMENTO lo siguiente:'), $marco, 'J');
 		// ---------------------------------------------------------------------------------------------------------------------
 		// Establecer la fuente normal
 // $pdf->SetFont('Arial', '', 12);
@@ -545,7 +554,7 @@ $pdf->SetFont('Arial','',9);
 		$pdf->ln($sl);
 		$pdf->MultiCell(190, $tam + 1, utf8_decode('7.- En caso de incumplimiento injustificado, acepto la aplicacion de la penalidad por mora establecida en la Directiva Nro: 003-2021GR APURIMAC/GGR "Normas para la contratacion de bienes y servicios, para montos iguales o inferiores a ocho (8) Unidades Impositivas Tributarias del Gobierno Regional de Apurimac - Sede Central".'), $marco, 'J');
 		$pdf->ln($sl);
-		$pdf->MultiCell(190, $tam + 1, utf8_decode('8.- De ser seleccionado para efectura la presente contratacion, autorizo se me notifique al correo electronico email y/o a mi domicilio sito en ____________docimicilio legal__________.'), $marco, 'J');
+		$pdf->MultiCell(190, $tam + 1, utf8_decode('8.- De ser seleccionado para efectura la presente contratacion, autorizo se me notifique al correo electronico email y/o a mi domicilio sito en '.$domicilio.'.'), $marco, 'J');
 		$pdf->ln($sl);
 		$pdf->MultiCell(190, $tam + 1, utf8_decode('9.- No ser Propietario, Socio, Representante Legal, Gerente General o cualquier vinculo de otra empresa que cotiza por el mismo objeto de las Especificaciones Tecnicas o Terminos de Referencia a los que me presento.'), $marco, 'J');
 		$pdf->ln($sl);
@@ -580,13 +589,11 @@ $pdf->SetFont('Arial','',9);
 		$nombre = strtoupper($p->tipoPersona="PERSONA NATURAL"?
     	 	$p->nombre.' '.$p->apellidoPaterno.' '.$p->apellidoMaterno:
     	 	$p->nombreRep.' '.$p->apellidoPaternoRep.' '.$p->apellidoMaternoRep);
-		$dni = $p->tipoPersona="PERSONA NATURAL"?
-    	 	$p->dni:
+    	$dni = $p->tipoPersona="PERSONA NATURAL"?
+    	 	substr($p->numeroDocumento, 2, 8):
     	 	$p->dniRep;
-		$ruc = $p->numeroDocumento;
-		$celular = $p->celular;
-		$cci = $p->cci;
-		$banco = $p->banco;
+    	$razonSocial = strtoupper($p->tipoPersona="PERSONA NATURAL"?'':$p->razonSocial);
+		$domicilio = strtoupper($p->tipoPersona="PERSONA NATURAL"?'':$p->direccionRep);
 
 		$marco = 0;
     	$smarco = 1;
@@ -609,19 +616,15 @@ $pdf->SetFont('Arial','',9);
 		$pdf->Cell(190,3,utf8_decode('Auxiliares'),$marco,1,'C');
 		$pdf->ln(5);
 		// estas lineas borrar
-		// $pdf->Cell(190,5,utf8_decode('_______________________________________________________________________________________________________________________________'),$marco,1,'C');
-		// $pdf->Line(10, 20, 100, 20);
 // ------
 		$pdf->SetLineWidth(1); 
 		$pdf->SetDrawColor(200, 200, 200); 
 		$pdf->SetFillColor(150, 150, 150); 
-
 		$pdf->Line(10, 30, 200, 30);
 		// reestablecer valores d linea
 		$pdf->SetLineWidth(0); 
 		$pdf->SetDrawColor(0, 0, 0); 
 		$pdf->SetFillColor(255, 255, 255); 
-		// $pdf->Line(10, 40, 200, 40);
 // ------
 		// titulo
 		$pdf->ln(12);
@@ -633,7 +636,13 @@ $pdf->SetFont('Arial','',9);
 		$pdf->SetFont('Arial','B',9);
 		$pdf->Cell(190,$tam+2.5,utf8_decode('SEÑORES:'),$marco,1,'L');
 		$pdf->Cell(190,$tam+2.5,utf8_decode('OFICINA DE ABASTECIMIENTO, PATRIMONIO Y MARGESI DE BIENES GOBIERNO REGIONAL DE APURIMAC'),$marco,1,'C');
+// datos-----------------------------------------------------------------------
+		$pdf->text(20,74,utf8_decode($nombre));
+		$pdf->text(165,74,utf8_decode($dni));
+		$pdf->text(50,80,utf8_decode($razonSocial));
+		$pdf->text(100,98,utf8_decode($domicilio));
 
+// datos-----------------------------------------------------------------------
 		$pdf->ln(3);
 		$pdf->SetFont('Arial','',9);
 		$pdf->Cell(190,$tam+2.5,utf8_decode('Yo........................................................................................................................................Con DNI Nª.......................................................'),$marco,1,'L');

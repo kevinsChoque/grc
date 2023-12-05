@@ -45,6 +45,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{url('panelAdm/paProveedor/formatos')}}" class="nav-link sba6">
+                        <i class="nav-icon fas fa-file"></i><p>Formatos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{url('panelAdm/paCotizacion/misCotizaciones')}}" class="nav-link sba4">
                         <i class="nav-icon fas fa-file"></i><p>Mis cotizaciones</p>
                     </a>

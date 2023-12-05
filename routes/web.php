@@ -24,6 +24,7 @@ use App\Http\Controllers\DetalleprocotController;
 use App\Http\Controllers\FilesCotizacionController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CotLlenadaController;
+use App\Http\Controllers\FormatosController;
 
 
 
@@ -131,6 +132,7 @@ Route::post('panelAdm/paCotRecPro/subirArchivo',[PaCotRecProController::class, '
 Route::get('panelAdm/paCotRecPro/{nombreArchivo?}',[PaCotRecProController::class, 'verArchivo'])->name('cotRecPro-archivo');
 // proveedor
 Route::get('panelAdm/paProveedor/datos', function () {return view('panelAdm.proveedor.datos');});
+Route::get('panelAdm/paProveedor/formatos', function () {return view('panelAdm.proveedor.formatos');});
 Route::get('panelAdm/paProveedor/changePassword', function () {return view('panelAdm.proveedor.changePassword');});
 Route::post('panelAdm/paProveedor/guardar',[PaProveedorController::class, 'actGuardar']);
 Route::post('panelAdm/paProveedor/savePassword',[PaProveedorController::class, 'actSavePassword']);
@@ -145,5 +147,11 @@ Route::get('panelAdm/anexo5',[FilesCotizacionController::class, 'anexo5'])->name
 // pdf de cotizacion llenada
 Route::get('panelAdm/pdfCot',[PdfController::class, 'cotizacion'])->name('pdf-cotizacion');
 Route::get('panelAdm/cotLlenada',[CotLlenadaController::class, 'cotizacion'])->name('cotizacion-llenada');
-
+// formatos
+Route::get('panelAdm/formatos/file/{nombreArchivo?}',[FormatosController::class, 'formatosFile'])->name('formatos-file');
+// Route::get('cotizacion/archivo/{nombreArchivo?}',[CotizacionController::class, 'verArchivo'])->name('ver-archivo');
+Route::get('panelAdm/formatos/saveCciDel',[FormatosController::class, 'actSaveCciDel'])->name('saveCciDel');
+Route::get('panelAdm/formatos/saveDjDel',[FormatosController::class, 'actSaveDjDel'])->name('saveDjDel');
+Route::get('panelAdm/formatos/saveAnexo5Del',[FormatosController::class, 'actSaveAnexo5Del'])->name('saveAnexo5Del');
+// saveCciDel
 
