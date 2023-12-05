@@ -17,12 +17,70 @@
 </div>
 @endsection
 @section('content')
+<div class="col-12" id="accordion" style="display: none;">
+	<div class="card card-primary card-outline">
+		<a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false">
+			<div class="card-header">
+				<div class="row">
+					<div class="col-lg-9">
+						<div class="user-block w-100">
+	                        <img class="img-circle img-bordered-sm" src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="user image">
+	                        <span class="username">
+	                          	<a href="#">PERSONA NATURAL: edi gutierres Ticona</a>
+	                          	<!-- <a href="#" class="float-right btn-tool"><i class="fas fa-user"></i> Mas informacion</a> -->
+	                        </span>
+	                        <span class="description"><span class="shadow badge badge-warning">Postulando</span> - 28 de Noviembre de 2023 10:03:12 PM</span>
+	                  	</div>
+					</div>
+					<div class="col-lg-3">
+						<span class="shadow bg-info text-center font-weight-bold float-right p-2">total S/. 666</span>
+					</div>
+				</div>
+				<!-- <h4 class="card-title w-100">
+				</h4> -->
+			</div>
+		</a>
+		<div id="collapseOne" class="collapse" data-parent="#accordion" style="">
+			<div class="card-body">
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+			</div>
+		</div>
+	</div>
+	<!-- <div class="card card-primary card-outline">
+		<a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false">
+			<div class="card-header">
+				<h4 class="card-title w-100">
+				2. Aenean massa
+				</h4>
+			</div>
+		</a>
+		<div id="collapseTwo" class="collapse" data-parent="#accordion" style="">
+			<div class="card-body">
+			Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+			</div>
+		</div>
+	</div>
+	<div class="card card-primary card-outline">
+		<a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false">
+			<div class="card-header">
+				<h4 class="card-title w-100">
+				3. Donec quam felis
+				</h4>
+			</div>
+		</a>
+		<div id="collapseThree" class="collapse" data-parent="#accordion" style="">
+			<div class="card-body">
+			Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+			</div>
+		</div>
+	</div> -->
+</div>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-9">
-			<div class="card">
+		<div class="col-lg-9 contentPost">
+			<div class="card" style="display: none;">
               	<div class="card-header p-2"><h6 class="m-0">Postulacion de proveedores</h6></div>
-              	<div class="card-body contentPost">
+              	<div class="card-body contentPost_old">
               		<!-- Post -->
                     <div class="post" style="display: none;">
                       	<div class="user-block">
@@ -190,7 +248,6 @@ localStorage.setItem("sba",7);
 		// ------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------
     } );
-
     function loadPostulaciones()
     {
     	// showPostulantes
@@ -225,15 +282,49 @@ localStorage.setItem("sba",7);
 						name = r.data[i].tipoPersona=="PERSONA NATURAL"?
 							r.data[i].nombrePro+' '+r.data[i].apellidoPaterno+' '+r.data[i].apellidoMaterno:
 							r.data[i].razonSocial; 
+						html += '<div class="col-12" id="accordion'+i+'">'+
+									'<div class="card">'+
+										'<a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapseOne'+r.data[i].idPro+'" aria-expanded="false">'+
+											'<div class="card-header">'+
+											// --
+												'<div class="row">'+
+													'<div class="col-lg-9">'+
+														'<div class="user-block w-100">'+
+									                        '<img class="img-circle img-bordered-sm" src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="user image">'+
+									                        '<span class="username">'+
+									                          	'<a href="#">'+novDato(r.data[i].tipoPersona+': '+name)+'</a>'+
+									                        '</span>'+
+									                        '<span class="description">'+statePostulacion(r.data[i].estadoCrp)+' - '+fechaFormat+'</span>'+
+									                  	'</div>'+
+													'</div>'+
+													'<div class="col-lg-3">'+
+														'<span class="shadow bg-info text-center font-weight-bold float-right p-2">Total S/. '+r.data[i].total+'</span>'+
+													'</div>'+
+												'</div>'+
+											// --
+												// '<h4 class="card-title w-100">'+ 
+												// 	'<div class="user-block">'+
+								    //                     '<img class="img-circle img-bordered-sm" src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="user image">'+
+								    //                     '<span class="username">'+
+								    //                       	'<a href="#">'+novDato(r.data[i].tipoPersona+': '+name)+'</a>'+
+								    //                       	'<a href="#" class="float-right btn-tool"><i class="fas fa-user"></i> Mas informacion</a>'+
+								    //                     '</span>'+
+								    //                     '<span class="description">'+statePostulacion(r.data[i].estadoCrp)+' - '+fechaFormat+'</span>'+
+							     //                  	'</div>'+
+												// '</h4>'+
+											'</div>'+
+										'</a>'+
+										'<div id="collapseOne'+r.data[i].idPro+'" class="collapse" data-parent="#accordion'+i+'">'+
+											'<div class="card-body">';
 						html += '<div class="post">'+
-	                      	'<div class="user-block">'+
-		                        '<img class="img-circle img-bordered-sm" src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="user image">'+
-		                        '<span class="username">'+
-		                          	'<a href="#">'+novDato(r.data[i].tipoPersona+': '+name)+'</a>'+
-		                          	'<a href="#" class="float-right btn-tool"><i class="fas fa-user"></i> Mas informacion</a>'+
-		                        '</span>'+
-		                        '<span class="description">'+statePostulacion(r.data[i].estadoCrp)+' - '+fechaFormat+'</span>'+
-	                      	'</div>'+
+	                      	// '<div class="user-block">'+
+		                      //   '<img class="img-circle img-bordered-sm" src="{{asset('img/admin/funcionarios/icono.jpg')}}" alt="user image">'+
+		                      //   '<span class="username">'+
+		                      //     	'<a href="#">'+novDato(r.data[i].tipoPersona+': '+name)+'</a>'+
+		                      //     	'<a href="#" class="float-right btn-tool"><i class="fas fa-user"></i> Mas informacion</a>'+
+		                      //   '</span>'+
+		                      //   '<span class="description">'+statePostulacion(r.data[i].estadoCrp)+' - '+fechaFormat+'</span>'+
+	                      	// '</div>'+
 	                      	'<div class="row">'+
 	                      		'<div class="col-lg-12">'+
 	                      		 	'<strong><i class="fas fa-info mr-1"></i> Datos de postulacion</strong>'+
@@ -319,6 +410,11 @@ localStorage.setItem("sba",7);
 	                      		'</div>'+
 	                      	'</div>'+
 	                    '</div>';
+
+	                    html += 	'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>';
 	                    break;
                     }
                     if(r.data[i+1].idPro!=r.data[i].idPro)
@@ -334,6 +430,10 @@ localStorage.setItem("sba",7);
 	                      		'</div>'+
 	                      	'</div>'+
 	                    '</div>';
+	                    html += 	'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>';
 	                    idBan=0;
                     }
                 }
