@@ -32,17 +32,9 @@
         </div>
     	<div class="card-body">
     		<h3 class="text-center font-weight-bold font-italic">ENVIE SU COTIZACION</h3>
+    		
     		<form id="fvcotpro">
     		<div class="row">
-    			<!-- <div class="col-lg-4">
-					<div class="form-group">
-                    	<label for="customFile">Custom File</label>
-	                    <div class="custom-file">
-	                      	<input type="file" class="custom-file-input" id="fileItem">
-	                      	<label class="custom-file-label changeNameFile" for="customFile">Choose file</label>
-	                    </div>
-                  	</div>
-    			</div> -->	
     			<div class="col-lg-12">
     				<div class="form-group row">
 						<label class="col-sm-2 col-form-label text-right"><a href="{{ route('ver-archivo') }}" target="_blank" class="btn text-info cotFile pb-3 pr-0"><i class="fa fa-file-pdf fa-lg"></i> </a> Cotizacion: <span class="text-danger">*</span></label>
@@ -111,7 +103,6 @@
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label text-right">Se dedica al objeto de contratacion: <span class="text-danger">*</span></label>
 						<div class="col-sm-6">
-							<!-- <input type="text" id="dedica" name="dedica" class="form-control dedica"> -->
 							<select name="dedica" id="dedica" class="form-control">
 								<option disabled>Seleccione una opcion</option>
 								<option value="1" selected>SI</option>
@@ -128,11 +119,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-12">
-					
-				</div>
-				<!-- -- -->
-				
     		</div>
     		<div class="row">
                 <div class="col-lg-12">

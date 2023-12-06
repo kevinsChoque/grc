@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
-use Codedge\Fpdf\Fpdf\Fpdf;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Codedge\Fpdf\Fpdf\Fpdf;
 
 class FormatosController extends Controller
 {
@@ -250,6 +251,13 @@ $pdf->SetFont('Arial','',9);
     	$razonSocial = strtoupper($p->tipoPersona="PERSONA NATURAL"?'':$p->razonSocial);
 		$domicilio = strtoupper($p->tipoPersona="PERSONA NATURAL"?'':$p->direccionRep);
 
+		$fechaActual = Carbon::now();
+
+		// Obtén las partes de la fecha
+		$dia = $fechaActual->format('d');
+		$mes = $fechaActual->format('F');
+		$anio = $fechaActual->format('Y');
+
 		$marco = 0;
     	$smarco = 1;
     	$ssmarco = 1;
@@ -348,7 +356,7 @@ $pdf->SetFont('Arial','',9);
 		$pdf->ln(18);
 
 		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
-		$pdf->Cell(170,$tam+2.5,'Abancay..................De................del 2023',$marco,0,'R');
+		$pdf->Cell(170,$tam+2.5,'Abancay '.$dia.' de '.$mes.' del '.$anio,$marco,0,'R');
 		$pdf->Cell(10,$tam+2.5,'',$marco,0,'L');
 
 
