@@ -32,7 +32,6 @@
         </div>
     	<div class="card-body">
     		<h3 class="text-center font-weight-bold font-italic">ENVIE SU COTIZACION</h3>
-    		
     		<form id="fvcotpro">
     		<div class="row">
     			<div class="col-lg-12">
@@ -120,6 +119,46 @@
 					</div>
 				</div>
     		</div>
+    		<hr>
+    		<div class="row">
+    			<div class="col-lg-12">
+    				<div class="callout callout-info py-2 bg-teal">
+						<h5 class="m-0 font-weight-bold font-italic">Formatos!</h5>
+						<p class="m-0">- Los formatos se encuentran en el <strong>MENU (COLUMNA IZQUIERDA)</strong>.</p>
+						<p class="m-0">- Descargar los formatos y llenar los datos que falten, una vez realizado subirlos donde corresponda.</p>
+						<p class="m-0">- <strong>La COTIZACION LLENADA:</strong> Registramos todos los datos e imprimimos.</p>
+					</div>
+    			</div>	
+    			<div class="col-lg-3">
+    				<label class="m-0">Cotizacion llenada: <span class="text-danger">*</span></label>
+    				<div class="custom-file">
+                      	<input type="file" class="custom-file-input" onchange="changeNameFile(this)" name="pdfCll" id="pdfCll">
+                      	<label class="custom-file-label" for="customFile">Cotizacion llenada</label>
+                    </div>
+    			</div>	
+    			<div class="col-lg-3">
+    				<label class="m-0">Declaracion Jurada: <span class="text-danger">*</span></label>
+    				<div class="custom-file">
+                      	<input type="file" class="custom-file-input" onchange="changeNameFile(this)" name="pdfDj" id="pdfDj">
+                      	<label class="custom-file-label" for="customFile">Declaracion jurada</label>
+                    </div>
+    			</div>
+    			<div class="col-lg-3">
+    				<label class="m-0">CCI: <span class="text-danger">*</span></label>
+    				<div class="custom-file">
+                      	<input type="file" class="custom-file-input" onchange="changeNameFile(this)" name="pdfCci" id="pdfCci">
+                      	<label class="custom-file-label" for="customFile">CCI</label>
+                    </div>
+    			</div>
+    			<div class="col-lg-3">
+    				<label class="m-0">Anexo 5: <span class="text-danger">*</span></label>
+    				<div class="custom-file">
+                      	<input type="file" class="custom-file-input" onchange="changeNameFile(this)" name="pdfAnexo5" id="pdfAnexo5">
+                      	<label class="custom-file-label" for="customFile">Anexo 5</label>
+                    </div>
+    			</div>
+    		</div>
+    		<hr>
     		<div class="row">
                 <div class="col-lg-12">
                 	<div class="table-responsive">
@@ -155,9 +194,20 @@
     		</form>
     	</div>
     	<div class="card-footer text-center">
-    		<button type="button" class="btn btn-success guardarCotPro ml-2"><i class="fa fa-save"></i> Guardar postulacion a cotizaciuon</button>
-			<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+    		<button type="button" class="btn btn-success guardarCotPro ml-2"><i class="fa fa-save"></i> Guardar postulacion a cotizacion</button>
+			<button type="button" class="btn btn-primary downloadCotLle"><i class="fa fa-file-pdf"></i> Descargar cotizacion llenada</button>
+			<!-- <a href="{{url('panelAdm/paCotRecPro/generarCot')}}" target="_blank" class="btn btn-primary shadow downloadCotLle">
+                <i class="fas fa-file-pdf"></i> Descargar Cotizacion Llenada
+            </a> -->
     	</div>
+    	<form id="downloadCotizacion" action="{{ url('panelAdm/paCotRecPro/generarCot') }}" method="POST" target="_blank">
+		    @csrf
+		    <input type="hidden" id="precios" name="precios" value="csacsacs">
+		    <!-- Agrega aquí cualquier dato adicional que desees enviar -->
+		    <!-- <button type="submit" class="btn btn-primary shadow">
+		        <i class="fas fa-file-pdf"></i> Descargar Cotizacion Llenada
+		    </button> -->
+		</form>
     </div>
 </div>
 
@@ -171,6 +221,9 @@
         $('.overlayPagina').css("display","none");
         $('.overlayRegistros').css("display","none");
   		// bsCustomFileInput.init();
+  		// $('.downloadCotLle').attr('href')
+  		// var dir = $('.downloadCotLle').attr('href');
+    //     $('.downloadCotLle').attr('href',dir+'/'+r.cot.archivo);
     });
     
     $('.guardarCotPro').on('click',function(){
@@ -182,6 +235,16 @@
  //    	$(this).parent().find('label').html(fileName);
  //    	// $('.changeNameFile').html(fileName);
  //    });
+ 	$('.downloadCotLle').on('click',function(){
+ 		downloadCotLle()
+ 	});
+ 	function downloadCotLle()
+    {
+    	// var formData = new FormData($("#fvcotpro")[0]);
+    	// let dir = $('.downloadCotLle').attr('href');
+    	// $('.downloadCotLle').attr('href',dir+'/'+JSON.stringify(formData));
+    	$('#downloadCotizacion').submit();
+    }
     function rules()
 	{
 	    return {
