@@ -280,3 +280,13 @@ function msjRee(result)
         }
     }
 }
+function msjError(error)
+{
+    Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: error,
+        showConfirmButton: false,
+        timer: 4500
+    });
+}

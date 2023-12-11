@@ -194,7 +194,7 @@
     		</form>
     	</div>
     	<div class="card-footer text-center">
-    		<button type="button" class="btn btn-success guardarCotPro ml-2"><i class="fa fa-save"></i> Guardar postulacion a cotizacion</button>
+    		<button type="button" class="btn btn-success guardarCotPro ml-2"><i class="fa fa-save"></i> Guardar Cotizacion</button>
 			<button type="button" class="btn btn-primary downloadCotLle"><i class="fa fa-file-pdf"></i> Descargar cotizacion llenada</button>
 			<!-- <a href="{{url('panelAdm/paCotRecPro/generarCot')}}" target="_blank" class="btn btn-primary shadow downloadCotLle">
                 <i class="fas fa-file-pdf"></i> Descargar Cotizacion Llenada
@@ -202,7 +202,11 @@
     	</div>
     	<form id="downloadCotizacion" action="{{ url('panelAdm/paCotRecPro/generarCot') }}" method="POST" target="_blank">
 		    @csrf
-		    <input type="hidden" id="precios" name="precios" value="csacsacs">
+		    <input type="hidden" id="data" name="data">
+		    <input type="hidden" id="tEntrega" name="tEntrega">
+		    <input type="hidden" id="tValidez" name="tValidez">
+		    <input type="hidden" id="tGarantia" name="tGarantia">
+		    <input type="hidden" id="idCot" name="idCot">
 		    <!-- Agrega aquí cualquier dato adicional que desees enviar -->
 		    <!-- <button type="submit" class="btn btn-primary shadow">
 		        <i class="fas fa-file-pdf"></i> Descargar Cotizacion Llenada
@@ -238,12 +242,95 @@
  	$('.downloadCotLle').on('click',function(){
  		downloadCotLle()
  	});
+
  	function downloadCotLle()
     {
-    	// var formData = new FormData($("#fvcotpro")[0]);
-    	// let dir = $('.downloadCotLle').attr('href');
-    	// $('.downloadCotLle').attr('href',dir+'/'+JSON.stringify(formData));
-    	$('#downloadCotizacion').submit();
+    	let banGarantia = true;
+    	let banMarca = true;
+    	let banModelo = true;
+    	let banPrecio = true;
+    	let ids = [];
+    	let garantia = [];
+    	let marca = [];
+    	let modelo = [];
+    	let precio = [];
+    	var archivos = [];
+    	var miObjeto = {};
+
+    	let eMarca = '';
+    	let eModelo = '';
+    	let ePrecio = '';
+    	$(".idCi").each(function(){
+    	    ids.push($(this).attr('data-id'))
+    	});
+    	$(".garantia").each(function(){
+    	    if($(this).val()=='')
+    	    	banGarantia = false
+    	    garantia.push($(this).val())
+    	});
+    	$(".marca").each(function(){
+    	    if($(this).val()=='')
+    	    {
+				eMarca='Ingrese las Marcas';
+    	    	banMarca = false
+    	    }
+    	    marca.push($(this).val())
+    	});
+    	$(".modelo").each(function(){
+    	    if($(this).val()=='')
+    	    {
+    	    	eModelo='Ingrese las Modelos';
+    	    	banModelo = false
+    	    }
+    	   	modelo.push($(this).val())
+    	});
+    	$(".precio").each(function(){
+    	    if($(this).val()=='')
+    	    {
+    	    	ePrecio='Ingrese los precios';
+    	    	banPrecio = false
+    	    }
+    	    precio.push($(this).val())
+    	});
+
+    	// $('#fvproveedor .apellidoMaterno').rules('add', {
+     //        required: true
+     //    });
+        $('#pdfCll').rules('remove', 'required');
+        $('#pdfDj').rules('remove', 'required');
+        $('#pdfCci').rules('remove', 'required');
+        $('#pdfAnexo5').rules('remove', 'required');
+
+    	if($('#fvcotpro').valid()==false)
+    	{return;}
+    	if(banMarca && banModelo && banPrecio)
+    	{
+    		var miObjeto = {};
+	    	$('.itemsCotizacion').each(function(index, el) {
+	    		miObjeto["item" + index] = {
+			  		nombre: $(this).find('.nombreItem').html(),
+				    um: $(this).find('.umItem>span').html(),
+				    cant: $(this).find('.cantItem').html(),
+				    garantia: $(this).find('.garantia').val(),
+				    marca: $(this).find('.marca').val(),
+				    modelo: $(this).find('.modelo').val(),
+				    precio: $(this).find('.precio').val(),
+			  	};
+	    	});
+	    	$('#data').val(JSON.stringify(miObjeto));
+	    	$('#tEntrega').val($('#timeEntrega').val());
+	    	$('#tValidez').val($('#timeValidez').val());
+	    	$('#tGarantia').val($('#timeGarantia').val());
+	    	$('#idCot').val(localStorage.getItem('idCot'));
+	    	$('#downloadCotizacion').submit();
+    	}
+    	else
+    	{
+    		error = eMarca+(eMarca==''?'':', ')+
+				eModelo+(eModelo==''?'':', ')+
+				ePrecio+'.';
+			msjError(error);
+    	}
     }
     function rules()
 	{
@@ -252,6 +339,11 @@
 	        timeValidez: {required: true,},
 	        dedica: {required: true,},
 	        timeGarantia: {required: true,},
+
+	        pdfCll: {required: true,},
+	        pdfDj: {required: true,},
+	        pdfCci: {required: true,},
+	        pdfAnexo5: {required: true,},
 	    };
 	}
 	var obj;
@@ -308,10 +400,15 @@
         arc=archivos;
     	
 		// console.log(miObjeto);
+		$('#pdfCll').rules('add', {required: true});
+		$('#pdfDj').rules('add', {required: true});
+		$('#pdfCci').rules('add', {required: true});
+		$('#pdfAnexo5').rules('add', {required: true});
+
     	if($('#fvcotpro').valid()==false)
     	{return;}
     	// console.log(banMarca)
-    	if(banMarca && banModelo && banPrecio && banGarantia)
+    	if(banMarca && banModelo && banPrecio)
     	{
     		var fileInputs = document.getElementsByClassName('fileItem');
     		// var archivoInput;
@@ -320,9 +417,7 @@
 	    	{
 			    if (fileInputs[i].files.length > 0) 
 			    {
-			        // Accede al primer archivo seleccionado y muestra su nombre
 			        nombreArchivo = fileInputs[i].files[0].name;
-			        // console.log('Nombre del archivo:', nombreArchivo);
 			    }
 			  	miObjeto["item" + i] = {
 			  		id: ids[i],
@@ -334,10 +429,7 @@
 			  	};
 			  	nombreArchivo='no tiene';
 			}
-			// console.log('miObjeto');
-			// console.log(miObjeto);
 			obj=miObjeto;
-			// console.log('miObjeto');
 
 			var formData = new FormData($("#fvcotpro")[0]);
 			// -----------------------
@@ -361,12 +453,11 @@
 	        });
 			// -----------------------
 			formData.append('items',JSON.stringify(miObjeto));
-			// formData.append('items',JSON.stringify(miObjeto));
 			formData.append('idCot',localStorage.getItem('idCot'));
 			formData.append('total',$('.total').html());
 
 			$('.guardarCotPro').prop('disabled',true);
-    		// console.log('enviardata');
+    		
     		$( ".overlayRegistros" ).toggle( flip++ % 2 === 0 );
     		jQuery.ajax(
 	        { 
@@ -378,12 +469,11 @@
 		        contentType: false, 
 	            headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
 	            success: function(r){
-	            	console.log('entro aki esto estoy evaluando');
-	                console.log(r.estado);
+	            	// console.log('entro aki esto estoy evaluando');
+	             //    console.log(r.estado);
 	                estado=r.estado;
 	                if (r.estado)
 		            {
-		            	// alert('entro aki');
 		                Swal.fire({
 		                    title: "COTIZACION",
 		                    text: r.message,
@@ -406,17 +496,15 @@
 		            	$('.guardarCotPro').prop('disabled',false);
 		            	msjRee(r);
 		            }
-		            // alert('final')
-		            
 	            },
 		        error: function (xhr, status, error) {
-		            msjSimple(false,"Ocurrio un problema, porfavor contactese con el Administrador del sistema.");
+		            msjError("Ocurrio un problema, porfavor contactese con el Administrador del sistema.");
 		        }
 	        });
     	}
     	else
     	{
-    		msjSimple(false,"Ingrese todos los datos de los items.");
+    		msjError("Ingrese todos los datos de los items.");
     	}
     }
     function loadData()
@@ -437,16 +525,10 @@
                 $('.concepto').val(r.cot.concepto);
                 $('.tipoPersona').val(r.pro.tipoPersona);
                 $('.numeroDocumento').val(r.pro.numeroDocumento);
-                // $('.nombreRazon').val(r.pro.nombreRazon);
                 $('.celular').val(r.pro.celular);
                 $('.correo').val(r.pro.correo);
                 var dir = $('.cotFile').attr('href');
-                $('.cotFile').attr('href',dir+'/'+r.cot.archivo);
-
-				// timeEntrega
-				// timeValidez
-				// dedica
-				// timeGarantia
+                $('.cotFile').attr('href',dir+'/'+r.cot.archivo);				
             }
         });
     }
@@ -467,10 +549,10 @@
 	            for (var i = 0; i < r.data.length; i++) 
 	            {
 	                idFila = localStorage.getItem('idCot')+r.data[i].idItm;
-	                html += '<tr class="fila'+idFila+'">' +
-	                    '<td class="font-weight-bold idCi" data-id="'+novDato(r.data[i].idCi)+'">' + novDato(r.data[i].nombre) +'</td>' +
-	                    '<td class="text-center"><span class="font-weight-bold badge badge-light um'+idFila+'">'+ novDato(r.data[i].nombreUm) + '</td>' +
-	                    '<td class="text-center cant'+r.data[i].idItm+'">' + r.data[i].cantidad + '</td>' +
+	                html += '<tr class="itemsCotizacion fila'+idFila+'">' +
+	                    '<td class="font-weight-bold idCi nombreItem" data-id="'+novDato(r.data[i].idCi)+'">' + novDato(r.data[i].nombre) +'</td>' +
+	                    '<td class="text-center umItem"><span class="font-weight-bold badge badge-light um'+idFila+'">'+ novDato(r.data[i].nombreUm) + '</td>' +
+	                    '<td class="text-center cantItem cant'+r.data[i].idItm+'">' + r.data[i].cantidad + '</td>' +
 	                    '<td class="text-center">' + '<input type="text" class="form-control garantia px-1">' + '</td>' +
 	                    '<td class="text-center">' + '<input type="text" class="form-control marca px-1">' + '</td>' +
 	                    '<td class="text-center">' + '<input type="text" class="form-control modelo px-1">' + '</td>' +
