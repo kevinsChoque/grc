@@ -99,12 +99,12 @@
                         <input type="text" id="confirmarCorreo" name="confirmarCorreo" class="form-control">
                     </div>
                 </div> -->
-                <div class="form-group row">
+                <!-- <div class="form-group row">
 					<label class="col-sm-3 col-form-label">Confirmar correo: <span class="text-danger">*</span></label>
 					<div class="col-sm-9">
 						<input type="text" id="confirmarCorreo" name="confirmarCorreo" class="form-control" placeholder="Confirmar correo">
 					</div>
-				</div>
+				</div> -->
                 <!-- <div class="form-group col-lg-12">
                     <label class="m-0 text-uppercase">nro de celular:</label>
                     <div class="input-group">
@@ -237,9 +237,9 @@
             correo: {
                 required: true,
             },
-            confirmarCorreo: {
-                required: true,
-            },
+            // confirmarCorreo: {
+            //     required: true,
+            // },
             celular: {
                 required: true,
             },

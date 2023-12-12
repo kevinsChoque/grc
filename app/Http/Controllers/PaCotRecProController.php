@@ -15,7 +15,7 @@ use App\Models\TDetalleprocot;
 
 // use Codedge\Fpdf\Fpdf\Fpdf;
 use Codedge\Fpdf\Fpdf\Fpdf;
-// use setasign\Fpdi\Fpdi;
+use setasign\Fpdi\Fpdi;
 
 class PaCotRecProController extends Controller
 {
@@ -49,8 +49,105 @@ class PaCotRecProController extends Controller
     }
     public function actGuardar(Request $r)
     {
-        // dd($r->all());
+        $tPro = Session::get('proveedor');
+        $nombreOferta = $r->idCot.'_'.$tPro->idPro.'.pdf';
 
+        $tRec = TRecotizacion::where('idCot',$r->idCot)->where('estadoRecotizacion','1')->first();
+        if($tRec!=null)
+        {
+            $r->merge(['idRec' => $tRec->idRec]);
+        }
+        // $tPro = Session::get('proveedor');
+        $r->merge(['archivo' => $nombreOferta]);
+        $r->merge(['idPro' => $tPro->idPro]);
+        $r->merge(['estadoCrp' => '1']);
+        $r->merge(['estado' => '1']);
+        $r->merge(['fr' => Carbon::now()]);
+        DB::beginTransaction();
+        // if(TCotrecpro::create($r->all()))
+        // if(true)
+        $tCrp = TCotrecpro::create($r->all());
+        if($tCrp)
+        {
+            // $this->saveDetalleProCot($r,'3');
+            if($this->saveDetalleProCot($r,$tCrp->idCrp))
+            {
+                // dd(gettype($r->file('archivos')));
+                if($r->file('archivos')!==null)
+                {
+                    for ($i=0; $i < count($r->file('archivos')) ; $i++) 
+                    { 
+                        $archivo = $r->file('archivos')[$i];
+                        $nombreArchivo = $this->arrayNombresFiles[$i]. '.' . $archivo->getClientOriginalExtension();
+                        $ruta = Storage::putFileAs('public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/', $archivo, $nombreArchivo);
+                    }
+                }
+                $pdfcll = $r->file('pdfCll');
+                $pdfdj = $r->file('pdfDj');
+                $pdfcci = $r->file('pdfCci');
+                $pdfanexo = $r->file('pdfAnexo5');
+
+                // Crear una instancia de Fpdi
+                $pdf = new Fpdi();
+
+                // Combinar pdfcll
+                $pdf->setSourceFile($pdfcll->path());
+                for ($pagina = 1; $pagina <= $pdf->setSourceFile($pdfcll->path()); $pagina++) {
+                    $tplIdx = $pdf->importPage($pagina);
+                    $pdf->AddPage();
+                    $pdf->useTemplate($tplIdx);
+                }
+
+                // Combinar pdfdj
+                $pdf->setSourceFile($pdfdj->path());
+                for ($pagina = 1; $pagina <= $pdf->setSourceFile($pdfdj->path()); $pagina++) {
+                    $tplIdx = $pdf->importPage($pagina);
+                    $pdf->AddPage();
+                    $pdf->useTemplate($tplIdx);
+                }
+
+                // Combinar pdfcci
+                $pdf->setSourceFile($pdfcci->path());
+                for ($pagina = 1; $pagina <= $pdf->setSourceFile($pdfcci->path()); $pagina++) {
+                    $tplIdx = $pdf->importPage($pagina);
+                    $pdf->AddPage();
+                    $pdf->useTemplate($tplIdx);
+                }
+
+                // Combinar pdfanexo
+                $pdf->setSourceFile($pdfanexo->path());
+                for ($pagina = 1; $pagina <= $pdf->setSourceFile($pdfanexo->path()); $pagina++) {
+                    $tplIdx = $pdf->importPage($pagina);
+                    $pdf->AddPage();
+                    $pdf->useTemplate($tplIdx);
+                }
+
+                // $nombreOferta = $r->idCot.'_'.$tPro->idPro.'.pdf';
+
+                // Ruta para el PDF combinado
+                // $joinPdf = storage_path('app/public/juntarPdfs/'.$nombreOferta);
+                $joinPdf = storage_path('app/public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/'.$nombreOferta);
+                // $ruta = Storage::putFileAs('public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/', $archivo, $nombreArchivo);
+
+                $pdf->Output($joinPdf, 'F');
+                DB::commit();
+                return response()->json(['estado' => true, 'message' => 'Se registro la postulacion correctamente']);
+            }
+            else
+            {
+                DB::rollBack();
+                return response()->json(['estado' => false, 'message' => 'Error al registrar la postulacion.']);
+            }
+        }
+        else
+        {
+            DB::rollBack();
+            return response()->json(['estado' => false, 'message' => 'Error al registrar la postulacion']);
+        }
+    }
+    public function actGuardar_b(Request $r)
+    {
+        
         // if ($r->hasFile('pdfDj')) 
         // {
         //     $archivo = $r->file('pdfDj');
@@ -69,13 +166,23 @@ class PaCotRecProController extends Controller
         // $arc = $r->file('archivos');
         // dd($arc[0]);
         // dd(count($arc));
+        $tPro = Session::get('proveedor');
 
+        $pdfcll = $r->file('pdfCll');
         $pdfdj = $r->file('pdfDj');
         $pdfcci = $r->file('pdfCci');
         $pdfanexo = $r->file('pdfAnexo5');
 
         // Crear una instancia de Fpdi
         $pdf = new Fpdi();
+
+        // Combinar pdfcll
+        $pdf->setSourceFile($pdfcll->path());
+        for ($pagina = 1; $pagina <= $pdf->setSourceFile($pdfcll->path()); $pagina++) {
+            $tplIdx = $pdf->importPage($pagina);
+            $pdf->AddPage();
+            $pdf->useTemplate($tplIdx);
+        }
 
         // Combinar pdfdj
         $pdf->setSourceFile($pdfdj->path());
@@ -101,112 +208,70 @@ class PaCotRecProController extends Controller
             $pdf->useTemplate($tplIdx);
         }
 
+        $nombreOferta = $r->idCot.'_'.$tPro->idPro.'.pdf';
+
         // Ruta para el PDF combinado
-        $rutaPdfCombinado = storage_path('app/public/juntarPdfs/pdf_combinado.pdf');
+        $joinPdf = storage_path('app/public/juntarPdfs/'.$nombreOferta);
+        // $joinPdf = storage_path('app/public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/'.$nombreOferta);
+        // $ruta = Storage::putFileAs('public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/', $archivo, $nombreArchivo);
 
         // Guardar el PDF combinado
-        $pdf->Output($rutaPdfCombinado, 'F');
-
-        return response()->json(['rutaPdfCombinado' => $rutaPdfCombinado]);
-        // ---------------------------------------------
-        // ---------------------------------------------
-        // ---------------------------------------------
-        // ---------------------------------------------
-        // ---------------------------------------------
-        // ---------------------------------------------
-        $pdfPaths = [
-            storage_path('app/public/juntarPdfs/pri.pdf'),
-            storage_path('app/public/juntarPdfs/seg.pdf'),
-            storage_path('app/public/juntarPdfs/ter.pdf'),
-            // ... Añade más rutas según sea necesario
-        ];
-
-        // Ruta para guardar el PDF combinado
-        $pdfCombinadoPath = storage_path('app/public/juntarPdfs/pdf_combinado.pdf');
-
-        // Instancia FPDI
-        $pdf = new Fpdi();
-        
-        // Combina los PDFs
-        foreach ($pdfPaths as $pdfPath) {
-            $pdf->addPage();
-            $pdf->setSourceFile($pdfPath);
-            $templateId = $pdf->importPage(1);
-            $pdf->useTemplate($templateId);
-        }
-
-        // Guarda el PDF combinado
-        $pdf->output('F', $pdfCombinadoPath);
-
-        // Devuelve una respuesta o haz lo que necesites
-        return response()->download($pdfCombinadoPath);
-
-        // $archivos = $r->file('archivos');
-        // foreach ($archivos as $archivo) {
-        //     // $ruta = Storage::putFile('public/ofetas', $archivo);
-
-        //     $nombreArchivo = uniqid() . '_' . time() . '.' . $archivo->getClientOriginalExtension();
-        //     // Guarda el archivo en la ubicación deseada con el nuevo nombre
-        //     $ruta = Storage::putFileAs('public/ofertas', $archivo, $nombreArchivo);
-        // }
-        // dd($r->all());
-        // ----------------------------------------------------------------------------
-
-    	// return response()->json(['estado' => true, 'message' => 'Se registro la postulacion correctamente----------']);
-    	
-        // $ttt = json_decode($r->items,true);
-
-    	// dd($r->all());
-    	// dd($ttt['item0']['marca']);
-    	$tRec = TRecotizacion::where('idCot',$r->idCot)->where('estadoRecotizacion','1')->first();
-    	if($tRec!=null)
-    	{
-    		$r->merge(['idRec' => $tRec->idRec]);
-    	}
-        $tPro = Session::get('proveedor');
-        $r->merge(['idPro' => $tPro->idPro]);
-    	$r->merge(['estadoCrp' => '0']);
-    	$r->merge(['estado' => '1']);
-        $r->merge(['fr' => Carbon::now()]);
-    	DB::beginTransaction();
-    	// if(TCotrecpro::create($r->all()))
-        // if(true)
-    	$tCrp = TCotrecpro::create($r->all());
-    	if($tCrp)
-    	{
-    		// $this->saveDetalleProCot($r,'3');
-    		if($this->saveDetalleProCot($r,$tCrp->idCrp))
-    		{
-                // ---
-                // ---
-                // ---
-                // dd(gettype($r->file('archivos')));
-                if($r->file('archivos')!==null)
+        // $pdf->Output($joinPdf, 'F');
+        // if(Storage::exists('public/juntarPdfs/'.$nombreOferta))
+        // if ($pdf->Output($joinPdf, 'F'))
+        if(true)
+        {
+             $tRec = TRecotizacion::where('idCot',$r->idCot)->where('estadoRecotizacion','1')->first();
+            if($tRec!=null)
+            {
+                $r->merge(['idRec' => $tRec->idRec]);
+            }
+            // $tPro = Session::get('proveedor');
+            $r->merge(['archivo' => $nombreOferta]);
+            $r->merge(['idPro' => $tPro->idPro]);
+            $r->merge(['estadoCrp' => '0']);
+            $r->merge(['estado' => '1']);
+            $r->merge(['fr' => Carbon::now()]);
+            DB::beginTransaction();
+            // if(TCotrecpro::create($r->all()))
+            // if(true)
+            $tCrp = TCotrecpro::create($r->all());
+            if($tCrp)
+            {
+                // $this->saveDetalleProCot($r,'3');
+                if($this->saveDetalleProCot($r,$tCrp->idCrp))
                 {
-                    for ($i=0; $i < count($r->file('archivos')) ; $i++) 
-                    { 
-                        $archivo = $r->file('archivos')[$i];
-                        $nombreArchivo = $this->arrayNombresFiles[$i]. '.' . $archivo->getClientOriginalExtension();
-                        $ruta = Storage::putFileAs('public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/', $archivo, $nombreArchivo);
+                    // dd(gettype($r->file('archivos')));
+                    if($r->file('archivos')!==null)
+                    {
+                        for ($i=0; $i < count($r->file('archivos')) ; $i++) 
+                        { 
+                            $archivo = $r->file('archivos')[$i];
+                            $nombreArchivo = $this->arrayNombresFiles[$i]. '.' . $archivo->getClientOriginalExtension();
+                            $ruta = Storage::putFileAs('public/ofertas/'.$tPro->idPro.'/'.$tCrp->idCrp.'/', $archivo, $nombreArchivo);
+                        }
                     }
+                    DB::commit();
+                    return response()->json(['estado' => true, 'message' => 'Se registro la postulacion correctamente']);
                 }
-                // ---
-                // ---
-                // ---
-	    		DB::commit();
-	    		return response()->json(['estado' => true, 'message' => 'Se registro la postulacion correctamente']);
-    		}
-    		else
-    		{
-    			DB::rollBack();
-    			return response()->json(['estado' => false, 'message' => 'Error al registrar la postulacion.']);
-    		}
-    	}
-    	else
-    	{
-    		DB::rollBack();
-    		return response()->json(['estado' => false, 'message' => 'Error al registrar la postulacion']);
-    	}
+                else
+                {
+                    DB::rollBack();
+                    return response()->json(['estado' => false, 'message' => 'Error al registrar la postulacion.']);
+                }
+            }
+            else
+            {
+                DB::rollBack();
+                return response()->json(['estado' => false, 'message' => 'Error al registrar la postulacion']);
+            }
+        }
+        DB::rollBack();
+        return response()->json(['estado' => false, 'message' => 'Error al guardar los archivos-.']);
+        // return response()->json(['joinPdf' => $joinPdf]);
+        // ---------------------------------------------
+        // ---------------------------------------------
+        // ---------------------------------------------
     }
     public function actListar()
     {

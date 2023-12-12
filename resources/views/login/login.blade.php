@@ -67,7 +67,7 @@
 		          	<button class="btn btn-primary sig-in"><i class="fa fa-user"></i> ingresar</button>
 		        </div>
 		        </form>
-		        <p class="mb-0"><a href="#" class="text-center">Registrarse</a></p>
+		        <!-- <p class="mb-0"><a href="#" class="text-center">Registrarse</a></p> -->
 	    		<!-- <hr> -->
 	      		<!-- <p class="login-box-msg">Bienvenido, ingrese con su cuenta.</p> -->
 	      		<!-- <form id="fvlogin">

@@ -83,7 +83,8 @@
                                     <button class="btn btn-primary sig-in w-100"><i class="fa fa-key"></i> Ingresar</button>
                                 </div>
                             </div>
-                            <p class="text-left">Si no se recuerda la clave, presione aquí</p>
+                            <!-- <p class="text-left">Si no se recuerda la clave, presione aquí</p> -->
+                            <br>
                             <div class="alert alert-info py-2">
                                 <p class="m-0 text-center font-weight-bold">SI NO TIENE UNA CUENTA PRESIONE <a href="{{url('portal/proveedor/registrar')}}">AQUI</a>.</p>
                             </div>
