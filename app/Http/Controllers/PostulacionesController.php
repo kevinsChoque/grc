@@ -52,6 +52,7 @@ class PostulacionesController extends Controller
 		// dd($r->all());
 		$registros = DB::table('cotrecpro as c')
 		    ->select(
+		    	'c.idCrp',
 		        'c.timeEntrega',
 		        'c.timeValidez',
 		        'c.dedica',

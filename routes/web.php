@@ -130,7 +130,7 @@ Route::post('panelAdm/paCotRecPro/listar',[PaCotRecProController::class, 'actLis
 Route::post('panelAdm/paCotRecPro/subirArchivo',[PaCotRecProController::class, 'actSubirArchivo']);
 Route::post('panelAdm/paCotRecPro/generarCot',[PaCotRecProController::class, 'actGenerarCot']);
 
-Route::get('panelAdm/paCotRecPro/{nombreArchivo?}',[PaCotRecProController::class, 'verArchivo'])->name('cotRecPro-archivo');
+Route::get('panelAdm/paCotRecPro/{idPro?}/{idCrp?}/{nombreArchivo?}',[PaCotRecProController::class, 'verArchivo'])->name('cotRecPro-archivo');
 // proveedor
 Route::get('panelAdm/paProveedor/datos', function () {return view('panelAdm.proveedor.datos');});
 Route::get('panelAdm/paProveedor/formatos', function () {return view('panelAdm.proveedor.formatos');});

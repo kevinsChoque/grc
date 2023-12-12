@@ -242,7 +242,7 @@
  	$('.downloadCotLle').on('click',function(){
  		downloadCotLle()
  	});
-
+var po='';
  	function downloadCotLle()
     {
     	let banGarantia = true;
@@ -307,7 +307,7 @@
     	{
     		var miObjeto = {};
 	    	$('.itemsCotizacion').each(function(index, el) {
-	    		miObjeto["item" + index] = {
+	    		miObjeto[index] = {
 			  		nombre: $(this).find('.nombreItem').html(),
 				    um: $(this).find('.umItem>span').html(),
 				    cant: $(this).find('.cantItem').html(),
@@ -316,7 +316,19 @@
 				    modelo: $(this).find('.modelo').val(),
 				    precio: $(this).find('.precio').val(),
 			  	};
+                // miObjeto.push(
+                //     {
+                //         nombre: $(this).find('.nombreItem').html(),
+                //         um: $(this).find('.umItem>span').html(),
+                //         cant: $(this).find('.cantItem').html(),
+                //         garantia: $(this).find('.garantia').val(),
+                //         marca: $(this).find('.marca').val(),
+                //         modelo: $(this).find('.modelo').val(),
+                //         precio: $(this).find('.precio').val(),
+                //     }
+                // );
 	    	});
+            // po = miObjeto;
 	    	$('#data').val(JSON.stringify(miObjeto));
 	    	$('#tEntrega').val($('#timeEntrega').val());
 	    	$('#tValidez').val($('#timeValidez').val());
@@ -419,6 +431,16 @@
 			    {
 			        nombreArchivo = fileInputs[i].files[0].name;
 			    }
+                // miObjeto.push(
+                //     {
+                //         id: ids[i],
+                //         garantia: garantia[i],
+                //         marca: marca[i],
+                //         modelo: modelo[i],
+                //         precio: precio[i],
+                //         archivo: nombreArchivo,
+                //     }
+                // );
 			  	miObjeto["item" + i] = {
 			  		id: ids[i],
 				    garantia: garantia[i],

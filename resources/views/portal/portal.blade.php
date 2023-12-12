@@ -219,15 +219,15 @@
                 for (var i = 0; i < r.data.length; i++) 
                 {
                     html += '<tr>' +
-                        '<td class="text-center font-weight-bold">' + novDato(r.data[i].tipo) + '</td>' +
-                        '<td class="text-center">' + novDato(r.data[i].numeroCotizacion) + '</td>' +
-                        '<td class=""><p class="m-0 ocultarText">' + novDato(r.data[i].concepto) + 'cascasc csacascasc dsvvsd dvdsv dsvsdv sdvsdvsdvsdv</p></td>' +
+                        '<td class="text-center font-weight-bold align-middle">' + novDato(r.data[i].tipo) + '</td>' +
+                        '<td class="text-center align-middle">' + novDato(r.data[i].numeroCotizacion) + '</td>' +
+                        '<td class="align-middle"><p class="m-0 ocultarText">' + novDato(r.data[i].concepto) + '</p></td>' +
                         '<td class="text-left">INICIO:<br>' + 
                             '<span><i class="fa fa-calendar-alt"></i> '+novDato(r.data[i].fechaCotizacion) +'<br><i class="fa fa-clock"></i> '+novDato(r.data[i].horaCotizacion) + '<span><br>FIN:<br>' +
                             '<span><i class="fa fa-calendar-alt"></i> '+novDato(r.data[i].fechaFinalizacion) +'<br><i class="fa fa-clock"></i> '+novDato(r.data[i].horaFinalizacion) + '<span><br>' +
                         '</td>' +
-                        '<td class="text-center">' + 
-                            '<a href="{{ route('ver-archivo') }}/'+r.data[i].archivo+'" target="_blank" class="btn btn-sm btn-primary mr-1"><i class="far fa-file-pdf"></i> Archivo</a>'+
+                        '<td class="text-center align-middle">' + 
+                            '<a href="{{ route('ver-archivo') }}/'+r.data[i].archivo+'" target="_blank" class="btn btn-sm btn-primary mb-1"><i class="far fa-file-pdf"></i> Archivo</a><br>'+
                             '<button type="button" class="btn btn-sm btn-success" title="Editar registro" onclick="cotizar('+r.data[i].idCot+');"><i class="far fa-envelope"></i> Cotizar</button>'+
                         '</td>' +
                     '</tr>';

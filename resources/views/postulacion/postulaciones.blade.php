@@ -274,7 +274,7 @@ localStorage.setItem("sba",7);
 						fecha = new Date(r.data[i].fr);
 						fechaFormat = `${fecha.getDate()} de ${obtenerNombreMes(fecha.getMonth() + 1)} de ${fecha.getFullYear()} ${obtenerFormato12Horas(fecha.getHours())}:${agregarCeroInicial(fecha.getMinutes())}:${agregarCeroInicial(fecha.getSeconds())} ${obtenerAMPM(fecha.getHours())}`;
 						// -----
-						dir = "{{ route('cotRecPro-archivo') }}"+'/'+r.data[i].archivo;
+						dir = "{{ route('cotRecPro-archivo') }}"+'/'+r.data[i].idPro+'/'+r.data[i].idCrp+'/'+r.data[i].archivo;
 						enlace = r.data[i].archivo===null?
 							'<b>--</b>':
 							'<a href="'+dir+'" target="_blank">'+r.data[i].archivo+'</a>';
