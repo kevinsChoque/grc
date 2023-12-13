@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-lg-12">
+                            <!-- <div class="form-group col-lg-12">
                                 <label class="m-0">Rubro: <span class="text-danger">*</span> <i class="fa fa-info-circle text-info"></i></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -97,7 +97,7 @@
                                     </div>
                                     <input type="text" class="form-control soloNumeros input" id="numeroCotizacion" name="numeroCotizacion">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group col-lg-6">
                                 <label class="m-0">Fecha de Inicio: <span class="text-danger">*</span> <i class="fa fa-info-circle text-info"></i></label>
                                 <div class="input-group">
